@@ -18,24 +18,24 @@ class OrdreAchat
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $autobot;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $montantMax;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCreation;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="ordreAchats")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ordreAchats")
      */
-    private $utilisateurOrdreAchat;
+    private $UserOrdreAchat;
 
     /**
      * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="ordreAchats")
@@ -83,14 +83,14 @@ class OrdreAchat
         return $this;
     }
 
-    public function getUtilisateurOrdreAchat(): ?Utilisateur
+    public function getUserOrdreAchat(): ?User
     {
-        return $this->utilisateurOrdreAchat;
+        return $this->UserOrdreAchat;
     }
 
-    public function setUtilisateurOrdreAchat(?Utilisateur $utilisateurOrdreAchat): self
+    public function setUserOrdreAchat(?User $UserOrdreAchat): self
     {
-        $this->utilisateurOrdreAchat = $utilisateurOrdreAchat;
+        $this->UserOrdreAchat = $UserOrdreAchat;
 
         return $this;
     }

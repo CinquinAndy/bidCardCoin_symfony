@@ -32,35 +32,46 @@
                 <a href="" class="flex items-center h-full w-full justify-center">Bid Card Coin !</a>
             </li>
             <div class="w-4/6 flex">
-                <li class="bg-gray-800 w-5/6 h-full p-2 border border-black border-opacity-25">
+                <li class="bg-gray-800 w-5/6 h-10 border border-black border-opacity-25">
                     <input type="text"
                            name="rechercher"
                            id="rechercher"
                            class="w-full bg-transparent focus:outline-none">
                 </li>
-                <li class="bg-gray-800 w-1/6 h-full p-2 border border-black border-opacity-25 relative">
-                    <button type="button" onclick="(
-                        function(){
-                            flagNav ? (
-                                    function(){
-                                        iconate(iconElementNav, optionsNavDownToUp);
-                                        flagNav=false;
-                                    })()
-                                : (
-                                    function(){
-                                        iconate(iconElementNav, optionsNavUpToDown);
-                                        flagNav=true;
-                                    })();
-                            dropdown.classList.toggle('hidden');
-                        })()" class="focus:outline-none text-center flex justify-evenly items-center w-full "
-                            id="options-menu" aria-expanded="true" aria-haspopup="true">
-                        <span>
-                            Catégories
-                        </span>
-                        <span>
-                            <i class="fas fa-angle-down" id="categorieIcon"></i>
-                        </span>
-                    </button>
+                <li class="bg-gray-800 w-1/6 h-10 border border-black border-opacity-25 flex justify-center items-center">
+                    {# <button type="button" onclick="( #}
+                    {# function(){ #}
+                    {# flagNav ? ( #}
+                    {# function(){ #}
+                    {# iconate(iconElementNav, optionsNavDownToUp); #}
+                    {# flagNav=false; #}
+                    {# })() #}
+                    {# : ( #}
+                    {# function(){ #}
+                    {# iconate(iconElementNav, optionsNavUpToDown); #}
+                    {# flagNav=true; #}
+                    {# })(); #}
+                    {# dropdown.classList.toggle('hidden'); #}
+                    {# })()" class="focus:outline-none text-center flex justify-evenly items-center w-full " #}
+                    {# id="options-menu" aria-expanded="true" aria-haspopup="true"> #}
+                    {# <span> #}
+                    {# Catégories #}
+                    {# </span> #}
+                    {# <span> #}
+                    {# <i class="fas fa-angle-down" id="categorieIcon"></i> #}
+                    {# </span> #}
+                    {# </button> #}
+                    <select class="focus:outline-none text-center flex justify-evenly items-center h-full p-0 m-0 bg-transparent"
+                            name="category" id="categorySelect" placeholder="category">
+                        <option class="bg-gray-800" value="">Catégorie</option>
+                        <option class="bg-gray-800" value="dog">Dog</option>
+                        <option class="bg-gray-800" value="cat">Cat</option>
+                        <option class="bg-gray-800" value="hamster">Hamster</option>
+                        <option class="bg-gray-800" value="parrot">Parrot</option>
+                        <option class="bg-gray-800" value="spider">Spider</option>
+                        <option class="bg-gray-800" value="goldfish">Goldfish</option>
+                    </select>
+
                     <div class="origin-bottom-right absolute right-0 top-5 mt-4 w-52 rounded shadow bg-gray-800 border border-black border-opacity-25 focus:outline-none hidden"
                          role="menu" aria-orientation="vertical" aria-labelledby="options-menu" id="dropdown">
                         <div class="py-1" role="none">
@@ -88,8 +99,25 @@
                 </button>
             </li>
         </ul>
-        <nav class="h-10 bg-gray-800 w-full">
-            h
+        <nav class="bg-gray-800">
+            <ul class="h-full w-full flex justify-evenly items-center text-sm text-white flex-wrap">
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+                <a href="" class="h-full p-2 flex justify-center items-center"><li>[ categorie test ]</li></a>
+            </ul>
         </nav>
     </div>
 </form>
