@@ -20,12 +20,12 @@ class Paiement
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $typePaiement;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $validationPaiement;
 
@@ -35,9 +35,9 @@ class Paiement
     private $lotPaiement;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="paiements")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="paiements")
      */
-    private $utilisateurPaiement;
+    private $UserPaiement;
 
     public function __construct()
     {
@@ -103,14 +103,14 @@ class Paiement
         return $this;
     }
 
-    public function getUtilisateurPaiement(): ?Utilisateur
+    public function getUserPaiement(): ?User
     {
-        return $this->utilisateurPaiement;
+        return $this->UserPaiement;
     }
 
-    public function setUtilisateurPaiement(?Utilisateur $utilisateurPaiement): self
+    public function setUserPaiement(?User $UserPaiement): self
     {
-        $this->utilisateurPaiement = $utilisateurPaiement;
+        $this->UserPaiement = $UserPaiement;
 
         return $this;
     }

@@ -2,15 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\UtilisateurRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
+ * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class Utilisateur
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -20,82 +23,88 @@ class Utilisateur
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $prenom;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $age;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=180, unique=true, nullable=true)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="json")
      */
-    private $numeroMobile;
+    private $roles = [];
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $numeroFixe;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $verifSolvabilite;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $verifIdentite;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $verifRessortissant;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
     private $password;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $age;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, nullable=true)
+     */
+    private $numeroMobile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, nullable=true)
+     */
+    private $numeroFixe;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $verifSolvabilite;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $verifIdentite;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $verifRessortissant;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $estCommissairePriseur;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $listeMotCle;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="utilisateurs")
+     * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="Users")
      */
     private $adresse;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrdreAchat::class, mappedBy="utilisateurOrdreAchat")
+     * @ORM\OneToMany(targetEntity=OrdreAchat::class, mappedBy="UserOrdreAchat")
      */
     private $ordreAchats;
 
     /**
-     * @ORM\OneToMany(targetEntity=Paiement::class, mappedBy="utilisateurPaiement")
+     * @ORM\OneToMany(targetEntity=Paiement::class, mappedBy="UserPaiement")
      */
     private $paiements;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="utilisateurProduit")
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="UserProduit")
      */
     private $produits;
 
@@ -109,6 +118,82 @@ class Utilisateur
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getNom(): ?string
@@ -143,18 +228,6 @@ class Utilisateur
     public function setAge(int $age): self
     {
         $this->age = $age;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -219,18 +292,6 @@ class Utilisateur
         return $this;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
     public function getEstCommissairePriseur(): ?bool
     {
         return $this->estCommissairePriseur;
@@ -279,7 +340,7 @@ class Utilisateur
     {
         if (!$this->ordreAchats->contains($ordreAchat)) {
             $this->ordreAchats[] = $ordreAchat;
-            $ordreAchat->setUtilisateurOrdreAchat($this);
+            $ordreAchat->setUserOrdreAchat($this);
         }
 
         return $this;
@@ -289,8 +350,8 @@ class Utilisateur
     {
         if ($this->ordreAchats->removeElement($ordreAchat)) {
             // set the owning side to null (unless already changed)
-            if ($ordreAchat->getUtilisateurOrdreAchat() === $this) {
-                $ordreAchat->setUtilisateurOrdreAchat(null);
+            if ($ordreAchat->getUserOrdreAchat() === $this) {
+                $ordreAchat->setUserOrdreAchat(null);
             }
         }
 
@@ -309,7 +370,7 @@ class Utilisateur
     {
         if (!$this->paiements->contains($paiement)) {
             $this->paiements[] = $paiement;
-            $paiement->setUtilisateurPaiement($this);
+            $paiement->setUserPaiement($this);
         }
 
         return $this;
@@ -319,8 +380,8 @@ class Utilisateur
     {
         if ($this->paiements->removeElement($paiement)) {
             // set the owning side to null (unless already changed)
-            if ($paiement->getUtilisateurPaiement() === $this) {
-                $paiement->setUtilisateurPaiement(null);
+            if ($paiement->getUserPaiement() === $this) {
+                $paiement->setUserPaiement(null);
             }
         }
 
@@ -339,7 +400,7 @@ class Utilisateur
     {
         if (!$this->produits->contains($produit)) {
             $this->produits[] = $produit;
-            $produit->setUtilisateurProduit($this);
+            $produit->setUserProduit($this);
         }
 
         return $this;
@@ -349,8 +410,8 @@ class Utilisateur
     {
         if ($this->produits->removeElement($produit)) {
             // set the owning side to null (unless already changed)
-            if ($produit->getUtilisateurProduit() === $this) {
-                $produit->setUtilisateurProduit(null);
+            if ($produit->getUserProduit() === $this) {
+                $produit->setUserProduit(null);
             }
         }
 

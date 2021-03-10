@@ -20,37 +20,37 @@ class Produit
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nomArtiste;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nomStyle;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nomProduit;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $prixReserve;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $referenceCatalogue;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $estEnvoyer;
 
@@ -60,9 +60,9 @@ class Produit
     private $lotProduit;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="produits")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="produits")
      */
-    private $utilisateurProduit;
+    private $UserProduit;
 
     /**
      * @ORM\OneToOne(targetEntity=Enchere::class, cascade={"persist", "remove"})
@@ -75,7 +75,7 @@ class Produit
     private $categorieProduit;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="produits")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="produits")
      */
     private $stockProduit;
 
@@ -185,14 +185,14 @@ class Produit
         return $this;
     }
 
-    public function getUtilisateurProduit(): ?Utilisateur
+    public function getUserProduit(): ?User
     {
-        return $this->utilisateurProduit;
+        return $this->UserProduit;
     }
 
-    public function setUtilisateurProduit(?Utilisateur $utilisateurProduit): self
+    public function setUserProduit(?User $UserProduit): self
     {
-        $this->utilisateurProduit = $utilisateurProduit;
+        $this->UserProduit = $UserProduit;
 
         return $this;
     }
@@ -233,12 +233,12 @@ class Produit
         return $this;
     }
 
-    public function getStockProduit(): ?Utilisateur
+    public function getStockProduit(): ?User
     {
         return $this->stockProduit;
     }
 
-    public function setStockProduit(?Utilisateur $stockProduit): self
+    public function setStockProduit(?User $stockProduit): self
     {
         $this->stockProduit = $stockProduit;
 

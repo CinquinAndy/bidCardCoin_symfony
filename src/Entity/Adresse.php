@@ -20,29 +20,29 @@ class Adresse
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $pays;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $codePostal;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $rue;
 
     /**
-     * @ORM\OneToMany(targetEntity=Utilisateur::class, mappedBy="adresse")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="adresse")
      */
-    private $utilisateurs;
+    private $users;
 
     /**
      * @ORM\OneToMany(targetEntity=Vente::class, mappedBy="adresseVente")
@@ -51,7 +51,7 @@ class Adresse
 
     public function __construct()
     {
-        $this->utilisateurs = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->ventes = new ArrayCollection();
     }
 
@@ -109,29 +109,29 @@ class Adresse
     }
 
     /**
-     * @return Collection|Utilisateur[]
+     * @return Collection|User[]
      */
-    public function getUtilisateurs(): Collection
+    public function getUsers(): Collection
     {
-        return $this->utilisateurs;
+        return $this->Users;
     }
 
-    public function addUtilisateur(Utilisateur $utilisateur): self
+    public function addUser(User $User): self
     {
-        if (!$this->utilisateurs->contains($utilisateur)) {
-            $this->utilisateurs[] = $utilisateur;
-            $utilisateur->setAdresse($this);
+        if (!$this->Users->contains($User)) {
+            $this->Users[] = $User;
+            $User->setAdresse($this);
         }
 
         return $this;
     }
 
-    public function removeUtilisateur(Utilisateur $utilisateur): self
+    public function removeUser(User $User): self
     {
-        if ($this->utilisateurs->removeElement($utilisateur)) {
+        if ($this->Users->removeElement($User)) {
             // set the owning side to null (unless already changed)
-            if ($utilisateur->getAdresse() === $this) {
-                $utilisateur->setAdresse(null);
+            if ($User->getAdresse() === $this) {
+                $User->setAdresse(null);
             }
         }
 
