@@ -1,35 +1,36 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Categorie index{% endblock %}
-
 {% block body %}
-    <h1>Categorie index</h1>
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">Categorie index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
+        <table class="w-full">
+            <thead>
+            <tr class="border-2 border-grey-300">
+                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Nom</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for categorie in categories %}
-            <tr>
-                <td>{{ categorie.id }}</td>
-                <td>{{ categorie.nom }}</td>
-                <td>
-                    <a href="{{ path('categorie_show', {'id': categorie.id}) }}">show</a>
-                    <a href="{{ path('categorie_edit', {'id': categorie.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('categorie_new') }}">Create new</a>
+            </thead>
+            <tbody>
+            {% for categorie in categories %}
+                <tr class="border-2 border-grey-300">
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ categorie.id }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ categorie.nom }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">
+                        <a href="{{ path('categorie_show', {'id': categorie.id}) }}">show</a>
+                        <a href="{{ path('categorie_edit', {'id': categorie.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="border-2 border-grey-300 text-xl">
+                    <td class="pt-5 pb-5" colspan="3">Aucune donnée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="w-full mt-10">
+            <a class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('categorie_new') }}">Créer catégorie</a>
+        </div>
+    </div>
 {% endblock %}

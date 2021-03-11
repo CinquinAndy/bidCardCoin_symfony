@@ -1,41 +1,41 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Adresse index{% endblock %}
-
 {% block body %}
-    <h1>Adresse index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Pays</th>
-                <th>Ville</th>
-                <th>CodePostal</th>
-                <th>Rue</th>
-                <th>actions</th>
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">Adresse CRUD</h1>
+        <table class="w-full">
+            <thead class="border-2 border-grey-300">
+            <tr class="border-2 border-grey-300">
+                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Pays</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Ville</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">CodePostal</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Rue</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for adresse in adresses %}
-            <tr>
-                <td>{{ adresse.id }}</td>
-                <td>{{ adresse.pays }}</td>
-                <td>{{ adresse.ville }}</td>
-                <td>{{ adresse.codePostal }}</td>
-                <td>{{ adresse.rue }}</td>
-                <td>
-                    <a href="{{ path('adresse_show', {'id': adresse.id}) }}">show</a>
-                    <a href="{{ path('adresse_edit', {'id': adresse.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('adresse_new') }}">Create new</a>
+            </thead>
+            <tbody>
+            {% for adresse in adresses %}
+                <tr>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ adresse.id }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ adresse.pays }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ adresse.ville }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ adresse.codePostal }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ adresse.rue }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">
+                        <a href="{{ path('adresse_show', {'id': adresse.id}) }}">show</a>
+                        <a href="{{ path('adresse_edit', {'id': adresse.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="border-2 border-grey-300 text-xl">
+                    <td class="pt-5 pb-5" colspan="6">Aucune donnée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="w-full mt-10">
+            <a class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('adresse_new') }}">Créer adresse</a>
+        </div>
+    </div>
 {% endblock %}
