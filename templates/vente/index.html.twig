@@ -1,35 +1,35 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Vente index{% endblock %}
-
 {% block body %}
-    <h1>Vente index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>DateDebut</th>
-                <th>actions</th>
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">Vente CRUD</h1>
+        <table class="w-full">
+            <thead>
+            <tr class="border-2 border-grey-300">
+                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">DateDebut</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for vente in ventes %}
-            <tr>
-                <td>{{ vente.id }}</td>
-                <td>{{ vente.dateDebut ? vente.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('vente_show', {'id': vente.id}) }}">show</a>
-                    <a href="{{ path('vente_edit', {'id': vente.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('vente_new') }}">Create new</a>
+            </thead>
+            <tbody>
+            {% for vente in ventes %}
+                <tr class="border-2 border-grey-300">
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ vente.id }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ vente.dateDebut ? vente.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">
+                        <a href="{{ path('vente_show', {'id': vente.id}) }}">show</a>
+                        <a href="{{ path('vente_edit', {'id': vente.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="border-2 border-grey-300 text-xl">
+                    <td class="pt-5 pb-5" colspan="3">Aucune donnée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="w-full mt-10">
+            <a class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('vente_new') }}">Créer vente</a>
+        </div>
+    </div>
 {% endblock %}

@@ -1,47 +1,47 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Produit index{% endblock %}
-
 {% block body %}
-    <h1>Produit index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomArtiste</th>
-                <th>NomStyle</th>
-                <th>NomProduit</th>
-                <th>PrixReserve</th>
-                <th>ReferenceCatalogue</th>
-                <th>Description</th>
-                <th>EstEnvoyer</th>
-                <th>actions</th>
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">Produit CRUD</h1>
+        <table class="w-full">
+            <thead>
+            <tr class="border-2 border-grey-300">
+                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">NomArtiste</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">NomStyle</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">NomProduit</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">PrixReserve</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">ReferenceCatalogue</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Description</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">EstEnvoyer</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for produit in produits %}
-            <tr>
-                <td>{{ produit.id }}</td>
-                <td>{{ produit.nomArtiste }}</td>
-                <td>{{ produit.nomStyle }}</td>
-                <td>{{ produit.nomProduit }}</td>
-                <td>{{ produit.prixReserve }}</td>
-                <td>{{ produit.referenceCatalogue }}</td>
-                <td>{{ produit.description }}</td>
-                <td>{{ produit.estEnvoyer ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('produit_new') }}">Create new</a>
+            </thead>
+            <tbody>
+            {% for produit in produits %}
+                <tr class="border-2 border-grey-300">
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.id }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.nomArtiste }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.nomStyle }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.nomProduit }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.prixReserve }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.referenceCatalogue }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.description }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.estEnvoyer ? 'Yes' : 'No' }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">
+                        <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
+                        <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="border-2 border-grey-300 text-xl">
+                    <td class="pt-5 pb-5" colspan="9">Aucune donnée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="w-full mt-10">
+            <a class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('produit_new') }}">Créer produit</a>
+        </div>
+    </div>
 {% endblock %}

@@ -1,39 +1,39 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}OrdreAchat index{% endblock %}
-
 {% block body %}
-    <h1>OrdreAchat index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Autobot</th>
-                <th>MontantMax</th>
-                <th>DateCreation</th>
-                <th>actions</th>
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">Ordre Achat CRUD</h1>
+        <table class="w-full">
+            <thead>
+            <tr class="border-2 border-grey-300">
+                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Autobot</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">MontantMax</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">DateCreation</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for ordre_achat in ordre_achats %}
-            <tr>
-                <td>{{ ordre_achat.id }}</td>
-                <td>{{ ordre_achat.autobot ? 'Yes' : 'No' }}</td>
-                <td>{{ ordre_achat.montantMax }}</td>
-                <td>{{ ordre_achat.dateCreation ? ordre_achat.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('ordre_achat_show', {'id': ordre_achat.id}) }}">show</a>
-                    <a href="{{ path('ordre_achat_edit', {'id': ordre_achat.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('ordre_achat_new') }}">Create new</a>
+            </thead>
+            <tbody>
+            {% for ordre_achat in ordre_achats %}
+                <tr class="border-2 border-grey-300">
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ ordre_achat.id }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ ordre_achat.autobot ? 'Yes' : 'No' }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ ordre_achat.montantMax }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ ordre_achat.dateCreation ? ordre_achat.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">
+                        <a href="{{ path('ordre_achat_show', {'id': ordre_achat.id}) }}">show</a>
+                        <a href="{{ path('ordre_achat_edit', {'id': ordre_achat.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="border-2 border-grey-300 text-xl">
+                    <td class="pt-5 pb-5" colspan="5">Aucune donnée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="w-full mt-10">
+            <a class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('ordre_achat_new') }}">Créer ordreAchat</a>
+        </div>
+    </div>
 {% endblock %}

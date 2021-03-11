@@ -1,37 +1,37 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Paiement index{% endblock %}
-
 {% block body %}
-    <h1>Paiement index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>TypePaiement</th>
-                <th>ValidationPaiement</th>
-                <th>actions</th>
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">Paiement CRUD</h1>
+        <table class="w-full">
+            <thead>
+            <tr class="border-2 border-grey-300">
+                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">TypePaiement</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">ValidationPaiement</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2">actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for paiement in paiements %}
-            <tr>
-                <td>{{ paiement.id }}</td>
-                <td>{{ paiement.typePaiement }}</td>
-                <td>{{ paiement.validationPaiement ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('paiement_show', {'id': paiement.id}) }}">show</a>
-                    <a href="{{ path('paiement_edit', {'id': paiement.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('paiement_new') }}">Create new</a>
+            </thead>
+            <tbody>
+            {% for paiement in paiements %}
+                <tr class="border-2 border-grey-300">
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ paiement.id }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ paiement.typePaiement }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">{{ paiement.validationPaiement ? 'Yes' : 'No' }}</td>
+                    <td class="border-2 border-grey-300 pt-2 pb-2">
+                        <a href="{{ path('paiement_show', {'id': paiement.id}) }}">show</a>
+                        <a href="{{ path('paiement_edit', {'id': paiement.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="border-2 border-grey-300 text-xl">
+                    <td class="pt-5 pb-5" colspan="4">Aucune donnée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="w-full mt-10">
+            <a class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('paiement_new') }}">Créer paiement</a>
+        </div>
+    </div>
 {% endblock %}
