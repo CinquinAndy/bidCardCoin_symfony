@@ -59,10 +59,6 @@ class Produit
      */
     private $lotProduit;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="produits")
-     */
-    private $UserProduit;
 
     /**
      * @ORM\OneToOne(targetEntity=Enchere::class, cascade={"persist", "remove"})
@@ -75,9 +71,15 @@ class Produit
     private $categorieProduit;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="produits")
+     * @ORM\ManyToOne(targetEntity=stock::class, inversedBy="produits")
      */
-    private $stockProduit;
+    private $stock;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="produitsListe")
+     */
+    private $user;
+
 
     public function __construct()
     {
@@ -241,6 +243,30 @@ class Produit
     public function setStockProduit(?User $stockProduit): self
     {
         $this->stockProduit = $stockProduit;
+
+        return $this;
+    }
+
+    public function getStock(): ?stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?stock $stock): self
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

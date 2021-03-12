@@ -104,15 +104,16 @@ class User implements UserInterface
     private $paiements;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="UserProduit")
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="user")
      */
-    private $produits;
+    private $produitsListe;
+
 
     public function __construct()
     {
         $this->ordreAchats = new ArrayCollection();
         $this->paiements = new ArrayCollection();
-        $this->produits = new ArrayCollection();
+        $this->produitsListe = new ArrayCollection();
     }
 
     public function __toString(){
@@ -416,6 +417,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($produit->getUserProduit() === $this) {
                 $produit->setUserProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Produit[]
+     */
+    public function getProduitsListe(): Collection
+    {
+        return $this->produitsListe;
+    }
+
+    public function addProduitsListe(Produit $produitsListe): self
+    {
+        if (!$this->produitsListe->contains($produitsListe)) {
+            $this->produitsListe[] = $produitsListe;
+            $produitsListe->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduitsListe(Produit $produitsListe): self
+    {
+        if ($this->produitsListe->removeElement($produitsListe)) {
+            // set the owning side to null (unless already changed)
+            if ($produitsListe->getUser() === $this) {
+                $produitsListe->setUser(null);
             }
         }
 

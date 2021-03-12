@@ -25,9 +25,10 @@ class Stock
     private $adresse;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="stockProduit")
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="stock")
      */
     private $produits;
+
 
     public function __construct()
     {
