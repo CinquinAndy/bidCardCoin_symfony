@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="text-center text-white w-full">
-        <h1 class="text-2xl font-bold  w-full mb-5">Categorie index</h1>
+        <h1 class="text-2xl font-bold  w-full mb-5">Categorie CRUD</h1>
         <table class="w-full">
             <thead>
             <tr class="border-2 border-grey-300">
@@ -16,8 +16,14 @@
                     <td class="border-2 border-grey-300 pt-2 pb-2">{{ categorie.id }}</td>
                     <td class="border-2 border-grey-300 pt-2 pb-2">{{ categorie.nom }}</td>
                     <td class="border-2 border-grey-300 pt-2 pb-2">
-                        <a href="{{ path('categorie_show', {'id': categorie.id}) }}">show</a>
-                        <a href="{{ path('categorie_edit', {'id': categorie.id}) }}">edit</a>
+                        <div class="flex justify-center items-center">
+                            <a class="justify-center items-center text-center text-white mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
+                               href="{{ path('categorie_show', {'id': categorie.id}) }}"><i class="fas fa-eye"></i></a>
+                            <a class="justify-center items-center text-center text-white ml-2 mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
+                               href="{{ path('categorie_edit', {'id': categorie.id}) }}"><i
+                                        class="fas fa-wrench"></i></a>
+                            {{ include('categorie/_delete_form.html.twig') }}
+                        </div>
                     </td>
                 </tr>
             {% else %}

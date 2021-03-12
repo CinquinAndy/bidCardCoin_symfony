@@ -14,7 +14,7 @@ class Adresse
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -53,6 +53,10 @@ class Adresse
     {
         $this->users = new ArrayCollection();
         $this->ventes = new ArrayCollection();
+    }
+
+    public function __toString(){
+        return (string)($this->getPays()." | ".$this->getVille()." | ".$this->getCodePostal()." | ".$this->getRue());
     }
 
     public function getId(): ?int

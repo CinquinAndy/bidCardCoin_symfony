@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}New Paiement{% endblock %}
-
 {% block body %}
-    <h1>Create new Paiement</h1>
-
-    {{ include('paiement/_form.html.twig') }}
-
-    <a href="{{ path('paiement_index') }}">back to list</a>
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">Paiement CRUD [create]</h1>
+        {{ include('paiement/_form.html.twig') }}
+        <a class="bg-blue-600 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+           href="{{ path('paiement_index') }}">back to list</a>
+    </div>
 {% endblock %}

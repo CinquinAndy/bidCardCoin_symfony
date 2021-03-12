@@ -28,8 +28,13 @@
                     <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.description }}</td>
                     <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.estEnvoyer ? 'Yes' : 'No' }}</td>
                     <td class="border-2 border-grey-300 pt-2 pb-2">
-                        <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
-                        <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
+                        <div class="flex justify-center items-center">
+                            <a class="justify-center items-center text-center text-white mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
+                               href="{{ path('produit_show', {'id': produit.id}) }}"><i class="fas fa-eye"></i></a>
+                            <a class="justify-center items-center text-center text-white ml-2 mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
+                               href="{{ path('produit_edit', {'id': produit.id}) }}"><i class="fas fa-wrench"></i></a>
+                            {{ include('produit/_delete_form.html.twig') }}
+                        </div>
                     </td>
                 </tr>
             {% else %}

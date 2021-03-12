@@ -1,34 +1,33 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Enchere{% endblock %}
-
 {% block body %}
-    <h1>Enchere</h1>
-
-    <table class="table">
-        <tbody>
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">Enchere CRUD [show]</h1>
+        <table class="w-full">
+            <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ enchere.id }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ enchere.id }}</td>
             </tr>
             <tr>
-                <th>PrixProposer</th>
-                <td>{{ enchere.prixProposer }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">PrixProposer</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ enchere.prixProposer }}</td>
             </tr>
             <tr>
-                <th>EstAdjuger</th>
-                <td>{{ enchere.estAdjuger ? 'Yes' : 'No' }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">EstAdjuger</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ enchere.estAdjuger ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
-                <th>DateHeureVente</th>
-                <td>{{ enchere.dateHeureVente ? enchere.dateHeureVente|date('Y-m-d H:i:s') : '' }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">DateHeureVente</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ enchere.dateHeureVente ? enchere.dateHeureVente|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('enchere_index') }}">back to list</a>
-
-    <a href="{{ path('enchere_edit', {'id': enchere.id}) }}">edit</a>
-
-    {{ include('enchere/_delete_form.html.twig') }}
+            </tbody>
+        </table>
+        <div class="mt-10 flex justify-center items-center">
+            <a class="bg-blue-600 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('enchere_index') }}">back to list</a>
+            <a class="bg-yellow-600 ml-3 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('enchere_edit', {'id': enchere.id}) }}">edit</a>
+            {{ include('enchere/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

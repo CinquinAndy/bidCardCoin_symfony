@@ -1,74 +1,73 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}User{% endblock %}
-
 {% block body %}
-    <h1>User</h1>
-
-    <table class="table">
-        <tbody>
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">User CRUD [show]</h1>
+        <table class="w-full">
+            <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.id }}</td>
             </tr>
             <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Email</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Roles</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Password</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.password }}</td>
             </tr>
             <tr>
-                <th>Nom</th>
-                <td>{{ user.nom }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Nom</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.nom }}</td>
             </tr>
             <tr>
-                <th>Prenom</th>
-                <td>{{ user.prenom }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Prenom</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.prenom }}</td>
             </tr>
             <tr>
-                <th>Age</th>
-                <td>{{ user.age }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Age</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.age }}</td>
             </tr>
             <tr>
-                <th>NumeroMobile</th>
-                <td>{{ user.numeroMobile }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">NumeroMobile</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.numeroMobile }}</td>
             </tr>
             <tr>
-                <th>NumeroFixe</th>
-                <td>{{ user.numeroFixe }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">NumeroFixe</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.numeroFixe }}</td>
             </tr>
             <tr>
-                <th>VerifSolvabilite</th>
-                <td>{{ user.verifSolvabilite ? 'Yes' : 'No' }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">VerifSolvabilite</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.verifSolvabilite ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
-                <th>VerifIdentite</th>
-                <td>{{ user.verifIdentite ? 'Yes' : 'No' }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">VerifIdentite</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.verifIdentite ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
-                <th>VerifRessortissant</th>
-                <td>{{ user.verifRessortissant ? 'Yes' : 'No' }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">VerifRessortissant</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.verifRessortissant ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
-                <th>EstCommissairePriseur</th>
-                <td>{{ user.estCommissairePriseur ? 'Yes' : 'No' }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">EstCommissairePriseur</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.estCommissairePriseur ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
-                <th>ListeMotCle</th>
-                <td>{{ user.listeMotCle }}</td>
+                <th class="border-2 border-grey-300 pt-2 pb-2">ListeMotCle</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.listeMotCle }}</td>
             </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('user_index') }}">back to list</a>
-
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+            </tbody>
+        </table>
+        <div class="mt-10 flex justify-center items-center">
+            <a class="bg-blue-600 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('user_index') }}">back to list</a>
+            <a class="bg-yellow-600 ml-3 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+            {{ include('user/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

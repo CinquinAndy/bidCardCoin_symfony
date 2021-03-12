@@ -16,8 +16,13 @@
                     <td class="border-2 border-grey-300 pt-2 pb-2">{{ vente.id }}</td>
                     <td class="border-2 border-grey-300 pt-2 pb-2">{{ vente.dateDebut ? vente.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
                     <td class="border-2 border-grey-300 pt-2 pb-2">
-                        <a href="{{ path('vente_show', {'id': vente.id}) }}">show</a>
-                        <a href="{{ path('vente_edit', {'id': vente.id}) }}">edit</a>
+                        <div class="flex justify-center items-center">
+                            <a class="justify-center items-center text-center text-white mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
+                               href="{{ path('vente_show', {'id': vente.id}) }}"><i class="fas fa-eye"></i></a>
+                            <a class="justify-center items-center text-center text-white ml-2 mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
+                               href="{{ path('vente_edit', {'id': vente.id}) }}"><i class="fas fa-wrench"></i></a>
+                            {{ include('vente/_delete_form.html.twig') }}
+                        </div>
                     </td>
                 </tr>
             {% else %}

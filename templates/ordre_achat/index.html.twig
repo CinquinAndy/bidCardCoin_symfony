@@ -20,8 +20,14 @@
                     <td class="border-2 border-grey-300 pt-2 pb-2">{{ ordre_achat.montantMax }}</td>
                     <td class="border-2 border-grey-300 pt-2 pb-2">{{ ordre_achat.dateCreation ? ordre_achat.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
                     <td class="border-2 border-grey-300 pt-2 pb-2">
-                        <a href="{{ path('ordre_achat_show', {'id': ordre_achat.id}) }}">show</a>
-                        <a href="{{ path('ordre_achat_edit', {'id': ordre_achat.id}) }}">edit</a>
+                        <div class="flex justify-center items-center">
+                            <a class="justify-center items-center text-center text-white mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
+                               href="{{ path('ordre_achat_show', {'id': ordre_achat.id}) }}"><i class="fas fa-eye"></i></a>
+                            <a class="justify-center items-center text-center text-white ml-2 mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
+                               href="{{ path('ordre_achat_edit', {'id': ordre_achat.id}) }}"><i
+                                        class="fas fa-wrench"></i></a>
+                            {{ include('ordre_achat/_delete_form.html.twig') }}
+                        </div>
                     </td>
                 </tr>
             {% else %}

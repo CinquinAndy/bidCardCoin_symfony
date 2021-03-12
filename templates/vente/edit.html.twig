@@ -1,13 +1,9 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Edit Vente{% endblock %}
-
 {% block body %}
-    <h1>Edit Vente</h1>
-
-    {{ include('vente/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('vente_index') }}">back to list</a>
-
-    {{ include('vente/_delete_form.html.twig') }}
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">Vente CRUD [update]</h1>
+        {{ include('vente/_form.html.twig', {'button_label': 'Update'}) }}
+        <a class="bg-blue-600 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+           href="{{ path('vente_index') }}">back to list</a>
+    </div>
 {% endblock %}

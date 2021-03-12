@@ -1,4 +1,25 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% form_theme form 'theme/themebcc.html.twig' %}
+{{ form_start(form,{
+    label: false,
+    attr:{'class': 'w-full flex justify-center items-center flex-wrap text-white'}
+}) }}
+    {{ form_row(form.nomArtiste) }}
+    {{ form_row(form.nomStyle) }}
+    {{ form_row(form.nomProduit) }}
+    {{ form_row(form.prixReserve) }}
+    {{ form_row(form.referenceCatalogue) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.estEnvoyer) }}
+    {{ form_row(form.categorieProduit) }}
+    {{ form_row(form.stockProduit) }}
+    {{ form_row(form.UserProduit) }}
+    {{ form_row(form.enchereGagnante) }}
+    {{ form_row(form.lotProduit) }}
+<div class="w-full justify-center items-center m-3">
+    <button class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow">
+        {{ button_label|default('Save') }}
+    </button>
+</div>
+<div class="hidden">
+    {{ form_row(form._token) }}
+</div>

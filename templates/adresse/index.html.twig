@@ -22,8 +22,13 @@
                     <td class="border-2 border-grey-300 pt-2 pb-2">{{ adresse.codePostal }}</td>
                     <td class="border-2 border-grey-300 pt-2 pb-2">{{ adresse.rue }}</td>
                     <td class="border-2 border-grey-300 pt-2 pb-2">
-                        <a href="{{ path('adresse_show', {'id': adresse.id}) }}">show</a>
-                        <a href="{{ path('adresse_edit', {'id': adresse.id}) }}">edit</a>
+                        <div class="flex justify-center items-center">
+                            <a class="justify-center items-center text-center text-white mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
+                               href="{{ path('adresse_show', {'id': adresse.id}) }}"><i class="fas fa-eye"></i></a>
+                            <a class="justify-center items-center text-center text-white ml-2 mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
+                               href="{{ path('adresse_edit', {'id': adresse.id}) }}"><i class="fas fa-wrench"></i></a>
+                            {{ include('adresse/_delete_form.html.twig') }}
+                        </div>
                     </td>
                 </tr>
             {% else %}

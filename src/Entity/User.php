@@ -17,7 +17,7 @@ class User implements UserInterface
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -113,6 +113,10 @@ class User implements UserInterface
         $this->ordreAchats = new ArrayCollection();
         $this->paiements = new ArrayCollection();
         $this->produits = new ArrayCollection();
+    }
+
+    public function __toString(){
+        return (string)($this->getNom());
     }
 
     public function getId(): ?int
