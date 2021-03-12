@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">Produit CRUD [show]</h1>
+        <table class="w-full">
+            <tbody>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.id }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">NomArtiste</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.nomArtiste }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">NomStyle</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.nomStyle }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">NomProduit</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.nomProduit }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">PrixReserve</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.prixReserve }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">ReferenceCatalogue</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.referenceCatalogue }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Description</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.description }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">EstEnvoyer</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ produit.estEnvoyer ? 'Yes' : 'No' }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="mt-10 flex justify-center items-center">
+            <a class="bg-blue-600 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('produit_index') }}">back to list</a>
+            <a class="bg-yellow-600 ml-3 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
+            {{ include('produit/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

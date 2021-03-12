@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Bid card coin !{% endblock %}</title>
+    <meta name="description" content="Application Bid Card Coin, developed by Andy Cinquin">
+    <link rel="icon" type="image/svg" href="{{ asset("images/charteGraphique/logo.svg") }}"/>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="{{ asset('css/iconate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/nav.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/colors.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bcc_theme.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+          integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.4.5/vivus.min.js"></script>
+    {% block stylesheets %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+</head>
+<body class="bg-gray-700">
+<form action="">
+    <div class="sticky top-0 bg-gray-700 text-sm text-white">
+        <ul class="w-full flex justify-evenly items-center relative">
+            <li class="flex justify-center items-center h-full p-2 w-1/6"><a href="{{ path('accueil') }}"
+                                                                             class="flex justify-center items-center"><img
+                            src="{{ asset('images/charteGraphique/logo.svg') }}" alt="logo"
+                            class="h-10"></a>
+                <a href="{{ path('accueil') }}" class="flex items-center h-full w-full justify-center">Bid Card Coin
+                    !</a>
+            </li>
+            <div class="w-3/6 flex">
+                <li class="bg-gray-800 w-5/6 h-10 border border-black border-opacity-25">
+                    <input type="text"
+                           name="rechercher"
+                           id="rechercher"
+                           class="w-full bg-transparent focus:outline-none h-full ml-2">
+                </li>
+                <li class="bg-gray-800 w-1/6 h-10 border border-black border-opacity-25 flex justify-center items-center">
+                    <select class="focus:outline-none w-full h-full p-0 m-0 bg-transparent"
+                            name="category" id="categorySelect">
+                        <option class="bg-gray-800 ml-10" value="">Catégorie</option>
+                        <option class="bg-gray-800 ml-10" value="dog">Dog</option>
+                        <option class="bg-gray-800 ml-10" value="cat">Cat</option>
+                        <option class="bg-gray-800 ml-10" value="hamster">Hamster</option>
+                        <option class="bg-gray-800 ml-10" value="parrot">Parrot</option>
+                        <option class="bg-gray-800 ml-10" value="spider">Spider</option>
+                        <option class="bg-gray-800 ml-10" value="goldfish">Goldfish</option>
+                    </select>
+                </li>
+            </div>
+            <li class="w-1/6 flex justify-center items-center">
+                <button type="submit"
+                        class="bg-blue-600 p-3 justify-center items-center text-center text-xs text-white rounded">
+                    Rechercher
+                </button>
+            </li>
+            <li class="w-1/6 flex justify-center items-center">
+                {% if app.user %}
+                    <a href="{{ path('app_login') }}"
+                       class="text-2xl hover:text-gray-100 hover:text-xl transition delay-300 duration-300 ease-in-out"><i
+                                class="fas fa-user"></i></a>
+                    <a href="{{ path('app_logout') }}"
+                       class="ml-4 text-red-400 text-2xl hover:text-gray-100 hover:text-xl transition delay-300 duration-300 ease-in-out"><i
+                                class="fas fa-sign-out-alt"></i></a>
+                {% else %}
+                    <a href="{{ path('app_login') }}"
+                       class="animate-pulse text-2xl text-bcc-green hover:text-gray-100 hover:text-xl transition delay-300 duration-300 ease-in-out"><i
+                                class="fas fa-sign-in-alt"></i></a>
+                {% endif %}
+            </li>
+        </ul>
+        <nav class="bg-gray-800">
+            <ul class="h-full w-full flex justify-evenly items-center text-sm text-white flex-wrap">
+                <a href="/adresse/" class="h-full p-2 flex justify-center items-center">
+                    <li>adresse</li>
+                </a>
+                <a href="/categorie/" class="h-full p-2 flex justify-center items-center">
+                    <li>categorie</li>
+                </a>
+                <a href="/enchere/" class="h-full p-2 flex justify-center items-center">
+                    <li>enchere</li>
+                </a>
+                <a href="/lot/" class="h-full p-2 flex justify-center items-center">
+                    <li>lot</li>
+                </a>
+                <a href="/ordre/achat/" class="h-full p-2 flex justify-center items-center">
+                    <li>ordre achat</li>
+                </a>
+                <a href="/paiement/" class="h-full p-2 flex justify-center items-center">
+                    <li>paiement</li>
+                </a>
+                <a href="/produit/" class="h-full p-2 flex justify-center items-center">
+                    <li>produit</li>
+                </a>
+                <a href="/stock/" class="h-full p-2 flex justify-center items-center">
+                    <li>stock</li>
+                </a>
+                <a href="/user/" class="h-full p-2 flex justify-center items-center">
+                    <li>user</li>
+                </a>
+                <a href="/vente/" class="h-full p-2 flex justify-center items-center">
+                    <li>vente</li>
+                </a>
+            </ul>
+        </nav>
+    </div>
+</form>

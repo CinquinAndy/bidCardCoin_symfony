@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="text-center text-white w-full">
+        <h1 class="text-2xl font-bold  w-full mb-5">User CRUD [show]</h1>
+        <table class="w-full">
+            <tbody>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Email</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Roles</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Password</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.password }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Nom</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.nom }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Prenom</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.prenom }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">Age</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.age }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">NumeroMobile</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.numeroMobile }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">NumeroFixe</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.numeroFixe }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">VerifSolvabilite</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.verifSolvabilite ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">VerifIdentite</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.verifIdentite ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">VerifRessortissant</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.verifRessortissant ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">EstCommissairePriseur</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.estCommissairePriseur ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th class="border-2 border-grey-300 pt-2 pb-2">ListeMotCle</th>
+                <td class="border-2 border-grey-300 pt-2 pb-2">{{ user.listeMotCle }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="mt-10 flex justify-center items-center">
+            <a class="bg-blue-600 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('user_index') }}">back to list</a>
+            <a class="bg-yellow-600 ml-3 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
+               href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+            {{ include('user/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

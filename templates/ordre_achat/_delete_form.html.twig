@@ -1,0 +1,8 @@
+<form method="post" action="{{ path('ordre_achat_delete', {'id': ordre_achat.id}) }}"
+      onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ordre_achat.id) }}">
+    <button type="submit"
+            class="justify-center items-center text-center text-white ml-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white">
+        <i class="fas fa-trash"></i></button>
+</form>

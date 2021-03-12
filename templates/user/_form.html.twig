@@ -1,0 +1,28 @@
+{% form_theme form 'theme/themebcc.html.twig' %}
+{{ form_start(form,{
+    label: false,
+    attr:{'class': 'w-full flex justify-center items-center flex-wrap text-white'}
+}) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.roles,{
+        widget_attributes: 'select'
+    }) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.age) }}
+    {{ form_row(form.numeroMobile) }}
+    {{ form_row(form.numeroFixe) }}
+    {{ form_row(form.verifSolvabilite) }}
+    {{ form_row(form.verifIdentite) }}
+    {{ form_row(form.verifRessortissant) }}
+    {{ form_row(form.estCommissairePriseur) }}
+    {{ form_row(form.listeMotCle) }}
+    {{ form_row(form.adresse) }}
+<div class="w-full justify-center items-center m-3">
+    <button class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow">
+        {{ button_label|default('Save') }}
+    </button>
+</div>
+<div class="hidden">
+    {{ form_row(form._token) }}
+</div>

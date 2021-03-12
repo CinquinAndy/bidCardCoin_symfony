@@ -14,7 +14,7 @@ class Categorie
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -32,6 +32,10 @@ class Categorie
     public function __construct()
     {
         $this->produits = new ArrayCollection();
+    }
+
+    public function __toString(){
+        return (string)($this->getNom());
     }
 
     public function getId(): ?int
