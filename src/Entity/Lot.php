@@ -29,10 +29,40 @@ class Lot
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Enchere::class, mappedBy="lot")
+     */
+    private $encheres;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Vente::class, inversedBy="lots")
+     */
+    private $vente;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="lot")
+     */
+    private $produit;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OrdreAchat::class, mappedBy="lot")
+     */
+    private $ordreAchats;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="lots")
+     */
+    private $user;
+
 
     public function __construct()
     {
-
+        $this->encheres = new ArrayCollection();
+        $this->userRecuperation = new ArrayCollection();
+        $this->userVente = new ArrayCollection();
+        $this->produit = new ArrayCollection();
+        $this->ordreAchats = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -63,4 +93,131 @@ class Lot
 
         return $this;
     }
+
+    /**
+     * @return Collection|Enchere[]
+     */
+    public function getEncheres(): Collection
+    {
+        return $this->encheres;
+    }
+
+    public function addEnchere(Enchere $enchere): self
+    {
+        if (!$this->encheres->contains($enchere)) {
+            $this->encheres[] = $enchere;
+            $enchere->setLot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnchere(Enchere $enchere): self
+    {
+        if ($this->encheres->removeElement($enchere)) {
+            // set the owning side to null (unless already changed)
+            if ($enchere->getLot() === $this) {
+                $enchere->setLot(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getVente(): ?Vente
+    {
+        return $this->vente;
+    }
+
+    public function setVente(?Vente $vente): self
+    {
+        $this->vente = $vente;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Produit[]
+     */
+    public function getProduit(): Collection
+    {
+        return $this->produit;
+    }
+
+    public function addProduit(Produit $produit): self
+    {
+        if (!$this->produit->contains($produit)) {
+            $this->produit[] = $produit;
+            $produit->setLot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): self
+    {
+        if ($this->produit->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getLot() === $this) {
+                $produit->setLot(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrdreAchat[]
+     */
+    public function getOrdreAchats(): Collection
+    {
+        return $this->ordreAchats;
+    }
+
+    public function addOrdreAchat(OrdreAchat $ordreAchat): self
+    {
+        if (!$this->ordreAchats->contains($ordreAchat)) {
+            $this->ordreAchats[] = $ordreAchat;
+            $ordreAchat->setLot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdreAchat(OrdreAchat $ordreAchat): self
+    {
+        if ($this->ordreAchats->removeElement($ordreAchat)) {
+            // set the owning side to null (unless already changed)
+            if ($ordreAchat->getLot() === $this) {
+                $ordreAchat->setLot(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        $this->user->removeElement($user);
+
+        return $this;
+    }
+
 }

@@ -29,6 +29,16 @@ class Paiement
      */
     private $validationPaiement;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="paiements")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Lot::class, cascade={"persist", "remove"})
+     */
+    private $lot;
+
 
 
     public function __construct()
@@ -61,6 +71,30 @@ class Paiement
     public function setValidationPaiement(bool $validationPaiement): self
     {
         $this->validationPaiement = $validationPaiement;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getLot(): ?Lot
+    {
+        return $this->lot;
+    }
+
+    public function setLot(?Lot $lot): self
+    {
+        $this->lot = $lot;
 
         return $this;
     }

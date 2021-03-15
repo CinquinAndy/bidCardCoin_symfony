@@ -88,9 +88,43 @@ class User implements UserInterface
      */
     private $listeMotCle;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Adresse::class, mappedBy="user")
+     */
+    private $adresses;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity=OrdreAchat::class, mappedBy="user")
+     */
+    private $ordreAchats;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Paiement::class, mappedBy="user")
+     */
+    private $paiements;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Enchere::class, mappedBy="user")
+     */
+    private $encheres;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Lot::class, mappedBy="user")
+     */
+    private $lots;
+
+
+
 
     public function __construct()
     {
+        $this->adresses = new ArrayCollection();
+        $this->encheres = new ArrayCollection();
+
+        $this->ordreAchats = new ArrayCollection();
+        $this->paiements = new ArrayCollection();
+        $this->lots = new ArrayCollection();
 
     }
 
@@ -295,6 +329,147 @@ class User implements UserInterface
     public function setListeMotCle(string $listeMotCle): self
     {
         $this->listeMotCle = $listeMotCle;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Adresse[]
+     */
+    public function getAdresses(): Collection
+    {
+        return $this->adresses;
+    }
+
+    public function addAdress(Adresse $adress): self
+    {
+        if (!$this->adresses->contains($adress)) {
+            $this->adresses[] = $adress;
+            $adress->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Adresse $adress): self
+    {
+        if ($this->adresses->removeElement($adress)) {
+            $adress->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Enchere[]
+     */
+    public function getEncheres(): Collection
+    {
+        return $this->encheres;
+    }
+
+    public function addEnchere(Enchere $enchere): self
+    {
+        if (!$this->encheres->contains($enchere)) {
+            $this->encheres[] = $enchere;
+            $enchere->addUserAdjuge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnchere(Enchere $enchere): self
+    {
+        if ($this->encheres->removeElement($enchere)) {
+            $enchere->removeUserAdjuge($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrdreAchat[]
+     */
+    public function getOrdreAchats(): Collection
+    {
+        return $this->ordreAchats;
+    }
+
+    public function addOrdreAchat(OrdreAchat $ordreAchat): self
+    {
+        if (!$this->ordreAchats->contains($ordreAchat)) {
+            $this->ordreAchats[] = $ordreAchat;
+            $ordreAchat->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdreAchat(OrdreAchat $ordreAchat): self
+    {
+        if ($this->ordreAchats->removeElement($ordreAchat)) {
+            // set the owning side to null (unless already changed)
+            if ($ordreAchat->getUser() === $this) {
+                $ordreAchat->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Paiement[]
+     */
+    public function getPaiements(): Collection
+    {
+        return $this->paiements;
+    }
+
+    public function addPaiement(Paiement $paiement): self
+    {
+        if (!$this->paiements->contains($paiement)) {
+            $this->paiements[] = $paiement;
+            $paiement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePaiement(Paiement $paiement): self
+    {
+        if ($this->paiements->removeElement($paiement)) {
+            // set the owning side to null (unless already changed)
+            if ($paiement->getUser() === $this) {
+                $paiement->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lot[]
+     */
+    public function getLots(): Collection
+    {
+        return $this->lots;
+    }
+
+    public function addLot(Lot $lot): self
+    {
+        if (!$this->lots->contains($lot)) {
+            $this->lots[] = $lot;
+            $lot->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLot(Lot $lot): self
+    {
+        if ($this->lots->removeElement($lot)) {
+            $lot->removeUser($this);
+        }
 
         return $this;
     }

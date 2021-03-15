@@ -39,12 +39,28 @@ class Adresse
      */
     private $rue;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="adresses")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Stock::class, cascade={"persist", "remove"})
+     */
+    private $stock;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Vente::class, mappedBy="adresse")
+     */
+    private $vente;
+
 
 
 
     public function __construct()
     {
-
+        $this->user = new ArrayCollection();
+        $this->vente = new ArrayCollection();
     }
 
     public function __toString(){
@@ -100,6 +116,72 @@ class Adresse
     public function setRue(string $rue): self
     {
         $this->rue = $rue;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        $this->user->removeElement($user);
+
+        return $this;
+    }
+
+    public function getStock(): ?Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?Stock $stock): self
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vente[]
+     */
+    public function getVente(): Collection
+    {
+        return $this->vente;
+    }
+
+    public function addVente(Vente $vente): self
+    {
+        if (!$this->vente->contains($vente)) {
+            $this->vente[] = $vente;
+            $vente->setAdresse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVente(Vente $vente): self
+    {
+        if ($this->vente->removeElement($vente)) {
+            // set the owning side to null (unless already changed)
+            if ($vente->getAdresse() === $this) {
+                $vente->setAdresse(null);
+            }
+        }
 
         return $this;
     }

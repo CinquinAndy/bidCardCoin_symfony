@@ -32,6 +32,21 @@ class OrdreAchat
      */
     private $dateCreation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Enchere::class, inversedBy="ordreAchat")
+     */
+    private $enchere;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ordreAchats")
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="ordreAchats")
+     */
+    private $lot;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +84,42 @@ class OrdreAchat
     public function setDateCreation(\DateTimeInterface $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getEnchere(): ?Enchere
+    {
+        return $this->enchere;
+    }
+
+    public function setEnchere(?Enchere $enchere): self
+    {
+        $this->enchere = $enchere;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getLot(): ?Lot
+    {
+        return $this->lot;
+    }
+
+    public function setLot(?Lot $lot): self
+    {
+        $this->lot = $lot;
 
         return $this;
     }

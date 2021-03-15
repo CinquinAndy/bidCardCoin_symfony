@@ -54,10 +54,37 @@ class Produit
      */
     private $estEnvoyer;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Categorie::class, mappedBy="produit")
+     */
+    private $categories;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Estimation::class, mappedBy="produit")
+     */
+    private $estimations;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="produit")
+     */
+    private $lot;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="produit")
+     */
+    private $photo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Stock::class, inversedBy="produits")
+     */
+    private $stock;
+
 
     public function __construct()
     {
-
+        $this->categories = new ArrayCollection();
+        $this->estimations = new ArrayCollection();
+        $this->photo = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,6 +172,117 @@ class Produit
     public function setEstEnvoyer(bool $estEnvoyer): self
     {
         $this->estEnvoyer = $estEnvoyer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Categorie[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categorie $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categorie $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeProduit($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Estimation[]
+     */
+    public function getEstimations(): Collection
+    {
+        return $this->estimations;
+    }
+
+    public function addEstimation(Estimation $estimation): self
+    {
+        if (!$this->estimations->contains($estimation)) {
+            $this->estimations[] = $estimation;
+            $estimation->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEstimation(Estimation $estimation): self
+    {
+        if ($this->estimations->removeElement($estimation)) {
+            // set the owning side to null (unless already changed)
+            if ($estimation->getProduit() === $this) {
+                $estimation->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLot(): ?Lot
+    {
+        return $this->lot;
+    }
+
+    public function setLot(?Lot $lot): self
+    {
+        $this->lot = $lot;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Photo[]
+     */
+    public function getPhoto(): Collection
+    {
+        return $this->photo;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photo->contains($photo)) {
+            $this->photo[] = $photo;
+            $photo->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        if ($this->photo->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getProduit() === $this) {
+                $photo->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStock(): ?Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?Stock $stock): self
+    {
+        $this->stock = $stock;
 
         return $this;
     }
