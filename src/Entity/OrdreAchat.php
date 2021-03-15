@@ -32,16 +32,6 @@ class OrdreAchat
      */
     private $dateCreation;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ordreAchats")
-     */
-    private $UserOrdreAchat;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="ordreAchats")
-     */
-    private $lotOrdreAchat;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -83,27 +73,4 @@ class OrdreAchat
         return $this;
     }
 
-    public function getUserOrdreAchat(): ?User
-    {
-        return $this->UserOrdreAchat;
-    }
-
-    public function setUserOrdreAchat(?User $UserOrdreAchat): self
-    {
-        $this->UserOrdreAchat = $UserOrdreAchat;
-
-        return $this;
-    }
-
-    public function getLotOrdreAchat(): ?Lot
-    {
-        return $this->lotOrdreAchat;
-    }
-
-    public function setLotOrdreAchat(?Lot $lotOrdreAchat): self
-    {
-        $this->lotOrdreAchat = $lotOrdreAchat;
-
-        return $this;
-    }
 }

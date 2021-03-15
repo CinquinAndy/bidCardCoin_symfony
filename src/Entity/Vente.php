@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VenteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,15 +24,10 @@ class Vente
      */
     private $dateDebut;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="ventes")
-     */
-    private $adresseVente;
+    public function __construct()
+    {
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="ventes")
-     */
-    private $lotVente;
+    }
 
     public function getId(): ?int
     {
@@ -45,30 +42,6 @@ class Vente
     public function setDateDebut(\DateTimeInterface $dateDebut): self
     {
         $this->dateDebut = $dateDebut;
-
-        return $this;
-    }
-
-    public function getAdresseVente(): ?Adresse
-    {
-        return $this->adresseVente;
-    }
-
-    public function setAdresseVente(?Adresse $adresseVente): self
-    {
-        $this->adresseVente = $adresseVente;
-
-        return $this;
-    }
-
-    public function getLotVente(): ?Lot
-    {
-        return $this->lotVente;
-    }
-
-    public function setLotVente(?Lot $lotVente): self
-    {
-        $this->lotVente = $lotVente;
 
         return $this;
     }

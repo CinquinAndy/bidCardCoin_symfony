@@ -54,36 +54,10 @@ class Produit
      */
     private $estEnvoyer;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="produits")
-     */
-    private $lotProduit;
-
-
-    /**
-     * @ORM\OneToOne(targetEntity=Enchere::class, cascade={"persist", "remove"})
-     */
-    private $enchereGagnante;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Categorie::class, inversedBy="produits")
-     */
-    private $categorieProduit;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=stock::class, inversedBy="produits")
-     */
-    private $stock;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="produitsListe")
-     */
-    private $user;
-
 
     public function __construct()
     {
-        $this->categorieProduit = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -171,102 +145,6 @@ class Produit
     public function setEstEnvoyer(bool $estEnvoyer): self
     {
         $this->estEnvoyer = $estEnvoyer;
-
-        return $this;
-    }
-
-    public function getLotProduit(): ?Lot
-    {
-        return $this->lotProduit;
-    }
-
-    public function setLotProduit(?Lot $lotProduit): self
-    {
-        $this->lotProduit = $lotProduit;
-
-        return $this;
-    }
-
-    public function getUserProduit(): ?User
-    {
-        return $this->UserProduit;
-    }
-
-    public function setUserProduit(?User $UserProduit): self
-    {
-        $this->UserProduit = $UserProduit;
-
-        return $this;
-    }
-
-    public function getEnchereGagnante(): ?Enchere
-    {
-        return $this->enchereGagnante;
-    }
-
-    public function setEnchereGagnante(?Enchere $enchereGagnante): self
-    {
-        $this->enchereGagnante = $enchereGagnante;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Categorie[]
-     */
-    public function getCategorieProduit(): Collection
-    {
-        return $this->categorieProduit;
-    }
-
-    public function addCategorieProduit(Categorie $categorieProduit): self
-    {
-        if (!$this->categorieProduit->contains($categorieProduit)) {
-            $this->categorieProduit[] = $categorieProduit;
-        }
-
-        return $this;
-    }
-
-    public function removeCategorieProduit(Categorie $categorieProduit): self
-    {
-        $this->categorieProduit->removeElement($categorieProduit);
-
-        return $this;
-    }
-
-    public function getStockProduit(): ?User
-    {
-        return $this->stockProduit;
-    }
-
-    public function setStockProduit(?User $stockProduit): self
-    {
-        $this->stockProduit = $stockProduit;
-
-        return $this;
-    }
-
-    public function getStock(): ?stock
-    {
-        return $this->stock;
-    }
-
-    public function setStock(?stock $stock): self
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }

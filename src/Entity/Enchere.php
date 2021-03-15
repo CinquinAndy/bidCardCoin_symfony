@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EnchereRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,12 @@ class Enchere
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateHeureVente;
+
+
+    public function __construct()
+    {
+
+    }
 
     public function getId(): ?int
     {

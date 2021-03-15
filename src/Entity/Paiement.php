@@ -29,19 +29,11 @@ class Paiement
      */
     private $validationPaiement;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Lot::class, mappedBy="paiement")
-     */
-    private $lotPaiement;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="paiements")
-     */
-    private $UserPaiement;
 
     public function __construct()
     {
-        $this->lotPaiement = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -73,45 +65,5 @@ class Paiement
         return $this;
     }
 
-    /**
-     * @return Collection|Lot[]
-     */
-    public function getLotPaiement(): Collection
-    {
-        return $this->lotPaiement;
-    }
 
-    public function addLotPaiement(Lot $lotPaiement): self
-    {
-        if (!$this->lotPaiement->contains($lotPaiement)) {
-            $this->lotPaiement[] = $lotPaiement;
-            $lotPaiement->setPaiement($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLotPaiement(Lot $lotPaiement): self
-    {
-        if ($this->lotPaiement->removeElement($lotPaiement)) {
-            // set the owning side to null (unless already changed)
-            if ($lotPaiement->getPaiement() === $this) {
-                $lotPaiement->setPaiement(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getUserPaiement(): ?User
-    {
-        return $this->UserPaiement;
-    }
-
-    public function setUserPaiement(?User $UserPaiement): self
-    {
-        $this->UserPaiement = $UserPaiement;
-
-        return $this;
-    }
 }

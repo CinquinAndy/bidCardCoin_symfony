@@ -24,14 +24,11 @@ class Categorie
      */
     private $nom;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, mappedBy="categorieProduit")
-     */
-    private $produits;
+
 
     public function __construct()
     {
-        $this->produits = new ArrayCollection();
+
     }
 
     public function __toString(){
@@ -55,30 +52,5 @@ class Categorie
         return $this;
     }
 
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduits(): Collection
-    {
-        return $this->produits;
-    }
 
-    public function addProduit(Produit $produit): self
-    {
-        if (!$this->produits->contains($produit)) {
-            $this->produits[] = $produit;
-            $produit->addCategorieProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produit $produit): self
-    {
-        if ($this->produits->removeElement($produit)) {
-            $produit->removeCategorieProduit($this);
-        }
-
-        return $this;
-    }
 }

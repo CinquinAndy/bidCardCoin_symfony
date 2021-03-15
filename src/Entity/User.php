@@ -88,32 +88,10 @@ class User implements UserInterface
      */
     private $listeMotCle;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="Users")
-     */
-    private $adresse;
-
-    /**
-     * @ORM\OneToMany(targetEntity=OrdreAchat::class, mappedBy="UserOrdreAchat")
-     */
-    private $ordreAchats;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Paiement::class, mappedBy="UserPaiement")
-     */
-    private $paiements;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="user")
-     */
-    private $produitsListe;
-
 
     public function __construct()
     {
-        $this->ordreAchats = new ArrayCollection();
-        $this->paiements = new ArrayCollection();
-        $this->produitsListe = new ArrayCollection();
+
     }
 
     public function __toString(){
@@ -317,138 +295,6 @@ class User implements UserInterface
     public function setListeMotCle(string $listeMotCle): self
     {
         $this->listeMotCle = $listeMotCle;
-
-        return $this;
-    }
-
-    public function getAdresse(): ?Adresse
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(?Adresse $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|OrdreAchat[]
-     */
-    public function getOrdreAchats(): Collection
-    {
-        return $this->ordreAchats;
-    }
-
-    public function addOrdreAchat(OrdreAchat $ordreAchat): self
-    {
-        if (!$this->ordreAchats->contains($ordreAchat)) {
-            $this->ordreAchats[] = $ordreAchat;
-            $ordreAchat->setUserOrdreAchat($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrdreAchat(OrdreAchat $ordreAchat): self
-    {
-        if ($this->ordreAchats->removeElement($ordreAchat)) {
-            // set the owning side to null (unless already changed)
-            if ($ordreAchat->getUserOrdreAchat() === $this) {
-                $ordreAchat->setUserOrdreAchat(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Paiement[]
-     */
-    public function getPaiements(): Collection
-    {
-        return $this->paiements;
-    }
-
-    public function addPaiement(Paiement $paiement): self
-    {
-        if (!$this->paiements->contains($paiement)) {
-            $this->paiements[] = $paiement;
-            $paiement->setUserPaiement($this);
-        }
-
-        return $this;
-    }
-
-    public function removePaiement(Paiement $paiement): self
-    {
-        if ($this->paiements->removeElement($paiement)) {
-            // set the owning side to null (unless already changed)
-            if ($paiement->getUserPaiement() === $this) {
-                $paiement->setUserPaiement(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduits(): Collection
-    {
-        return $this->produits;
-    }
-
-    public function addProduit(Produit $produit): self
-    {
-        if (!$this->produits->contains($produit)) {
-            $this->produits[] = $produit;
-            $produit->setUserProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produit $produit): self
-    {
-        if ($this->produits->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
-            if ($produit->getUserProduit() === $this) {
-                $produit->setUserProduit(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduitsListe(): Collection
-    {
-        return $this->produitsListe;
-    }
-
-    public function addProduitsListe(Produit $produitsListe): self
-    {
-        if (!$this->produitsListe->contains($produitsListe)) {
-            $this->produitsListe[] = $produitsListe;
-            $produitsListe->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduitsListe(Produit $produitsListe): self
-    {
-        if ($this->produitsListe->removeElement($produitsListe)) {
-            // set the owning side to null (unless already changed)
-            if ($produitsListe->getUser() === $this) {
-                $produitsListe->setUser(null);
-            }
-        }
 
         return $this;
     }
