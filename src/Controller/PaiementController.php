@@ -16,12 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class PaiementController extends AbstractController
 {
     /**
-     * @Route("/", name="paiement_index", methods={"GET"})
+     * @Route("/page/{numeroPage?0}", name="paiement_index", methods={"GET"})
      */
-    public function index(PaiementRepository $paiementRepository): Response
+    public function index(PaiementRepository $paiementRepository,int $numeroPage): Response
     {
         return $this->render('paiement/index.html.twig', [
-            'paiements' => $paiementRepository->findAll(),
+            'paiements' => $paiementRepository->findBy(array(),array(),100,$numeroPage*100),
         ]);
     }
 

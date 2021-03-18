@@ -93,7 +93,6 @@ class User implements UserInterface
      */
     private $adresses;
 
-
     /**
      * @ORM\OneToMany(targetEntity=OrdreAchat::class, mappedBy="user")
      */
@@ -113,9 +112,6 @@ class User implements UserInterface
      * @ORM\ManyToMany(targetEntity=Lot::class, mappedBy="user")
      */
     private $lots;
-
-
-
 
     public function __construct()
     {

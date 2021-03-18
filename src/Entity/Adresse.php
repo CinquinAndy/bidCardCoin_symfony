@@ -63,7 +63,8 @@ class Adresse
         $this->vente = new ArrayCollection();
     }
 
-    public function __toString(){
+    public function __toString(): ?string
+    {
         return (string)($this->getPays()." | ".$this->getVille()." | ".$this->getCodePostal()." | ".$this->getRue());
     }
 

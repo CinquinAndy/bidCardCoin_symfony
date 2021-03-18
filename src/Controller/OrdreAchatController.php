@@ -16,12 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class OrdreAchatController extends AbstractController
 {
     /**
-     * @Route("/", name="ordre_achat_index", methods={"GET"})
+     * @Route("/page/{numeroPage?0}", name="ordre_achat_index", methods={"GET"})
      */
-    public function index(OrdreAchatRepository $ordreAchatRepository): Response
+    public function index(OrdreAchatRepository $ordreAchatRepository,int $numeroPage): Response
     {
         return $this->render('ordre_achat/index.html.twig', [
-            'ordre_achats' => $ordreAchatRepository->findAll(),
+            'ordre_achats' => $ordreAchatRepository->findBy(array(),array(),100,$numeroPage*100),
         ]);
     }
 

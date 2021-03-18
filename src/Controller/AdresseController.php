@@ -16,12 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdresseController extends AbstractController
 {
     /**
-     * @Route("/", name="adresse_index", methods={"GET"})
+     * @Route("/page/{numeroPage?0}", name="adresse_index", methods={"GET"})
      */
-    public function index(AdresseRepository $adresseRepository): Response
+    public function index(AdresseRepository $adresseRepository,int $numeroPage): Response
     {
         return $this->render('adresse/index.html.twig', [
-            'adresses' => $adresseRepository->findAll(),
+            'adresses' => $adresseRepository->findBy(array(),array(),100,$numeroPage*100),
         ]);
     }
 
@@ -90,5 +90,10 @@ class AdresseController extends AbstractController
         }
 
         return $this->redirectToRoute('adresse_index');
+    }
+
+    public function test() : string {
+        echo "coucou";
+        return "coucou toi";
     }
 }

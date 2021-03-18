@@ -16,12 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class EnchereController extends AbstractController
 {
     /**
-     * @Route("/", name="enchere_index", methods={"GET"})
+     * @Route("/page/{numeroPage?0}", name="enchere_index", methods={"GET"})
      */
-    public function index(EnchereRepository $enchereRepository): Response
+    public function index(EnchereRepository $enchereRepository,int $numeroPage): Response
     {
         return $this->render('enchere/index.html.twig', [
-            'encheres' => $enchereRepository->findAll(),
+            'encheres' => $enchereRepository->findBy(array(),array(),100,$numeroPage*100),
         ]);
     }
 

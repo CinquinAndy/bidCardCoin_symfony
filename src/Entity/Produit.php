@@ -70,21 +70,20 @@ class Produit
     private $lot;
 
     /**
-     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="produit")
-     */
-    private $photo;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Stock::class, inversedBy="produits")
      */
     private $stock;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $photo;
 
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->estimations = new ArrayCollection();
-        $this->photo = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -245,36 +244,6 @@ class Produit
         return $this;
     }
 
-    /**
-     * @return Collection|Photo[]
-     */
-    public function getPhoto(): Collection
-    {
-        return $this->photo;
-    }
-
-    public function addPhoto(Photo $photo): self
-    {
-        if (!$this->photo->contains($photo)) {
-            $this->photo[] = $photo;
-            $photo->setProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removePhoto(Photo $photo): self
-    {
-        if ($this->photo->removeElement($photo)) {
-            // set the owning side to null (unless already changed)
-            if ($photo->getProduit() === $this) {
-                $photo->setProduit(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getStock(): ?Stock
     {
         return $this->stock;
@@ -283,6 +252,18 @@ class Produit
     public function setStock(?Stock $stock): self
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

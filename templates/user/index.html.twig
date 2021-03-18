@@ -1,24 +1,25 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="text-center text-white w-full">
-        <h1 class="text-2xl font-bold  w-full mb-5">User CRUD</h1>
-        <table class="w-full">
+    {% include 'formCDN.html.twig' %}
+    <div class="text-center text-white w-full transform scale-50">
+        <h1 class="text-2xl font-bold  w-full mb-5 ">User CRUD</h1>
+        <table class="w-full tablesorter" id="my_table">
             <thead>
             <tr class="border-2 border-grey-300">
-                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">Email</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">Roles</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">Nom</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">Prenom</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">Age</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">NumeroMobile</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">NumeroFixe</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">VerifSolvabilite</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">VerifIdentite</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">VerifRessortissant</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">EstCommissairePriseur</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">ListeMotCle</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">actions</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Id</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Email</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Roles</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Nom</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Prenom</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Age</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">NumeroMobile</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">NumeroFixe</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">VerifSolvabilite</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">VerifIdentite</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">VerifRessortissant</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">EstCommissairePriseur</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">ListeMotCle</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Actions</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
             </tr>
             </thead>
             <tbody>
@@ -49,14 +50,15 @@
                 </tr>
             {% else %}
                 <tr class="border-2 border-grey-300 text-xl">
-                    <td class="pt-5 pb-5" colspan="14">Aucune donnée</td>
+                    <td class="pt-5 pb-5" colspan="15">Aucune donnée</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+    </div>
         <div class="w-full mt-10">
             <a class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
                href="{{ path('user_new') }}">Créer utilisateur</a>
         </div>
-    </div>
+e
 {% endblock %}

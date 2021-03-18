@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% include 'formCDN.html.twig' %}
     <div class="text-center text-white w-full">
         <h1 class="text-2xl font-bold  w-full mb-5">Lot CRUD</h1>
-        <table class="w-full">
+        <table class="w-full tablesorter" id="my_table">
             <thead>
             <tr class="border-2 border-grey-300">
-                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">Nom</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">Description</th>
-                <th class="border-2 border-grey-300 pt-2 pb-2">actions</th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Id</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Nom</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Description</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">actions</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
             </tr>
             </thead>
             <tbody>

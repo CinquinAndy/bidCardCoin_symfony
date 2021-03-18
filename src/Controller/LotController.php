@@ -16,12 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class LotController extends AbstractController
 {
     /**
-     * @Route("/", name="lot_index", methods={"GET"})
+     * @Route("/page/{numeroPage?0}", name="lot_index", methods={"GET"})
      */
-    public function index(LotRepository $lotRepository): Response
+    public function index(LotRepository $lotRepository,int $numeroPage): Response
     {
         return $this->render('lot/index.html.twig', [
-            'lots' => $lotRepository->findAll(),
+            'lots' => $lotRepository->findBy(array(),array(),100,$numeroPage*100),
         ]);
     }
 

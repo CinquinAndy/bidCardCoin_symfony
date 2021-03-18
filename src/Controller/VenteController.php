@@ -16,12 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class VenteController extends AbstractController
 {
     /**
-     * @Route("/", name="vente_index", methods={"GET"})
+     * @Route("/page/{numeroPage?0}", name="vente_index", methods={"GET"})
      */
-    public function index(VenteRepository $venteRepository): Response
+    public function index(VenteRepository $venteRepository,int $numeroPage): Response
     {
         return $this->render('vente/index.html.twig', [
-            'ventes' => $venteRepository->findAll(),
+            'ventes' => $venteRepository->findBy(array(),array(),100,$numeroPage*100),
         ]);
     }
 
