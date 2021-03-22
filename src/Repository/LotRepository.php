@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Lot;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,22 +20,19 @@ class LotRepository extends ServiceEntityRepository
         parent::__construct($registry, Lot::class);
     }
 
-    // /**
-    //  * @return Lot[] Returns an array of Lot objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Lot[] Returns an array of Lot objects
+      */
+    public function findBy10last() : array
     {
         return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
             ->orderBy('l.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Lot
