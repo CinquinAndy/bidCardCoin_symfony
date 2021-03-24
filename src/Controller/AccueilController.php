@@ -15,12 +15,20 @@ class AccueilController extends AbstractController
      */
     public function index(): Response
     {
-        $lots = $this->getDoctrine()
+        $lots1Weeks = $this->getDoctrine()
             ->getRepository(Lot::class)
-            ->findBy10last();
+            ->findBy9_Week();
+        $lots2Weeks = $this->getDoctrine()
+            ->getRepository(Lot::class)
+            ->findBy9_2Week();
+        $lots3Weeks = $this->getDoctrine()
+            ->getRepository(Lot::class)
+            ->findBy9_3Week();
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
-            'lots'=>$lots,
+            'lots1Weeks'=>$lots1Weeks,
+            'lots2Weeks'=>$lots2Weeks,
+            'lots3Weeks'=>$lots3Weeks,
         ]);
     }
 }

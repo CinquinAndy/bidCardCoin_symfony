@@ -4,23 +4,117 @@
         <h1 class="text-center text-xl font-bold w-full">Bid Card Coin !</h1>
     </div>
 
-    <div class="bg-image w-full flex flex-wrap justify-center items-center gap-3 py-5">
-        {% for key in lots|keys %}
-            <div class="backdrop w-10/12 md:w-1/4 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg h-auto">
+    <div class="w-full flex justify-center text-white">
+        <h1 class="text-start text-xl font-bold w-full ml-5 border-b">Dans la semaine</h1>
+    </div>
+    <div class="bg-image w-full flex flex-wrap justify-center gap-3 py-5">
+        {% for key in lots1Weeks|keys %}
+            <div class="backdrop w-10/12 md:w-1/4 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg h-auto relative">
                 <!-- header -->
-                <div class="w-full mb-3 pb-3 border-b border-1 border-white">
-                    <h3 class="text-xl font-semibold text-shadow">{{ lots[key].getNom() }}</h3>
+                <div class="w-8/12 mb-3 pb-3 border-b border-1 border-white">
+                    <h3 class="text-xl font-semibold text-shadow">{{ lots1Weeks[key].getNom() }}</h3>
                 </div>
                 <!-- body -->
                 <div>
-                    <img src="{{ lots[key].getProduit().toArray()[0].getPhoto() }}" alt="image1"
+                    <img src="{{ lots1Weeks[key].getProduit().toArray()[0].getPhoto() }}" alt="image lot {{ lots1Weeks[key].getId() }}"
                          class="w-full h-48 object-cover mb-2">
                     <p class="mb-3 tracking-wide text-base text-shadow">
-                        {{ lots[key].getDescription() }}
+                        {{ lots1Weeks[key].getDescription() }}
                     </p>
-                    <button class="backdrop bg-white bg-opacity-0 border border-white px-3 py-1.5 rounded focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 hover:bg-opacity-10 text-lg">
-                        Detail
-                    </button>
+                    <p class="mb-10 tracking-wide text-base text-shadow">
+                        <i class="fas fa-map-pin mr-2"></i> : {{ lots1Weeks[key].getLieuVenteLot() }}
+                    </p>
+
+                    <p class="px-3 py-1.5 text-sm fixed right-0 top-0 font-bold">
+                        {{ lots1Weeks[key].getDateVenteLot() }}
+                    </p>
+                    <p class="px-3 py-1.5 text-lg fixed right-0 top-5 font-bold">
+                        {{ lots1Weeks[key].getNumberOfProducts() }} produits
+                    </p>
+                    <p class="px-3 py-1.5 text-lg fixed left-0 bottom-0 font-bold">
+                        {{ lots1Weeks[key].getPrixOfProducts() }} €
+                    </p>
+                    <a href="/lot/{{ lots1Weeks[key].getId() }}" class="border-l border-t border-white bg-white bg-opacity-0 px-3 py-1.5 hover:bg-opacity-10 text-lg absolute right-0 bottom-0 font-bold">
+                        Detail du lot <i class="ml-3 fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="w-full flex justify-center text-white">
+        <h1 class="text-start text-xl font-bold w-full ml-5 border-b">Dans deux semaines</h1>
+    </div>
+    <div class="bg-image w-full flex flex-wrap justify-center gap-3 py-5">
+        {% for key in lots2Weeks|keys %}
+            <div class="backdrop w-10/12 md:w-1/4 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg h-auto relative">
+                <!-- header -->
+                <div class="w-8/12 mb-3 pb-3 border-b border-1 border-white">
+                    <h3 class="text-xl font-semibold text-shadow">{{ lots2Weeks[key].getNom() }}</h3>
+                </div>
+                <!-- body -->
+                <div>
+                    <img src="{{ lots2Weeks[key].getPhoto() }}" alt="image lot {{ lots2Weeks[key].getId() }}"
+                         class="w-full h-48 object-cover mb-2">
+                    <p class="mb-3 tracking-wide text-base text-shadow">
+                        {{ lots2Weeks[key].getDescription() }}
+                    </p>
+
+                    <p class="mb-10 tracking-wide text-base text-shadow">
+                        <i class="fas fa-map-pin mr-2"></i> : {{ lots2Weeks[key].getLieuVenteLot() }}
+                    </p>
+
+                    <p class="px-3 py-1.5 text-sm fixed right-0 top-0 font-bold">
+                        {{ lots2Weeks[key].getDateVenteLot() }}
+                    </p>
+                    <p class="px-3 py-1.5 text-lg fixed right-0 top-5 font-bold">
+                        {{ lots2Weeks[key].getNumberOfProducts() }} produits
+                    </p>
+                    <p class="px-3 py-1.5 text-lg absolute left-0 bottom-0 font-bold">
+                    {{ lots2Weeks[key].getPrixOfProducts() }} €
+                    </p>
+                    <a href="/lot/{{ lots2Weeks[key].getId() }}" class="border-l border-t border-white bg-white bg-opacity-0 px-3 py-1.5 hover:bg-opacity-10 text-lg absolute right-0 bottom-0 font-bold">
+                        Detail du lot <i class="ml-3 fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="w-full flex justify-center text-white">
+        <h1 class="text-start text-xl font-bold w-full ml-5 border-b">Dans trois semaines</h1>
+    </div>
+    <div class="bg-image w-full flex flex-wrap justify-center gap-3 py-5">
+        {% for key in lots3Weeks|keys %}
+            <div class="backdrop w-10/12 md:w-1/4 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg h-auto relative">
+                <!-- header -->
+                <div class="w-8/12 mb-3 pb-3 border-b border-1 border-white">
+                    <h3 class="text-xl font-semibold text-shadow">{{ lots3Weeks[key].getNom() }}</h3>
+                </div>
+                <!-- body -->
+                <div>
+                    <img src="{{ lots3Weeks[key].getProduit().toArray()[0].getPhoto() }}" alt="image lot {{ lots3Weeks[key].getId() }}"
+                         class="w-full h-48 object-cover mb-2">
+                    <p class="mb-3 tracking-wide text-base text-shadow">
+                        {{ lots3Weeks[key].getDescription() }}
+
+                    </p>
+                    <p class="mb-10 tracking-wide text-base text-shadow">
+                        <i class="fas fa-map-pin mr-2"></i> : {{ lots3Weeks[key].getLieuVenteLot() }}
+                    </p>
+
+                    <p class="px-3 py-1.5 text-sm fixed right-0 top-0 font-bold">
+                        {{ lots3Weeks[key].getDateVenteLot() }}
+                    </p>
+                    <p class="px-3 py-1.5 text-lg fixed right-0 top-5 font-bold">
+                        {{ lots3Weeks[key].getNumberOfProducts() }} produits
+                    </p>
+                    <p class="px-3 py-1.5 text-lg absolute left-0 bottom-0 font-bold">
+                        {{ lots3Weeks[key].getPrixOfProducts() }} €
+                    </p>
+                    <a href="/lot/{{ lots3Weeks[key].getId() }}" class="border-l border-t border-white bg-white bg-opacity-0 px-3 py-1.5 hover:bg-opacity-10 text-lg absolute right-0 bottom-0 font-bold">
+                        Detail du lot <i class="ml-3 fas fa-chevron-right"></i>
+                    </a>
                 </div>
             </div>
         {% endfor %}
