@@ -24,66 +24,69 @@ class LotRepository extends ServiceEntityRepository
         parent::__construct($registry, Lot::class);
     }
 
-     /**
-      * @return Lot[] Returns an array of Lot objects
-      */
-    public function findBy10last() : array
+    /**
+     * @return Lot[] Returns an array of Lot objects
+     */
+    public function findBy10last(): array
     {
         return $this->createQueryBuilder('l')
-            ->join(Vente::class,'v',Expr\Join::WITH,'v.id=l.vente')
+            ->join(Vente::class, 'v', Expr\Join::WITH, 'v.id=l.vente')
             ->orderBy('v.dateDebut', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     /**
      * @return Lot[] Returns an array of Lot objects
      */
-    public function findBy9_Week() : array
+    public function findBy9_Week(): array
     {
-        $qb=new QueryBuilder($this->_em);
+        $qb = new QueryBuilder($this->_em);
         return $this->createQueryBuilder('l')
-            ->join(Vente::class,'v',Expr\Join::WITH,'v.id=l.vente')
-            ->where($qb->expr()->between('v.dateDebut','\''.((new DateTime('NOW'))->format('Y-m-d H:i:s')).'\'','\''.((((new DateTime('NOW')))->modify('+7 days'))->format('Y-m-d H:i:s')).'\''))
+            ->join(Vente::class, 'v', Expr\Join::WITH, 'v.id=l.vente')
+            ->where($qb->expr()->between('v.dateDebut', '\'' . ((new DateTime('NOW'))->format('Y-m-d H:i:s')) . '\'', '\'' . ((((new DateTime('NOW')))->modify('+7 days'))->format('Y-m-d H:i:s')) . '\''))
             ->orderBy('v.dateDebut', 'ASC')
             ->setMaxResults(9)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     /**
      * @return Lot[] Returns an array of Lot objects
      */
-    public function findBy9_2Week() : array
+    public function findBy_Week($weekNumber): array
     {
-        $qb=new QueryBuilder($this->_em);
+        $qb = new QueryBuilder($this->_em);
         return $this->createQueryBuilder('l')
-            ->join(Vente::class,'v',Expr\Join::WITH,'v.id=l.vente')
-            ->where($qb->expr()->between('v.dateDebut','\''.((((new DateTime('NOW')))->modify('+7 days'))->format('Y-m-d H:i:s')).'\'','\''.((((new DateTime('NOW')))->modify('+14 days'))->format('Y-m-d H:i:s')).'\''))
+            ->join(Vente::class, 'v', Expr\Join::WITH, 'v.id=l.vente')
+            ->where(
+                $qb
+                    ->expr()
+                    ->between('v.dateDebut',
+                        '\'' . ((((new DateTime('NOW')))
+                            ->modify('+' . ($weekNumber * 7) . ' days'))
+                            ->format('Y-m-d H:i:s')) . '\'',
+                        '\'' . ((((new DateTime('NOW')))
+                            ->modify('+' . (($weekNumber + 1) * 7) . ' days'))
+                            ->format('Y-m-d H:i:s')) . '\''))
             ->orderBy('v.dateDebut', 'ASC')
-            ->setMaxResults(9)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     /**
      * @return Lot[] Returns an array of Lot objects
      */
-    public function findBy9_3Week() : array
+    public function findBy_Date($dateInf,$dateSupp): array
     {
-        $qb=new QueryBuilder($this->_em);
+        $qb = new QueryBuilder($this->_em);
         return $this->createQueryBuilder('l')
-            ->join(Vente::class,'v',Expr\Join::WITH,'v.id=l.vente')
-            ->where($qb->expr()->between('v.dateDebut','\''.((((new DateTime('NOW')))->modify('+14 days'))->format('Y-m-d H:i:s')).'\'','\''.((((new DateTime('NOW')))->modify('+21 days'))->format('Y-m-d H:i:s')).'\''))
+            ->join(Vente::class, 'v', Expr\Join::WITH, 'v.id=l.vente')
+            ->where($qb->expr()->between('v.dateDebut', '\'' . (((new DateTime((string)$dateInf)))->format('Y-m-d H:i:s')) . '\'', '\'' . (((new DateTime((string)$dateSupp)))->format('Y-m-d H:i:s')) . '\''))
             ->orderBy('v.dateDebut', 'ASC')
-            ->setMaxResults(9)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
 }

@@ -267,4 +267,13 @@ class Produit
 
         return $this;
     }
+
+    public function getWholePriceEstimations(): ?int
+    {
+        $total=0;
+        foreach ($this->estimations as $estimate){
+            $total+=$estimate->getPrix();
+        }
+        return $total;
+    }
 }

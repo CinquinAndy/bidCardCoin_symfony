@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Lot;
-//use App\Repository\LotRepository;
 
 class AccueilController extends AbstractController
 {
@@ -15,20 +15,49 @@ class AccueilController extends AbstractController
      */
     public function index(): Response
     {
-        $lots1Weeks = $this->getDoctrine()
+        $lots = $this->getDoctrine()
             ->getRepository(Lot::class)
             ->findBy9_Week();
-        $lots2Weeks = $this->getDoctrine()
-            ->getRepository(Lot::class)
-            ->findBy9_2Week();
-        $lots3Weeks = $this->getDoctrine()
-            ->getRepository(Lot::class)
-            ->findBy9_3Week();
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
-            'lots1Weeks'=>$lots1Weeks,
-            'lots2Weeks'=>$lots2Weeks,
-            'lots3Weeks'=>$lots3Weeks,
+            'lots'=>$lots,
+            'now'=>(new DateTime('NOW'))->format('Y-m-d')
+        ]);
+    }
+
+    /**
+     * @Route("/week/{numberOfWeek?1}", name="accueil_week")
+     */
+    public function indexWeeks($numberOfWeek): Response
+    {
+        $lots = $this->getDoctrine()
+            ->getRepository(Lot::class)
+            ->findBy_Week($numberOfWeek);
+        return $this->render('accueil/week.html.twig', [
+            'controller_name' => 'AccueilController',
+            'lots'=>$lots,
+            'numberOfWeek'=>$numberOfWeek
+        ]);
+    }
+
+    /**
+     * @Route("/date/{dateInf?2021-01-01}/{dateSupp?2021-01-02}", name="accueil_date")
+     */
+    public function indexDate($dateInf,$dateSupp): Response
+    {
+        if($dateInf>$dateSupp){
+            $date=$dateInf;
+            $dateInf=$dateSupp;
+            $dateSupp=$date;
+        }
+        $lots = $this->getDoctrine()
+            ->getRepository(Lot::class)
+            ->findBy_Date($dateInf,$dateSupp);
+        return $this->render('accueil/date.html.twig', [
+            'controller_name' => 'AccueilController',
+            'lots'=>$lots,
+            'dateInf'=>$dateInf,
+            'dateSupp'=>$dateSupp
         ]);
     }
 }

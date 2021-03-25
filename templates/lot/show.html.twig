@@ -1,33 +1,116 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="text-center text-white w-full">
-        <h1 class="text-2xl font-bold  w-full mb-5">Lot CRUD [show]</h1>
-        <table class="w-full">
-            <tbody>
-            <tr>
-                <th class="border-2 border-grey-300 pt-2 pb-2">Id</th>
-                <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.id }}</td>
-            </tr>
-            <tr>
-                <th class="border-2 border-grey-300 pt-2 pb-2">Nom</th>
-                <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.nom }}</td>
-            </tr>
-            <tr>
-                <th class="border-2 border-grey-300 pt-2 pb-2">Description</th>
-                <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.description }}</td>
-            </tr>
-            <tr>
-                <th class="border-2 border-grey-300 pt-2 pb-2">Photo</th>
-                <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.photo }}</td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="mt-10 flex justify-center items-center">
-            <a class="bg-blue-600 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
-               href="{{ path('lot_index') }}">back to list</a>
-            <a class="bg-yellow-600 ml-3 p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
-               href="{{ path('lot_edit', {'id': lot.id}) }}">edit</a>
-            {{ include('lot/_delete_form.html.twig') }}
+
+
+    {# <table class="w-full"> #}
+    {# <tbody> #}
+    {# <tr> #}
+    {# <th class="border-2 border-grey-300 pt-2 pb-2">Id</th> #}
+    {# <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.id }}</td> #}
+    {# </tr> #}
+    {# <tr> #}
+    {# <th class="border-2 border-grey-300 pt-2 pb-2">Nom</th> #}
+    {# <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.nom }}</td> #}
+    {# </tr> #}
+    {# <tr> #}
+    {# <th class="border-2 border-grey-300 pt-2 pb-2">Description</th> #}
+    {# <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.description }}</td> #}
+    {# </tr> #}
+    {# <tr> #}
+    {# <th class="border-2 border-grey-300 pt-2 pb-2">Photo</th> #}
+    {# <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.photo }}</td> #}
+    {# </tr> #}
+    {# </tbody> #}
+    {# </table> #}
+
+
+    <div class="w-full flex justify-center text-white">
+        <h1 class="text-start text-xl font-bold w-full ml-5 border-b">Lot n°{{ lot.id() }}</h1>
+    </div>
+    <div class="bg-image w-full flex flex-wrap justify-center gap-3 py-5">
+        <div class="backdrop w-10/12 md:w-1/2 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg h-auto relative">
+            <!-- header -->
+            <div class="w-8/12 mb-3 pb-3 border-b border-1 border-white">
+                <h3 class="text-xl font-semibold text-shadow">{{ lot.getNom() }}</h3>
+            </div>
+            <!-- body -->
+            <div>
+                <img src="{{ lot.getPhoto() }}" alt="image lot {{ lot.getId() }}"
+                     class="w-full h-96 object-scale-down object-center mb-2">
+                <p class="mb-3 tracking-wide text-base text-shadow">
+                    {{ lot.getDescription() }}
+                </p>
+                <p class="mb-10 tracking-wide text-base text-shadow">
+                    <i class="fas fa-map-pin mr-2"></i> : {{ lot.getLieuVenteLot() }}
+                </p>
+                <p class="px-3 py-1.5 text-sm fixed right-0 top-0 font-bold">
+                    {{ lot.getDateVenteLot() }}
+                </p>
+                <p class="px-3 py-1.5 text-lg fixed right-0 top-5 font-bold">
+                    {{ lot.getNumberOfProducts() }} produits
+                </p>
+                <p class="px-3 py-1.5 text-lg absolute left-0 bottom-0 font-bold">
+                    {{ lot.getPrixOfProducts() }} €
+                </p>
+            </div>
         </div>
     </div>
+
+    <div class="w-full flex justify-center text-white">
+        <h1 class="text-start text-xl font-bold w-full ml-5 border-b border-gray-200">Liste des produits du lot n°{{ lot.id() }}</h1>
+    </div>
+    <div class="bg-image w-full flex flex-wrap justify-center gap-3 py-5">
+        {% for key in produitTab|keys %}
+            <div class="backdrop w-10/12 md:w-1/4 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg h-auto relative">
+                <!-- header -->
+                <div class="w-8/12 mb-3 pb-3 border-b border-1 border-white">
+                    <h3 class="text-xl font-semibold text-shadow">{{ produitTab[key].getNomProduit() }}</h3>
+                </div>
+                <!-- body -->
+                <div>
+                    <img src="{{ produitTab[key].getPhoto() }}" alt="image produit {{ produitTab[key].getId() }}"
+                         class="w-full h-48 object-cover mb-2">
+                    <p class="mb-3 tracking-wide text-base text-shadow">
+                        {{ produitTab[key].getDescription() }}
+                    </p>
+
+                    <p class="mb-10 tracking-wide text-base text-shadow">
+                        <i class="fas fa-palette"></i> Artiste : {{ produitTab[key].getNomArtiste() }}
+                        <br>
+                        <i class="fas fa-info-circle"></i> Style : {{ produitTab[key].getNomStyle() }}
+                    </p>
+
+                    <p class="px-3 py-1.5 text-sm fixed right-0 top-0 font-bold">
+                        n°{{ produitTab[key].getId() }}
+                    </p>
+                    <p class="px-3 py-1.5 text-sm fixed right-0 top-5 font-bold">
+                        Réf : {{ produitTab[key].getReferenceCatalogue() }}
+                    </p>
+                    <p class="px-3 py-1.5 text-lg absolute left-0 bottom-0 font-bold">
+                        {{ produitTab[key].getWholePriceEstimations() }} €
+                    </p>
+{#                    <a href="/lot/{{ produitTab[key].getId() }}" class="border-l border-t border-white bg-white bg-opacity-0 px-3 py-1.5 hover:bg-opacity-10 text-lg absolute right-0 bottom-0 font-bold">#}
+{#                        Detail du lot <i class="ml-3 fas fa-chevron-right"></i>#}
+{#                    </a>#}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {# <div class="text-center text-white w-full border border-white rounded"> #}
+    {# <h1 class="text-2xl font-bold  w-full mb-5">Lot {{ lot.id }}</h1> #}
+    {# <div class="grid grid-col-6 grid-flow-col gap-10"> #}
+    {# <div class="col-span-1 flex justify-center items-center"> #}
+    {# <img class="w-96" src="{{ lot.photo }}" alt="Lot {{ lot.id }}"> #}
+    {# </div> #}
+    {# <div class="col-span-5 flex justify-center flex-wrap"> #}
+    {# <div> #}
+    {# <h1 class="text-2xl font-bold text-center w-full">{{ lot.nom }}</h1> #}
+    {# <div class="mt-4">{{ lot.description }}</div> #}
+    {# <div class="mt-4">{{ lot.description }}</div> #}
+    {# <div class="mt-4">{{ lot.description }}</div> #}
+    {# <div class="mt-4">{{ lot.description }}</div> #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
 {% endblock %}

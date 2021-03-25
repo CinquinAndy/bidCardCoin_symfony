@@ -243,7 +243,7 @@ class Lot
     {
         $count=0;
         foreach ($this->produit as $product) {
-            $count+=$product->getPrixReserve();
+            $count+=$product->getWholePriceEstimations();
         }
         return $count;
     }

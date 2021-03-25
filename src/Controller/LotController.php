@@ -53,8 +53,13 @@ class LotController extends AbstractController
      */
     public function show(Lot $lot): Response
     {
+        $produitTab=array();
+        foreach ($lot->getProduit() as $produit){
+            $produitTab[]=$produit;
+        }
         return $this->render('lot/show.html.twig', [
             'lot' => $lot,
+            'produitTab'=>$produitTab,
         ]);
     }
 
