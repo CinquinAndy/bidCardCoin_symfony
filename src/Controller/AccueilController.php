@@ -21,7 +21,7 @@ class AccueilController extends AbstractController
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
             'lots'=>$lots,
-            'now'=>(new DateTime('NOW'))->format('Y-m-d')
+            'now'=>(new DateTime('NOW'))->format('Y-m-d'),
         ]);
     }
 

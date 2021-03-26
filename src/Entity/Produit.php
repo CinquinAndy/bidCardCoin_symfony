@@ -270,10 +270,35 @@ class Produit
 
     public function getWholePriceEstimations(): ?int
     {
+        // pour le prix d'un produit, on fais la moyenne des estimations, ou on récupére le prix de reserve minimum
+        // d'un produit
         $total=0;
+        $i=0;
         foreach ($this->estimations as $estimate){
+            $i++;
             $total+=$estimate->getPrix();
         }
+        if($total>0){
+            $total/=$i;
+        }else{
+            $total=$this->getPrixReserve();
+        }
+
         return $total;
+    }
+
+    public function getCategoriesString():?string
+    {
+        $stringCategorie="";
+        $i=0;
+        foreach($this->categories as $category){
+            if($i===0){
+                $stringCategorie.=$category->getNom();
+            } else{
+                $stringCategorie.=";".$category->getNom();
+            }
+            $i++;
+        }
+        return $stringCategorie;
     }
 }

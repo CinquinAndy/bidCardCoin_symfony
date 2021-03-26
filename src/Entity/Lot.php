@@ -154,6 +154,18 @@ class Lot
         return $this->produit;
     }
 
+    /**
+     * @return Produit[] Returns an array of products objects
+     */
+    public function getProduitArray(): array
+    {
+        $arrayProduit=[];
+        foreach ($this->produit as $produit) {
+               $arrayProduit[] += $produit;
+        }
+        return $arrayProduit;
+    }
+
     public function addProduit(Produit $produit): self
     {
         if (!$this->produit->contains($produit)) {
@@ -260,6 +272,18 @@ class Lot
     public function getLieuVenteLot():?string
     {
         return ("{$this->vente->getAdresse()->getPays()} - {$this->vente->getAdresse()->getVille()} - {$this->vente->getAdresse()->getRue()}");
+    }
+    public function getLieuVenteLot_Pays():?string
+    {
+        return ($this->vente->getAdresse()->getPays());
+    }
+    public function getLieuVenteLot_Ville():?string
+    {
+        return ($this->vente->getAdresse()->getVille());
+    }
+    public function getLieuVenteLot_Rue():?string
+    {
+        return ($this->vente->getAdresse()->getRue());
     }
 
     public function getIdArray(): ?array
