@@ -40,22 +40,31 @@ class Adresse
     private $rue;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="adresse")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="adresses")
      */
-    private $users;
+    private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Vente::class, mappedBy="adresseVente")
+     * @ORM\OneToOne(targetEntity=Stock::class, cascade={"persist", "remove"})
      */
-    private $ventes;
+    private $stock;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Vente::class, mappedBy="adresse")
+     */
+    private $vente;
+
+
+
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
-        $this->ventes = new ArrayCollection();
+        $this->user = new ArrayCollection();
+        $this->vente = new ArrayCollection();
     }
 
-    public function __toString(){
+    public function __toString(): ?string
+    {
         return (string)($this->getPays()." | ".$this->getVille()." | ".$this->getCodePostal()." | ".$this->getRue());
     }
 
@@ -115,29 +124,35 @@ class Adresse
     /**
      * @return Collection|User[]
      */
-    public function getUsers(): Collection
+    public function getUser(): Collection
     {
-        return $this->Users;
+        return $this->user;
     }
 
-    public function addUser(User $User): self
+    public function addUser(User $user): self
     {
-        if (!$this->Users->contains($User)) {
-            $this->Users[] = $User;
-            $User->setAdresse($this);
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
         }
 
         return $this;
     }
 
-    public function removeUser(User $User): self
+    public function removeUser(User $user): self
     {
-        if ($this->Users->removeElement($User)) {
-            // set the owning side to null (unless already changed)
-            if ($User->getAdresse() === $this) {
-                $User->setAdresse(null);
-            }
-        }
+        $this->user->removeElement($user);
+
+        return $this;
+    }
+
+    public function getStock(): ?Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?Stock $stock): self
+    {
+        $this->stock = $stock;
 
         return $this;
     }
@@ -145,16 +160,16 @@ class Adresse
     /**
      * @return Collection|Vente[]
      */
-    public function getVentes(): Collection
+    public function getVente(): Collection
     {
-        return $this->ventes;
+        return $this->vente;
     }
 
     public function addVente(Vente $vente): self
     {
-        if (!$this->ventes->contains($vente)) {
-            $this->ventes[] = $vente;
-            $vente->setAdresseVente($this);
+        if (!$this->vente->contains($vente)) {
+            $this->vente[] = $vente;
+            $vente->setAdresse($this);
         }
 
         return $this;
@@ -162,13 +177,15 @@ class Adresse
 
     public function removeVente(Vente $vente): self
     {
-        if ($this->ventes->removeElement($vente)) {
+        if ($this->vente->removeElement($vente)) {
             // set the owning side to null (unless already changed)
-            if ($vente->getAdresseVente() === $this) {
-                $vente->setAdresseVente(null);
+            if ($vente->getAdresse() === $this) {
+                $vente->setAdresse(null);
             }
         }
 
         return $this;
     }
+
+
 }

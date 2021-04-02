@@ -1,6 +1,225 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<div class="w-full flex justify-center text-white">
-    <h1 class="text-center text-xl font-bold w-full">Bid Card Coin !</h1>
-</div>
+    <div class="w-full flex justify-center text-white">
+        <h1 class="text-center text-xl font-bold w-full">Bid Card Coin !</h1>
+    </div>
+    <div class="w-full flex justify-center text-white">
+        <h1 class="text-start text-xl font-bold w-full ml-5 border-b">Les 9 prochaines ventes</h1>
+    </div>
+
+    <div id="listeFuzzy">
+        <input class="fixed z-10 text-white border border-grey-300 bg-transparent text-center font-normal
+        text-xs focus:outline-none filter-invert fuzzy_search_getNom top-60 left-10"
+               type="text" id="fuzzy_search_getNom" placeholder="rechercher"/>
+        <ul class="bg-image w-full flex flex-wrap justify-center gap-3 py-5 list">
+            {% for key in lots|keys %}
+                <li id="lot[{{ lots[key].getId() }}]"
+                    class="backdrop w-10/12 md:w-1/4 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg h-auto relative getId">
+                    <!-- header -->
+                    <div class="w-8/12 mb-3 pb-3 border-b border-1 border-white">
+                        <h3 class="text-xl font-semibold text-shadow getNom">{{ lots[key].getNom() }}</h3>
+                    </div>
+                    <div class="hidden">
+                        <p class="getIdLot">{{ lots[key].getId() }}</p>
+                    </div>
+                    <div class="hidden">
+                        <p class="getIdProduits">{{ lots[key].getListeIdProduits() }}</p>
+                    </div>
+                    <!-- body -->
+                    <div>
+                        <img src="{{ lots[key].getPhoto() }}" alt="image lot {{ lots[key].getId() }}"
+                             class="w-full h-48 object-cover mb-2">
+                        <p class="tracking-wide text-base text-shadow getDescription">
+                            {{ lots[key].getDescription() }}
+                        </p>
+                        <p class="font-bold mb-3 tracking-wide text-base text-shadow getArtiste">
+                            {{ lots[key].getListeArtists() }}
+                        </p>
+                        <p class="mb-10 tracking-wide text-base text-shadow getLieuVenteLot">
+                            <i class="fas fa-map-pin mr-2"></i> : {{ lots[key].getLieuVenteLot() }}
+                        </p>
+
+                        <p class="px-3 py-1.5 text-sm fixed right-0 top-0 font-bold">
+                            {{ lots[key].getDateVenteLot() }}
+                        </p>
+                        <p class="px-3 py-1.5 text-lg fixed right-0 top-5 font-bold">
+                            {{ lots[key].getNumberOfProducts() }} produits
+                        </p>
+                        <p class="px-3 py-1.5 text-lg fixed left-0 bottom-0 font-bold getPrixOfProducts">
+                            {{ lots[key].getPrixOfProducts() }} €
+                        </p>
+                        <a href="/lot/{{ lots[key].getId() }}"
+                           class="border-l border-t border-white bg-white bg-opacity-0 px-3 py-1.5 hover:bg-opacity-10 text-lg absolute right-0 bottom-0 font-bold">
+                            Detail du lot <i class="ml-3 fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {# Fenetre pour filter les valeurs #}
+    <div class="fixed h-3/4 w-56 backdrop left-0 bottom-5 flex justify-center items-center flex-wrap text-white shadow bg-gray-800 bg-opacity-10 rounded-r border-2 border-l-0">
+        <div class="w-full h-3/4 flex items-center items-center flex-wrap text-center">
+
+            <div class="w-full mt-2">
+                <h2 class="w-full font-bold">Entre ces deux prix :</h2>
+                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                       type="number" id="filter_priceInf" name="filter_priceInf" placeholder="min : 0€">
+                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                       type="number" id="filter_priceSupp" name="filter_priceSupp" placeholder="max : 500€">
+                <div class="w-full mt-2 flex justify-end items-center">
+                    <button type="button" onclick="filterResultPrix()"
+                            class="bg-gray-800 bg-opacity-20 border border-grey-300 rounded bg-transparent text-center font-normal text-xs focus:outline-none filter-invert p-1 m-2">
+                        <i class="mx-2 fas fa-filter"></i>Filtrer<i class="mx-2 fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <form class="w-full mt-2">
+                <h2 class="w-full font-bold">Entre ces deux dates :</h2>
+                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                       type="datetime-local" id="filter_dateTimeInf" name="filter_dateTimeInf" min="{{ now }}">
+                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                       type="datetime-local" id="filter_dateTimeSupp" name="filter_dateTimeSupp" min="{{ now }}">
+                <div class="w-full mt-2 flex justify-end items-center">
+                    <button type="button" onclick="filterResultDate()"
+                            class="bg-gray-800 bg-opacity-20 border border-grey-300 rounded bg-transparent text-center font-normal text-xs focus:outline-none filter-invert p-1 m-2">
+                        <i class="mx-2 fas fa-filter"></i>Filtrer<i class="mx-2 fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {# Fenetre pour selectionner la date #}
+    <div class="fixed h-1/2 w-56 backdrop right-0 flex justify-center items-center flex-wrap text-white shadow bg-gray-800 bg-opacity-10 rounded-l border-2 border-r-0">
+        <h1 class="w-full flex justify-center items-center text-center text-xl font-bold">Voir pour les lots de :</h1>
+        <a class="w-full flex justify-center items-center text-center text-white text-xl" href="/week"><span
+                    class="text-base mx-auto font-bold"><i class="fas fa-calendar-week mx-2"></i>1 | La semaine prochaine</span></a>
+        <a class="w-full flex justify-center items-center text-center text-white text-xl" href="/week/2"><span
+                    class="text-base mx-auto font-bold"><i class="fas fa-calendar-week mx-2"></i>2 | Dans deux semaines</span></a>
+        <a class="w-full flex justify-center items-center text-center text-white text-xl" href="/week/3"><span
+                    class="text-base mx-auto font-bold"><i class="fas fa-calendar-week mx-2"></i>3 | Dans trois semaines</span></a>
+        <form class="w-full flex justify-center items-center text-center text-white text-lg font-bold flex-wrap">
+            <p class="w-full text-center flex justify-center items-center border-t pt-4">Entre ces deux dates :</p>
+            <div class="w-full mt-2">
+                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                       type="date" id="dateInf" name="dateInf" min="{{ now }}">
+            </div>
+            <div class="w-full mt-2">
+                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                       type="date" id="dateSupp" name="dateSupp" min="{{ now }}">
+            </div>
+            <div class="w-full mt-2 flex justify-end items-center">
+                <button type="button" onclick="checkValue()"
+                        class="bg-gray-800 bg-opacity-20 border border-grey-300 rounded bg-transparent text-center font-normal text-xs focus:outline-none filter-invert p-1 m-2">
+                    <i class="mx-2 fas fa-calendar-check"></i>Aller voir<i class="mx-2 fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="{{ asset('js/crossfilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dist/list.min.js') }}"></script>
+    <script>
+        function checkValue() {
+            if ((document.getElementById('dateInf').value) && (document.getElementById('dateSupp').value)) {
+                return (window.location.href = '/date/' + document.getElementById('dateInf').value + '/' + document.getElementById('dateSupp').value)
+            } else {
+                console.log("Date non valides");
+            }
+        }
+
+        var list_getNom = new List('listeFuzzy', {
+            valueNames: ['getNom', 'getDescription', 'getArtiste', 'getLieuVenteLot', 'getIdLot', 'getIdProduits'],
+            fuzzySearch: {
+                searchClass: "fuzzy_search_getNom",
+                location: 0,
+                distance: 100,
+                threshold: 0.6,
+            }
+        })
+
+        var data = [
+            {% for key in lots|keys %}
+            {
+                id: {{ lots[key].getId() }},
+                nom: "{{ lots[key].getNom() }}",
+                description: "{{ lots[key].getDescription() }}",
+                adresse_pays: "{{ lots[key].getLieuVenteLot_Pays() }}",
+                adresse_ville: "{{ lots[key].getLieuVenteLot_Ville() }}",
+                adresse_rue: "{{ lots[key].getLieuVenteLot_Rue() }}",
+                date: "{{ lots[key].getDateVenteLot() }}",
+                prix: "{{ lots[key].getPrixOfProducts() }}",
+                produits: [{
+                    {% for akey in (lots[key].getProduit())|keys %}
+                    id:{{ (lots[key].getProduit())[akey].getId() }},
+                    nomStyle: "{{ (lots[key].getProduit())[akey].getNomStyle() }}",
+                    nomProduit: "{{ (lots[key].getProduit())[akey].getNomProduit() }}",
+                    referenceCatalogue: "{{ (lots[key].getProduit())[akey].getReferenceCatalogue() }}",
+                    description: "{{ (lots[key].getProduit())[akey].getDescription() }}",
+                    categoriesString: "{{ (lots[key].getProduit())[akey].getCategoriesString() }}",
+                    prix:{{ (lots[key].getProduit())[akey].getWholePriceEstimations() }},
+                    {% endfor %}
+                }]
+            },
+            {% endfor %}
+        ]
+
+        function filterResultPrix(){
+            let valueInf = document.getElementById('filter_priceInf').value;
+            let valueSupp = document.getElementById('filter_priceSupp').value;
+
+            if(valueInf == '' && valueSupp == ''){
+                // les deux valeurs sont nules
+                // on ne fais rien dans ce cas (on pourras géré un selection par 'défaut' de base, plus tard)
+            } else if (valueInf == '' || valueSupp == ''){
+                // l'une des deux valeurs est nule
+                if(valueInf==''){
+                    valueInf=0;
+                }
+                if(valueSupp==''){
+                    valueSupp=2147483647;
+                }
+            }
+            if(valueInf>valueSupp){
+                let valueTemp=valueInf;
+                valueInf=valueSupp;
+                valueSupp=valueTemp;
+            }
+            for (const key of data){
+                if((parseInt(key.prix) < valueInf) || (parseInt(key.prix) > valueSupp)){
+                    let current = document.getElementById(("lot["+key.id+"]"));
+                    current.classList.add('hidden');
+                }
+            }
+
+            function filterResultDate(){
+                let valueInf = document.getElementById('filter_priceInf').value;
+                let valueSupp = document.getElementById('filter_priceSupp').value;
+
+                if(valueInf === '' && valueSupp === ''){
+                    // les deux valeurs sont nules
+                    // on ne fais rien dans ce cas (on pourras géré un selection par 'défaut' de base, plus tard)
+                } else if (valueInf === '' || valueSupp === ''){
+                    // l'une des deux valeurs est nule
+                    if(valueInf===''){
+                        valueInf=0;
+                    }
+                    if(valueSupp===''){
+                        valueSupp=2147483647;
+                    }
+                }
+                if(valueInf>valueSupp){
+                    let valueTemp=valueInf;
+                    valueInf=valueSupp;
+                    valueSupp=valueTemp;
+                }
+                for (const key of data){
+                    if((parseInt(key.prix) < valueInf) || (parseInt(key.prix) > valueSupp)){
+                        let current = document.getElementById(("lot["+key.id+"]"));
+                        current.classList.add('hidden');
+                    }
+                }
+        }
+    </script>
 {% endblock %}

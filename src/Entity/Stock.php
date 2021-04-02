@@ -20,14 +20,16 @@ class Stock
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Adresse::class, cascade={"persist", "remove"})
-     */
-    private $adresse;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="stockProduit")
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="stock")
      */
     private $produits;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
+
+
 
     public function __construct()
     {
@@ -63,7 +65,7 @@ class Stock
     {
         if (!$this->produits->contains($produit)) {
             $this->produits[] = $produit;
-            $produit->setStockProduit($this);
+            $produit->setStock($this);
         }
 
         return $this;
@@ -73,10 +75,22 @@ class Stock
     {
         if ($this->produits->removeElement($produit)) {
             // set the owning side to null (unless already changed)
-            if ($produit->getStockProduit() === $this) {
-                $produit->setStockProduit(null);
+            if ($produit->getStock() === $this) {
+                $produit->setStock(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

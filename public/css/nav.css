@@ -8,3 +8,7 @@
 #categorySelect option{
     text-align: left;
 }
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}

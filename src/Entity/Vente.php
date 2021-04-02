@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VenteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,14 +25,25 @@ class Vente
     private $dateDebut;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="ventes")
+     * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="vente")
      */
-    private $adresseVente;
+    private $adresse;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="ventes")
+     * @ORM\OneToMany(targetEntity=Enchere::class, mappedBy="vente")
      */
-    private $lotVente;
+    private $encheres;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Lot::class, mappedBy="vente")
+     */
+    private $lots;
+
+    public function __construct()
+    {
+        $this->encheres = new ArrayCollection();
+        $this->lots = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -49,26 +62,74 @@ class Vente
         return $this;
     }
 
-    public function getAdresseVente(): ?Adresse
+    public function getAdresse(): ?Adresse
     {
-        return $this->adresseVente;
+        return $this->adresse;
     }
 
-    public function setAdresseVente(?Adresse $adresseVente): self
+    public function setAdresse(?Adresse $adresse): self
     {
-        $this->adresseVente = $adresseVente;
+        $this->adresse = $adresse;
 
         return $this;
     }
 
-    public function getLotVente(): ?Lot
+    /**
+     * @return Collection|Enchere[]
+     */
+    public function getEncheres(): Collection
     {
-        return $this->lotVente;
+        return $this->encheres;
     }
 
-    public function setLotVente(?Lot $lotVente): self
+    public function addEnchere(Enchere $enchere): self
     {
-        $this->lotVente = $lotVente;
+        if (!$this->encheres->contains($enchere)) {
+            $this->encheres[] = $enchere;
+            $enchere->setVente($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnchere(Enchere $enchere): self
+    {
+        if ($this->encheres->removeElement($enchere)) {
+            // set the owning side to null (unless already changed)
+            if ($enchere->getVente() === $this) {
+                $enchere->setVente(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lot[]
+     */
+    public function getLots(): Collection
+    {
+        return $this->lots;
+    }
+
+    public function addLot(Lot $lot): self
+    {
+        if (!$this->lots->contains($lot)) {
+            $this->lots[] = $lot;
+            $lot->setVente($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLot(Lot $lot): self
+    {
+        if ($this->lots->removeElement($lot)) {
+            // set the owning side to null (unless already changed)
+            if ($lot->getVente() === $this) {
+                $lot->setVente(null);
+            }
+        }
 
         return $this;
     }

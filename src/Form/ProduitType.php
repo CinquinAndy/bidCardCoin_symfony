@@ -24,6 +24,7 @@ class ProduitType extends AbstractType
             ->add('enchereGagnante')
             ->add('categorieProduit')
             ->add('stockProduit')
+            ->add('photo')
         ;
     }
 

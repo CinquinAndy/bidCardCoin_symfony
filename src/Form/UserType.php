@@ -34,7 +34,7 @@ class UserType extends AbstractType
             ->add('verifRessortissant')
             ->add('estCommissairePriseur')
             ->add('listeMotCle')
-            ->add('adresse');
+            ->add('adresses');
     }
 
     public function configureOptions(OptionsResolver $resolver)

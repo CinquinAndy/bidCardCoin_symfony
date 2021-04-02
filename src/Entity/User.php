@@ -89,30 +89,39 @@ class User implements UserInterface
     private $listeMotCle;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="Users")
+     * @ORM\ManyToMany(targetEntity=Adresse::class, mappedBy="user")
      */
-    private $adresse;
+    private $adresses;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrdreAchat::class, mappedBy="UserOrdreAchat")
+     * @ORM\OneToMany(targetEntity=OrdreAchat::class, mappedBy="user")
      */
     private $ordreAchats;
 
     /**
-     * @ORM\OneToMany(targetEntity=Paiement::class, mappedBy="UserPaiement")
+     * @ORM\OneToMany(targetEntity=Paiement::class, mappedBy="user")
      */
     private $paiements;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="UserProduit")
+     * @ORM\ManyToMany(targetEntity=Enchere::class, mappedBy="user")
      */
-    private $produits;
+    private $encheres;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Lot::class, mappedBy="user")
+     */
+    private $lots;
 
     public function __construct()
     {
+        $this->adresses = new ArrayCollection();
+        $this->encheres = new ArrayCollection();
+
         $this->ordreAchats = new ArrayCollection();
         $this->paiements = new ArrayCollection();
-        $this->produits = new ArrayCollection();
+        $this->lots = new ArrayCollection();
+
     }
 
     public function __toString(){
@@ -320,14 +329,56 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAdresse(): ?Adresse
+    /**
+     * @return Collection|Adresse[]
+     */
+    public function getAdresses(): Collection
     {
-        return $this->adresse;
+        return $this->adresses;
     }
 
-    public function setAdresse(?Adresse $adresse): self
+    public function addAdress(Adresse $adress): self
     {
-        $this->adresse = $adresse;
+        if (!$this->adresses->contains($adress)) {
+            $this->adresses[] = $adress;
+            $adress->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Adresse $adress): self
+    {
+        if ($this->adresses->removeElement($adress)) {
+            $adress->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Enchere[]
+     */
+    public function getEncheres(): Collection
+    {
+        return $this->encheres;
+    }
+
+    public function addEnchere(Enchere $enchere): self
+    {
+        if (!$this->encheres->contains($enchere)) {
+            $this->encheres[] = $enchere;
+            $enchere->addUserAdjuge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnchere(Enchere $enchere): self
+    {
+        if ($this->encheres->removeElement($enchere)) {
+            $enchere->removeUserAdjuge($this);
+        }
 
         return $this;
     }
@@ -344,7 +395,7 @@ class User implements UserInterface
     {
         if (!$this->ordreAchats->contains($ordreAchat)) {
             $this->ordreAchats[] = $ordreAchat;
-            $ordreAchat->setUserOrdreAchat($this);
+            $ordreAchat->setUser($this);
         }
 
         return $this;
@@ -354,8 +405,8 @@ class User implements UserInterface
     {
         if ($this->ordreAchats->removeElement($ordreAchat)) {
             // set the owning side to null (unless already changed)
-            if ($ordreAchat->getUserOrdreAchat() === $this) {
-                $ordreAchat->setUserOrdreAchat(null);
+            if ($ordreAchat->getUser() === $this) {
+                $ordreAchat->setUser(null);
             }
         }
 
@@ -374,7 +425,7 @@ class User implements UserInterface
     {
         if (!$this->paiements->contains($paiement)) {
             $this->paiements[] = $paiement;
-            $paiement->setUserPaiement($this);
+            $paiement->setUser($this);
         }
 
         return $this;
@@ -384,8 +435,8 @@ class User implements UserInterface
     {
         if ($this->paiements->removeElement($paiement)) {
             // set the owning side to null (unless already changed)
-            if ($paiement->getUserPaiement() === $this) {
-                $paiement->setUserPaiement(null);
+            if ($paiement->getUser() === $this) {
+                $paiement->setUser(null);
             }
         }
 
@@ -393,30 +444,27 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Produit[]
+     * @return Collection|Lot[]
      */
-    public function getProduits(): Collection
+    public function getLots(): Collection
     {
-        return $this->produits;
+        return $this->lots;
     }
 
-    public function addProduit(Produit $produit): self
+    public function addLot(Lot $lot): self
     {
-        if (!$this->produits->contains($produit)) {
-            $this->produits[] = $produit;
-            $produit->setUserProduit($this);
+        if (!$this->lots->contains($lot)) {
+            $this->lots[] = $lot;
+            $lot->addUser($this);
         }
 
         return $this;
     }
 
-    public function removeProduit(Produit $produit): self
+    public function removeLot(Lot $lot): self
     {
-        if ($this->produits->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
-            if ($produit->getUserProduit() === $this) {
-                $produit->setUserProduit(null);
-            }
+        if ($this->lots->removeElement($lot)) {
+            $lot->removeUser($this);
         }
 
         return $this;

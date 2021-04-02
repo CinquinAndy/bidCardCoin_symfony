@@ -16,12 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class StockController extends AbstractController
 {
     /**
-     * @Route("/", name="stock_index", methods={"GET"})
+     * @Route("/page/{numeroPage?0}", name="stock_index", methods={"GET"})
      */
-    public function index(StockRepository $stockRepository): Response
+    public function index(StockRepository $stockRepository,int $numeroPage): Response
     {
         return $this->render('stock/index.html.twig', [
-            'stocks' => $stockRepository->findAll(),
+            'stocks' => $stockRepository->findBy(array(),array(),100,$numeroPage*100),
         ]);
     }
 

@@ -55,33 +55,35 @@ class Produit
     private $estEnvoyer;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="produits")
+     * @ORM\ManyToMany(targetEntity=Categorie::class, mappedBy="produit")
      */
-    private $lotProduit;
+    private $categories;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="produits")
+     * @ORM\OneToMany(targetEntity=Estimation::class, mappedBy="produit")
      */
-    private $UserProduit;
+    private $estimations;
 
     /**
-     * @ORM\OneToOne(targetEntity=Enchere::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="produit")
      */
-    private $enchereGagnante;
+    private $lot;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Categorie::class, inversedBy="produits")
+     * @ORM\ManyToOne(targetEntity=Stock::class, inversedBy="produits")
      */
-    private $categorieProduit;
+    private $stock;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="produits")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $stockProduit;
+    private $photo;
+
 
     public function __construct()
     {
-        $this->categorieProduit = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->estimations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,75 +175,130 @@ class Produit
         return $this;
     }
 
-    public function getLotProduit(): ?Lot
-    {
-        return $this->lotProduit;
-    }
-
-    public function setLotProduit(?Lot $lotProduit): self
-    {
-        $this->lotProduit = $lotProduit;
-
-        return $this;
-    }
-
-    public function getUserProduit(): ?User
-    {
-        return $this->UserProduit;
-    }
-
-    public function setUserProduit(?User $UserProduit): self
-    {
-        $this->UserProduit = $UserProduit;
-
-        return $this;
-    }
-
-    public function getEnchereGagnante(): ?Enchere
-    {
-        return $this->enchereGagnante;
-    }
-
-    public function setEnchereGagnante(?Enchere $enchereGagnante): self
-    {
-        $this->enchereGagnante = $enchereGagnante;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Categorie[]
      */
-    public function getCategorieProduit(): Collection
+    public function getCategories(): Collection
     {
-        return $this->categorieProduit;
+        return $this->categories;
     }
 
-    public function addCategorieProduit(Categorie $categorieProduit): self
+    public function addCategory(Categorie $category): self
     {
-        if (!$this->categorieProduit->contains($categorieProduit)) {
-            $this->categorieProduit[] = $categorieProduit;
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->addProduit($this);
         }
 
         return $this;
     }
 
-    public function removeCategorieProduit(Categorie $categorieProduit): self
+    public function removeCategory(Categorie $category): self
     {
-        $this->categorieProduit->removeElement($categorieProduit);
+        if ($this->categories->removeElement($category)) {
+            $category->removeProduit($this);
+        }
 
         return $this;
     }
 
-    public function getStockProduit(): ?User
+    /**
+     * @return Collection|Estimation[]
+     */
+    public function getEstimations(): Collection
     {
-        return $this->stockProduit;
+        return $this->estimations;
     }
 
-    public function setStockProduit(?User $stockProduit): self
+    public function addEstimation(Estimation $estimation): self
     {
-        $this->stockProduit = $stockProduit;
+        if (!$this->estimations->contains($estimation)) {
+            $this->estimations[] = $estimation;
+            $estimation->setProduit($this);
+        }
 
         return $this;
+    }
+
+    public function removeEstimation(Estimation $estimation): self
+    {
+        if ($this->estimations->removeElement($estimation)) {
+            // set the owning side to null (unless already changed)
+            if ($estimation->getProduit() === $this) {
+                $estimation->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLot(): ?Lot
+    {
+        return $this->lot;
+    }
+
+    public function setLot(?Lot $lot): self
+    {
+        $this->lot = $lot;
+
+        return $this;
+    }
+
+    public function getStock(): ?Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?Stock $stock): self
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getWholePriceEstimations(): ?int
+    {
+        // pour le prix d'un produit, on fais la moyenne des estimations, ou on récupére le prix de reserve minimum
+        // d'un produit
+        $total=0;
+        $i=0;
+        foreach ($this->estimations as $estimate){
+            $i++;
+            $total+=$estimate->getPrix();
+        }
+        if($total>0){
+            $total/=$i;
+        }else{
+            $total=$this->getPrixReserve();
+        }
+
+        return $total;
+    }
+
+    public function getCategoriesString():?string
+    {
+        $stringCategorie="";
+        $i=0;
+        foreach($this->categories as $category){
+            if($i===0){
+                $stringCategorie.=$category->getNom();
+            } else{
+                $stringCategorie.=";".$category->getNom();
+            }
+            $i++;
+        }
+        return $stringCategorie;
     }
 }

@@ -16,12 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProduitController extends AbstractController
 {
     /**
-     * @Route("/", name="produit_index", methods={"GET"})
+     * @Route("/page/{numeroPage?0}", name="produit_index", methods={"GET"})
      */
-    public function index(ProduitRepository $produitRepository): Response
+    public function index(ProduitRepository $produitRepository,int $numeroPage): Response
     {
         return $this->render('produit/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
+
+            'produits' => $produitRepository->findAll()
         ]);
     }
 
