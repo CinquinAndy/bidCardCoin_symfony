@@ -303,4 +303,33 @@ class Lot
         return $this;
     }
 
+    public function getListeArtists() : ?string{
+        $count=0;
+        $stringReturnListeArtists='';
+        foreach ($this->produit as $product) {
+            if($count<3){
+                $stringReturnListeArtists.=$product->getNomArtiste();
+                $stringReturnListeArtists.=";";
+            } else if ($count===3){
+                $stringReturnListeArtists.=$product->getNomArtiste();
+            }
+            $count++;
+        }
+        return $stringReturnListeArtists;
+    }
+
+    public function getListeIdProduits() : ?string{
+        $count=0;
+        $stringReturnListeId='';
+        foreach ($this->produit as $product) {
+            if($count<3){
+                $stringReturnListeId.=$product->getId();
+                $stringReturnListeId.=";";
+            } else if ($count===3){
+                $stringReturnListeId.=$product->getId();
+            }
+            $count++;
+        }
+        return $stringReturnListeId;
+    }
 }

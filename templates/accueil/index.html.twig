@@ -8,8 +8,10 @@
     </div>
 
     <div id="listeFuzzy">
-        <input type="text" class="fuzzy-search"/>
-        <ul class="bg-image w-full flex flex-wrap justify-center gap-3 py-5 list" >
+        <input class="fixed z-10 text-white border border-grey-300 bg-transparent text-center font-normal
+        text-xs focus:outline-none filter-invert fuzzy_search_getNom top-60 left-10"
+               type="text" id="fuzzy_search_getNom" placeholder="rechercher"/>
+        <ul class="bg-image w-full flex flex-wrap justify-center gap-3 py-5 list">
             {% for key in lots|keys %}
                 <li id="lot[{{ lots[key].getId() }}]"
                     class="backdrop w-10/12 md:w-1/4 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg h-auto relative getId">
@@ -17,21 +19,30 @@
                     <div class="w-8/12 mb-3 pb-3 border-b border-1 border-white">
                         <h3 class="text-xl font-semibold text-shadow getNom">{{ lots[key].getNom() }}</h3>
                     </div>
+                    <div class="hidden">
+                        <p class="getIdLot">{{ lots[key].getId() }}</p>
+                    </div>
+                    <div class="hidden">
+                        <p class="getIdProduits">{{ lots[key].getListeIdProduits() }}</p>
+                    </div>
                     <!-- body -->
                     <div>
                         <img src="{{ lots[key].getPhoto() }}" alt="image lot {{ lots[key].getId() }}"
                              class="w-full h-48 object-cover mb-2">
-                        <p class="mb-3 tracking-wide text-base text-shadow getDescription">
+                        <p class="tracking-wide text-base text-shadow getDescription">
                             {{ lots[key].getDescription() }}
+                        </p>
+                        <p class="font-bold mb-3 tracking-wide text-base text-shadow getArtiste">
+                            {{ lots[key].getListeArtists() }}
                         </p>
                         <p class="mb-10 tracking-wide text-base text-shadow getLieuVenteLot">
                             <i class="fas fa-map-pin mr-2"></i> : {{ lots[key].getLieuVenteLot() }}
                         </p>
 
-                        <p class="px-3 py-1.5 text-sm fixed right-0 top-0 font-bold getDateVenteLot">
+                        <p class="px-3 py-1.5 text-sm fixed right-0 top-0 font-bold">
                             {{ lots[key].getDateVenteLot() }}
                         </p>
-                        <p class="px-3 py-1.5 text-lg fixed right-0 top-5 font-bold getNumberOfProducts">
+                        <p class="px-3 py-1.5 text-lg fixed right-0 top-5 font-bold">
                             {{ lots[key].getNumberOfProducts() }} produits
                         </p>
                         <p class="px-3 py-1.5 text-lg fixed left-0 bottom-0 font-bold getPrixOfProducts">
@@ -49,39 +60,35 @@
 
     {# Fenetre pour filter les valeurs #}
     <div class="fixed h-3/4 w-56 backdrop left-0 bottom-5 flex justify-center items-center flex-wrap text-white shadow bg-gray-800 bg-opacity-10 rounded-r border-2 border-l-0">
-        <h1 class="w-full flex justify-center items-center text-center text-xl font-bold">Filtrer les résultats</h1>
-        <form class="w-full flex items-center items-center flex-wrap text-center">
-            <div class="w-full">
-                {# Champ pour la recherche via le nom d'un lot / de sa catégorie / du nom d'un lot à l'intérieur #}
-                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
-                       type="text" id="filter_name" name="filter_name" placeholder="nom">
-            </div>
-            <div class="w-full">
-                {# Champ pour la recherche via le nom d'un artiste #}
-                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
-                       type="text" id="filter_name_artist" name="filter_name_artist" placeholder="artiste">
-            </div>
+        <div class="w-full h-3/4 flex items-center items-center flex-wrap text-center">
+
             <div class="w-full mt-2">
-                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
-                       type="datetime-local" id="filter_dateTimeInf" name="filter_dateTimeInf" min="{{ now }}">
-            </div>
-            <div class="w-full mt-2">
-                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
-                       type="datetime-local" id="filter_dateTimeSupp" name="filter_dateTimeSupp" min="{{ now }}">
-            </div>
-            <div class="w-full mt-2">
+                <h2 class="w-full font-bold">Entre ces deux prix :</h2>
                 <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
                        type="number" id="filter_priceInf" name="filter_priceInf" placeholder="min : 0€">
                 <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
                        type="number" id="filter_priceSupp" name="filter_priceSupp" placeholder="max : 500€">
+                <div class="w-full mt-2 flex justify-end items-center">
+                    <button type="button" onclick="filterResultPrix()"
+                            class="bg-gray-800 bg-opacity-20 border border-grey-300 rounded bg-transparent text-center font-normal text-xs focus:outline-none filter-invert p-1 m-2">
+                        <i class="mx-2 fas fa-filter"></i>Filtrer<i class="mx-2 fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
-            <div class="w-full mt-2 flex justify-end items-center">
-                <button type="button" onclick="filterResult()"
-                        class="bg-gray-800 bg-opacity-20 border border-grey-300 rounded bg-transparent text-center font-normal text-xs focus:outline-none filter-invert p-1 m-2">
-                    <i class="mx-2 fas fa-filter"></i>Filtrer<i class="mx-2 fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </form>
+            <form class="w-full mt-2">
+                <h2 class="w-full font-bold">Entre ces deux dates :</h2>
+                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                       type="datetime-local" id="filter_dateTimeInf" name="filter_dateTimeInf" min="{{ now }}">
+                <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                       type="datetime-local" id="filter_dateTimeSupp" name="filter_dateTimeSupp" min="{{ now }}">
+                <div class="w-full mt-2 flex justify-end items-center">
+                    <button type="button" onclick="filterResultDate()"
+                            class="bg-gray-800 bg-opacity-20 border border-grey-300 rounded bg-transparent text-center font-normal text-xs focus:outline-none filter-invert p-1 m-2">
+                        <i class="mx-2 fas fa-filter"></i>Filtrer<i class="mx-2 fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 
     {# Fenetre pour selectionner la date #}
@@ -122,78 +129,97 @@
             }
         }
 
-        var list = new List('listeFuzzy', {
-            valueName: ['getNom']
-        });
+        var list_getNom = new List('listeFuzzy', {
+            valueNames: ['getNom', 'getDescription', 'getArtiste', 'getLieuVenteLot', 'getIdLot', 'getIdProduits'],
+            fuzzySearch: {
+                searchClass: "fuzzy_search_getNom",
+                location: 0,
+                distance: 100,
+                threshold: 0.6,
+            }
+        })
 
+        var data = [
+            {% for key in lots|keys %}
+            {
+                id: {{ lots[key].getId() }},
+                nom: "{{ lots[key].getNom() }}",
+                description: "{{ lots[key].getDescription() }}",
+                adresse_pays: "{{ lots[key].getLieuVenteLot_Pays() }}",
+                adresse_ville: "{{ lots[key].getLieuVenteLot_Ville() }}",
+                adresse_rue: "{{ lots[key].getLieuVenteLot_Rue() }}",
+                date: "{{ lots[key].getDateVenteLot() }}",
+                prix: "{{ lots[key].getPrixOfProducts() }}",
+                produits: [{
+                    {% for akey in (lots[key].getProduit())|keys %}
+                    id:{{ (lots[key].getProduit())[akey].getId() }},
+                    nomStyle: "{{ (lots[key].getProduit())[akey].getNomStyle() }}",
+                    nomProduit: "{{ (lots[key].getProduit())[akey].getNomProduit() }}",
+                    referenceCatalogue: "{{ (lots[key].getProduit())[akey].getReferenceCatalogue() }}",
+                    description: "{{ (lots[key].getProduit())[akey].getDescription() }}",
+                    categoriesString: "{{ (lots[key].getProduit())[akey].getCategoriesString() }}",
+                    prix:{{ (lots[key].getProduit())[akey].getWholePriceEstimations() }},
+                    {% endfor %}
+                }]
+            },
+            {% endfor %}
+        ]
 
-        {# var data = crossfilter([ #}
-        {# {% for key in lots|keys %} #}
-        {# { #}
-        {# id: {{ lots[key].getId() }}, #}
-        {# nom: "{{ lots[key].getNom() }}", #}
-        {# description: "{{ lots[key].getDescription() }}", #}
-        {# adresse_pays:"{{ lots[key].getLieuVenteLot_Pays() }}", #}
-        {# adresse_ville:"{{ lots[key].getLieuVenteLot_Ville() }}", #}
-        {# adresse_rue:"{{ lots[key].getLieuVenteLot_Rue() }}", #}
-        {# date:"{{ lots[key].getDateVenteLot() }}", #}
-        {# prix:"{{ lots[key].getPrixOfProducts() }}", #}
-        {# produits: [{ #}
-        {# {% for akey in (lots[key].getProduit())|keys %} #}
-        {# id:{{ (lots[key].getProduit())[akey].getId() }}, #}
-        {# nomStyle:"{{ (lots[key].getProduit())[akey].getNomStyle() }}", #}
-        {# nomProduit:"{{ (lots[key].getProduit())[akey].getNomProduit() }}", #}
-        {# referenceCatalogue:"{{ (lots[key].getProduit())[akey].getReferenceCatalogue() }}", #}
-        {# description:"{{ (lots[key].getProduit())[akey].getDescription() }}", #}
-        {# categoriesString:"{{ (lots[key].getProduit())[akey].getCategoriesString() }}", #}
-        {# prix:{{ (lots[key].getProduit())[akey].getWholePriceEstimations() }}, #}
-        {# {% endfor %} #}
-        {# }] #}
-        {# }, #}
-        {# {% endfor %} #}
-        {# ]) #}
+        function filterResultPrix(){
+            let valueInf = document.getElementById('filter_priceInf').value;
+            let valueSupp = document.getElementById('filter_priceSupp').value;
 
-        {# try { #}
-        {# data.id = data.dimension((d)=>{return d.id}); #}
-        {# id_s=(data.id).group(); #}
-        {# data.nom = data.dimension((d)=>{return d.nom}); #}
-        {# nom_s=(data.nom).group(); #}
-        {# data.description = data.dimension((d)=>{return d.description}); #}
-        {# description_s=(data.description).group(); #}
-        {# data.prix = data.dimension((d)=>{return d.prix}); #}
-        {# prix_s=(data.prix).group(); #}
-        {# data.adresse_pays = data.dimension((d)=>{return d.adresse_pays}); #}
-        {# adresse_pays_s=(data.adresse_pays).group(); #}
-        {# data.adresse_ville = data.dimension((d)=>{return d.adresse_ville}); #}
-        {# adresse_ville_s=(data.adresse_ville).group(); #}
-        {# data.adresse_rue = data.dimension((d)=>{return d.adresse_rue}); #}
-        {# adresse_rue_s=(data.adresse_rue).group(); #}
-        {# data.date = data.dimension((d)=>{return new Date(d.date)}); #}
-        {# date_s=(data.date).group(); #}
-        {# data.produits = data.dimension((d)=>{return d.produits}); #}
-        {# produits_s=(data.produits).group(); #}
-        {# } catch (e){ #}
-        {# console.log(e.stack); #}
-        {# } #}
+            if(valueInf == '' && valueSupp == ''){
+                // les deux valeurs sont nules
+                // on ne fais rien dans ce cas (on pourras géré un selection par 'défaut' de base, plus tard)
+            } else if (valueInf == '' || valueSupp == ''){
+                // l'une des deux valeurs est nule
+                if(valueInf==''){
+                    valueInf=0;
+                }
+                if(valueSupp==''){
+                    valueSupp=2147483647;
+                }
+            }
+            if(valueInf>valueSupp){
+                let valueTemp=valueInf;
+                valueInf=valueSupp;
+                valueSupp=valueTemp;
+            }
+            for (const key of data){
+                if((parseInt(key.prix) < valueInf) || (parseInt(key.prix) > valueSupp)){
+                    let current = document.getElementById(("lot["+key.id+"]"));
+                    current.classList.add('hidden');
+                }
+            }
 
-        {# console.log(data.all()); #}
-        {# data.id=data.id.filter(3399); #}
-        {# updates(); #}
-        {# function updates(){ #}
-        {# id_s.all(); #}
-        {# nom_s.all(); #}
-        {# description_s.all(); #}
-        {# prix_s.all(); #}
-        {# adresse_pays_s.all(); #}
-        {# adresse_ville_s.all(); #}
-        {# adresse_rue_s.all(); #}
-        {# date_s.all(); #}
-        {# produits_s.all(); #}
-        {# } #}
-        {# console.log(data.allFiltered()); #}
-        {# function filterResult() { #}
+            function filterResultDate(){
+                let valueInf = document.getElementById('filter_priceInf').value;
+                let valueSupp = document.getElementById('filter_priceSupp').value;
 
-
-        {# } #}
+                if(valueInf === '' && valueSupp === ''){
+                    // les deux valeurs sont nules
+                    // on ne fais rien dans ce cas (on pourras géré un selection par 'défaut' de base, plus tard)
+                } else if (valueInf === '' || valueSupp === ''){
+                    // l'une des deux valeurs est nule
+                    if(valueInf===''){
+                        valueInf=0;
+                    }
+                    if(valueSupp===''){
+                        valueSupp=2147483647;
+                    }
+                }
+                if(valueInf>valueSupp){
+                    let valueTemp=valueInf;
+                    valueInf=valueSupp;
+                    valueSupp=valueTemp;
+                }
+                for (const key of data){
+                    if((parseInt(key.prix) < valueInf) || (parseInt(key.prix) > valueSupp)){
+                        let current = document.getElementById(("lot["+key.id+"]"));
+                        current.classList.add('hidden');
+                    }
+                }
+        }
     </script>
 {% endblock %}
