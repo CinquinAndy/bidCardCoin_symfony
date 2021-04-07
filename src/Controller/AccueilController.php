@@ -21,7 +21,7 @@ class AccueilController extends AbstractController
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
             'lots'=>$lots,
-            'now'=>(new DateTime('NOW'))->format('Y-m-d'),
+            'now'=>(new DateTime('NOW'))->format('Y-m-d')
         ]);
     }
 
@@ -36,7 +36,8 @@ class AccueilController extends AbstractController
         return $this->render('accueil/week.html.twig', [
             'controller_name' => 'AccueilController',
             'lots'=>$lots,
-            'numberOfWeek'=>$numberOfWeek
+            'numberOfWeek'=>$numberOfWeek,
+            'now'=>(new DateTime('NOW'))->format('Y-m-d')
         ]);
     }
 
@@ -57,7 +58,8 @@ class AccueilController extends AbstractController
             'controller_name' => 'AccueilController',
             'lots'=>$lots,
             'dateInf'=>$dateInf,
-            'dateSupp'=>$dateSupp
+            'dateSupp'=>$dateSupp,
+            'now'=>(new DateTime('NOW'))->format('Y-m-d')
         ]);
     }
 }
