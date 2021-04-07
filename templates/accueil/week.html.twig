@@ -7,39 +7,7 @@
     <div class="w-full flex justify-center text-white">
         <h1 class="text-start text-xl font-bold w-full ml-5 border-b">Dans {{ numberOfWeek }} semaine(s)</h1>
     </div>
-    <div class="bg-image w-full flex flex-wrap justify-center gap-3 py-5">
-        {% for key in lots|keys %}
-            <div class="backdrop w-10/12 md:w-1/4 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg h-auto relative">
-                <!-- header -->
-                <div class="w-8/12 mb-3 pb-3 border-b border-1 border-white">
-                    <h3 class="text-xl font-semibold text-shadow">{{ lots[key].getNom() }}</h3>
-                </div>
-                <!-- body -->
-                <div>
-                    <img src="{{ lots[key].getPhoto() }}" alt="image lot {{ lots[key].getId() }}"
-                         class="w-full h-48 object-cover mb-2">
-                    <p class="mb-3 tracking-wide text-base text-shadow">
-                        {{ lots[key].getDescription() }}
-                    </p>
-                    <p class="mb-10 tracking-wide text-base text-shadow">
-                        <i class="fas fa-map-pin mr-2"></i> : {{ lots[key].getLieuVenteLot() }}
-                    </p>
+    {{ include('accueil/_liste_fuzzy.html.twig') }}
 
-                    <p class="px-3 py-1.5 text-sm fixed right-0 top-0 font-bold">
-                        {{ lots[key].getDateVenteLot() }}
-                    </p>
-                    <p class="px-3 py-1.5 text-lg fixed right-0 top-5 font-bold">
-                        {{ lots[key].getNumberOfProducts() }} produits
-                    </p>
-                    <p class="px-3 py-1.5 text-lg fixed left-0 bottom-0 font-bold">
-                        {{ lots[key].getPrixOfProducts() }} €
-                    </p>
-                    <a href="/lot/{{ lots[key].getId() }}" class="border-l border-t border-white bg-white bg-opacity-0 px-3 py-1.5 hover:bg-opacity-10 text-lg absolute right-0 bottom-0 font-bold">
-                        Detail du lot <i class="ml-3 fas fa-chevron-right"></i>
-                    </a>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-
+    {{ include('filter/_filterLots.html.twig') }}
 {% endblock %}

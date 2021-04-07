@@ -1,0 +1,96 @@
+{# Fenetre pour filter les valeurs #}
+<div class="fixed h-3/4 w-56 backdrop left-0 bottom-5 flex justify-center items-center flex-wrap text-white shadow bg-gray-800 bg-opacity-10 rounded-r border-2 border-l-0">
+    <div class="w-full h-3/4 flex items-center items-center flex-wrap text-center">
+
+        <div class="w-full mt-2">
+            <h2 class="w-full font-bold">Entre ces deux prix :</h2>
+            <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                   type="number" id="filter_priceInf" name="filter_priceInf" placeholder="min : 0€">
+            <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                   type="number" id="filter_priceSupp" name="filter_priceSupp" placeholder="max : 500€">
+            <div class="w-full mt-2 flex justify-end items-center">
+                <button type="button" onclick="filterResultPrix()"
+                        class="bg-gray-800 bg-opacity-20 border border-grey-300 rounded bg-transparent text-center font-normal text-xs focus:outline-none filter-invert p-1 m-2">
+                    <i class="mx-2 fas fa-filter"></i>Filtrer<i class="mx-2 fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        <form class="w-full mt-2">
+            <h2 class="w-full font-bold">Entre ces deux dates :</h2>
+            <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                   type="datetime-local" id="filter_dateTimeInf" name="filter_dateTimeInf" min="{{ now }}">
+            <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                   type="datetime-local" id="filter_dateTimeSupp" name="filter_dateTimeSupp" min="{{ now }}">
+            <div class="w-full mt-2 flex justify-end items-center">
+                <button type="button" onclick="filterResultDate()"
+                        class="bg-gray-800 bg-opacity-20 border border-grey-300 rounded bg-transparent text-center font-normal text-xs focus:outline-none filter-invert p-1 m-2">
+                    <i class="mx-2 fas fa-filter"></i>Filtrer<i class="mx-2 fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+    <button type="button" onclick="resetFilterAjax()"
+            class="bg-gray-800 bg-opacity-20 border border-grey-300 rounded bg-transparent text-center font-normal text-xs focus:outline-none filter-invert p-1 m-2">
+        <i class="mx-2 fas fa-filter"></i>Reset<i class="mx-2 fas fa-chevron-right"></i>
+    </button>
+</div>
+
+{# Fenetre pour selectionner la date #}
+<div class="fixed h-1/2 w-56 backdrop right-0 flex justify-center items-center flex-wrap text-white shadow bg-gray-800 bg-opacity-10 rounded-l border-2 border-r-0">
+    <h1 class="w-full flex justify-center items-center text-center text-xl font-bold">Voir pour les lots de :</h1>
+    <a class="w-full flex justify-center items-center text-center text-white text-xl" href="/week"><span
+                class="text-base mx-auto font-bold"><i class="fas fa-calendar-week mx-2"></i>1 | La semaine prochaine</span></a>
+    <a class="w-full flex justify-center items-center text-center text-white text-xl" href="/week/2"><span
+                class="text-base mx-auto font-bold"><i class="fas fa-calendar-week mx-2"></i>2 | Dans deux semaines</span></a>
+    <a class="w-full flex justify-center items-center text-center text-white text-xl" href="/week/3"><span
+                class="text-base mx-auto font-bold"><i class="fas fa-calendar-week mx-2"></i>3 | Dans trois semaines</span></a>
+    <form class="w-full flex justify-center items-center text-center text-white text-lg font-bold flex-wrap">
+        <p class="w-full text-center flex justify-center items-center border-t pt-4">Entre ces deux dates :</p>
+        <div class="w-full mt-2">
+            <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                   type="date" id="dateInf" name="dateInf" min="{{ now }}">
+        </div>
+        <div class="w-full mt-2">
+            <input class="border border-grey-300 bg-transparent text-center font-normal text-xs focus:outline-none filter-invert"
+                   type="date" id="dateSupp" name="dateSupp" min="{{ now }}">
+        </div>
+        <div class="w-full mt-2 flex justify-end items-center">
+            <button type="button" onclick="checkValue()"
+                    class="bg-gray-800 bg-opacity-20 border border-grey-300 rounded bg-transparent text-center font-normal text-xs focus:outline-none filter-invert p-1 m-2">
+                <i class="mx-2 fas fa-calendar-check"></i>Aller voir<i class="mx-2 fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="{{ asset('js/crossfilter.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/dist/list.min.js') }}"></script>
+<script>
+    var data = [
+        {% for key in lots|keys %}
+        {
+            id: {{ lots[key].getId() }},
+            nom: "{{ lots[key].getNom() }}",
+            description: "{{ lots[key].getDescription() }}",
+            adresse_pays: "{{ lots[key].getLieuVenteLot_Pays() }}",
+            adresse_ville: "{{ lots[key].getLieuVenteLot_Ville() }}",
+            adresse_rue: "{{ lots[key].getLieuVenteLot_Rue() }}",
+            date: "{{ lots[key].getDateVenteLot() }}",
+            prix: "{{ lots[key].getPrixOfProducts() }}",
+            produits: [{
+                {% for akey in (lots[key].getProduit())|keys %}
+                id:{{ (lots[key].getProduit())[akey].getId() }},
+                nomStyle: "{{ (lots[key].getProduit())[akey].getNomStyle() }}",
+                nomProduit: "{{ (lots[key].getProduit())[akey].getNomProduit() }}",
+                referenceCatalogue: "{{ (lots[key].getProduit())[akey].getReferenceCatalogue() }}",
+                description: "{{ (lots[key].getProduit())[akey].getDescription() }}",
+                categoriesString: "{{ (lots[key].getProduit())[akey].getCategoriesString() }}",
+                prix:{{ (lots[key].getProduit())[akey].getWholePriceEstimations() }},
+                {% endfor %}
+            }]
+        },
+        {% endfor %}
+    ]
+</script>
+<script type="text/javascript" src="{{ asset('js/filter.js') }}"></script>
