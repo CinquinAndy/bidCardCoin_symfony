@@ -20,9 +20,46 @@ class ProduitController extends AbstractController
      */
     public function index(ProduitRepository $produitRepository,int $numeroPage): Response
     {
+        if($numeroPage<1){
+            $numeroPage=0;
+        }
+        $endpage = (int)((($produitRepository->findOneBy(array(),['id'=>'DESC'])->getId())/100));
         return $this->render('produit/index.html.twig', [
-
-            'produits' => $produitRepository->findAll()
+            'produits' => $produitRepository->findBy(array(),array(),100,$numeroPage*100),
+            'page'=>$numeroPage,
+            'endpage'=>$endpage,
+            'tabAttributes'=>['Id',
+                'NomArtiste',
+                'NomStyle',
+                'NomProduit',
+                'PrixReserve',
+                'ReferenceCatalogue',
+                'Description',
+                'EstEnvoyer',
+                'Photo',
+                'Actions'
+            ],
+            'route'=>$this->generateUrl('produit_index',[
+                'numeroPage'=>0
+            ]),
+            'route_m2'=>$this->generateUrl('produit_index',[
+                'numeroPage'=>$numeroPage-2
+            ]),
+            'route_m1'=>$this->generateUrl('produit_index',[
+                'numeroPage'=>$numeroPage-1
+            ]),
+            'route_p0'=>$this->generateUrl('produit_index',[
+                'numeroPage'=>$numeroPage
+            ]),
+            'route_p1'=>$this->generateUrl('produit_index',[
+                'numeroPage'=>$numeroPage+1
+            ]),
+            'route_p2'=>$this->generateUrl('produit_index',[
+                'numeroPage'=>$numeroPage+2
+            ]),
+            'route_end'=>$this->generateUrl('produit_index',[
+                'numeroPage'=>$endpage
+            ])
         ]);
     }
 

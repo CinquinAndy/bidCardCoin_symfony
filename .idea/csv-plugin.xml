@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\templates\adresse\index.html.twig">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\templates\enchere\index.html.twig">
           <value>
             <Attribute>

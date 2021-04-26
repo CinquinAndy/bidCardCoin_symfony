@@ -20,8 +20,40 @@ class EstimationController extends AbstractController
      */
     public function index(EstimationRepository $estimationRepository,int $numeroPage): Response
     {
+        if($numeroPage<1){
+            $numeroPage=0;
+        }
+        $endpage = (int)((($estimationRepository->findOneBy(array(),['id'=>'DESC'])->getId())/100));
         return $this->render('estimation/index.html.twig', [
             'estimations' => $estimationRepository->findBy(array(),array(),100,$numeroPage*100),
+            'page'=>$numeroPage,
+            'endpage'=>$endpage,
+            'tabAttributes'=>['Id',
+                'Date',
+                'Prix',
+                'Actions'
+            ],
+            'route'=>$this->generateUrl('estimation_index',[
+                'numeroPage'=>0
+            ]),
+            'route_m2'=>$this->generateUrl('estimation_index',[
+                'numeroPage'=>$numeroPage-2
+            ]),
+            'route_m1'=>$this->generateUrl('estimation_index',[
+                'numeroPage'=>$numeroPage-1
+            ]),
+            'route_p0'=>$this->generateUrl('estimation_index',[
+                'numeroPage'=>$numeroPage
+            ]),
+            'route_p1'=>$this->generateUrl('estimation_index',[
+                'numeroPage'=>$numeroPage+1
+            ]),
+            'route_p2'=>$this->generateUrl('estimation_index',[
+                'numeroPage'=>$numeroPage+2
+            ]),
+            'route_end'=>$this->generateUrl('estimation_index',[
+                'numeroPage'=>$endpage
+            ])
         ]);
     }
 

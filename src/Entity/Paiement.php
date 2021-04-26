@@ -46,6 +46,14 @@ class Paiement
 
     }
 
+    public function __toString():?string{
+        return (string)('id: ' . $this->getId() .
+            '|| typePaiement: ' . $this->getTypePaiement() .
+            '|| validationPaiement: ' . $this->getValidationPaiement());
+            //'|| user: ' . $this->getUser()->__toString() .
+            //'|| lot: ' . $this->getlot()->__toString());
+    }
+
     public function getId(): ?int
     {
         return $this->id;

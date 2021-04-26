@@ -3,19 +3,18 @@
     {% include 'formCDN.html.twig' %}
     <div class="text-center text-white w-full">
         <h1 class="text-2xl font-bold  w-full mb-5">Produit CRUD</h1>
+        {% include '/_partial/_paginate.html.twig' %}
         <table class="w-full tablesorter" id="my_table">
             <thead>
             <tr class="border-2 border-grey-300">
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Id</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">NomArtiste</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">NomStyle</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">NomProduit</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">PrixReserve</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">ReferenceCatalogue</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Description</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">EstEnvoyer</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Photo</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">actions</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                {% for attr in tabAttributes %}
+                    <th class="border-2 border-grey-300 pt-2 pb-2">
+                        <div class="flex justify-start items-center"><span
+                                    class="flex w-10/12 justify-center items-center ml-3 text-center">{{ attr }}</span>
+                            <span
+                                    class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div>
+                    </th>
+                {% endfor %}
             </tr>
             </thead>
             <tbody>
@@ -47,9 +46,11 @@
             {% endfor %}
             </tbody>
         </table>
+        {% include '/_partial/_paginate.html.twig' %}
         <div class="w-full mt-10">
             <a class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
                href="{{ path('produit_new') }}">Créer produit</a>
         </div>
     </div>
+    <script src="{{ asset('js/sortingTable.js') }}"></script>
 {% endblock %}

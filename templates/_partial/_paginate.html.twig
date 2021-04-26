@@ -1,0 +1,30 @@
+<div class="w-full flex justify-end items-center mt-10 text-white">
+    <div class="flex justify-center items-center">
+        <ul class="flex flex-wrap">
+            {% if page>1 %}
+                <li class="mx-1"><a href="{{ route }}">x</a></li>
+            {% endif %}
+            {% if endpage>(page-2) %}
+                {% if page>3 %}
+                    <li class="mx-1"><a href="{{ route_m2 }}">{{ (page-2) }}</a></li>
+                {% endif %}
+                {% if endpage>(page-1) %}
+                    {% if page>2 %}
+                        <li class="mx-1"><a href="{{ route_m1 }}">{{ (page-1) }}</a></li>
+                    {% endif %}
+                    {% if endpage>page %}
+                        <li class="mx-1 underline"><a href="{{ route_p0 }}">{{ page }}</a></li>
+                        {% if endpage>(page+1) %}
+                            <li class="mx-1"><a href="{{ route_p1 }}">{{ (page+1) }}</a></li>
+                            {% if endpage>(page+2) %}
+                                <li class="mx-1"><a href="{{ route_p2 }}">{{ (page+2) }}</a></li>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            <li class="mx-1 {% if endpage==page %}underline{% endif %}"><a
+                        href="{{ route_end }}">{{ endpage }}</a></li>
+        </ul>
+    </div>
+</div>

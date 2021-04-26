@@ -20,8 +20,39 @@ class CategorieController extends AbstractController
      */
     public function index(CategorieRepository $categorieRepository,int $numeroPage): Response
     {
+        if($numeroPage<1){
+            $numeroPage=0;
+        }
+        $endpage = (int)((($categorieRepository->findOneBy(array(),['id'=>'DESC'])->getId())/100));
         return $this->render('categorie/index.html.twig', [
             'categories' => $categorieRepository->findBy(array(),array(),100,$numeroPage*100),
+            'page'=>$numeroPage,
+            'endpage'=>$endpage,
+            'tabAttributes'=>['Id',
+                'Nom',
+                'Actions'
+            ],
+            'route'=>$this->generateUrl('categorie_index',[
+                'numeroPage'=>0
+            ]),
+            'route_m2'=>$this->generateUrl('categorie_index',[
+                'numeroPage'=>$numeroPage-2
+            ]),
+            'route_m1'=>$this->generateUrl('categorie_index',[
+                'numeroPage'=>$numeroPage-1
+            ]),
+            'route_p0'=>$this->generateUrl('categorie_index',[
+                'numeroPage'=>$numeroPage
+            ]),
+            'route_p1'=>$this->generateUrl('categorie_index',[
+                'numeroPage'=>$numeroPage+1
+            ]),
+            'route_p2'=>$this->generateUrl('categorie_index',[
+                'numeroPage'=>$numeroPage+2
+            ]),
+            'route_end'=>$this->generateUrl('categorie_index',[
+                'numeroPage'=>$endpage
+            ])
         ]);
     }
 

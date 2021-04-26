@@ -30,14 +30,16 @@ class Categorie
     private $produit;
 
 
-
     public function __construct()
     {
         $this->produit = new ArrayCollection();
     }
 
-    public function __toString(){
-        return (string)($this->getNom());
+    public function __toString(): ?string
+    {
+        return ((string)('id: ' . $this->getId() .
+            '|| nom: ' . $this->getNom()));
+            // '|| produit: ' . $this->getWholeProduit());
     }
 
     public function getId(): ?int
@@ -63,6 +65,15 @@ class Categorie
     public function getProduit(): Collection
     {
         return $this->produit;
+    }
+
+    public function getWholeProduit():string
+    {
+        $stringProduit='';
+        foreach ($this->getProduit() as $produit){
+            $stringProduit+=$produit->__toString();
+        }
+        return $stringProduit;
     }
 
     public function addProduit(Produit $produit): self

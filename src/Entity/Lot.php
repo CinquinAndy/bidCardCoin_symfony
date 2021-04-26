@@ -71,6 +71,17 @@ class Lot
         $this->user = new ArrayCollection();
     }
 
+    public function __toString():?string{
+        return (string)('id: ' . $this->getId() .
+            ' || nom: ' . $this->getNom());
+//            '|| enchere: ' . $this->getEncheres()->__toString() .
+//            '|| vente: ' . $this->getVente()->__toString() .
+//            '|| produit: ' . $this->getProduit()->__toString());
+            //'|| ordreAchats: ' . $this->getOrdreAchats()->__toString() .
+            //'|| user: ' . $this->getUser()->__toString() .
+            //'|| photo: ' . $this->getPhoto());
+    }
+
     public function getId(): ?int
     {
         return $this->id;

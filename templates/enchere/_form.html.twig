@@ -3,11 +3,20 @@
     label: false,
     attr:{'class': 'w-full flex justify-center items-center flex-wrap text-white'}
 }) }}
-    {{ form_row(form.prixProposer) }}
-    {{ form_row(form.estAdjuger) }}
-    {{ form_row(form.dateHeureVente,{
-        label: false
+    {{ form_row(form.prixProposer,{
+        label: 'Prix proposé'
     }) }}
+<div class="hidden">
+    {{ form_row(form.dateHeureVente,{
+        disabled:true
+    }) }}
+    {{ form_row(form.lot,{
+        disabled:true
+    }) }}
+    {{ form_row(form.vente,{
+        disabled:true
+    }) }}
+</div>
 <div class="w-full justify-center items-center m-3">
     <button class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow">
         {{ button_label|default('Save') }}

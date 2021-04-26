@@ -20,8 +20,41 @@ class AdresseController extends AbstractController
      */
     public function index(AdresseRepository $adresseRepository,int $numeroPage): Response
     {
+        if($numeroPage<1){
+            $numeroPage=0;
+        }
+        $endpage = (int)((($adresseRepository->findOneBy(array(),['id'=>'DESC'])->getId())/100));
         return $this->render('adresse/index.html.twig', [
             'adresses' => $adresseRepository->findBy(array(),array(),100,$numeroPage*100),
+            'page'=>$numeroPage,
+            'endpage'=>$endpage,
+            'tabAttributes'=>['Id',
+                'Pays',
+                'Ville',
+                'CodePostal',
+                'Rue',
+                'actions'],
+            'route'=>$this->generateUrl('adresse_index',[
+                'numeroPage'=>0
+            ]),
+            'route_m2'=>$this->generateUrl('adresse_index',[
+                'numeroPage'=>$numeroPage-2
+            ]),
+            'route_m1'=>$this->generateUrl('adresse_index',[
+                'numeroPage'=>$numeroPage-1
+            ]),
+            'route_p0'=>$this->generateUrl('adresse_index',[
+                'numeroPage'=>$numeroPage
+            ]),
+            'route_p1'=>$this->generateUrl('adresse_index',[
+                'numeroPage'=>$numeroPage+1
+            ]),
+            'route_p2'=>$this->generateUrl('adresse_index',[
+                'numeroPage'=>$numeroPage+2
+            ]),
+            'route_end'=>$this->generateUrl('adresse_index',[
+                'numeroPage'=>$endpage
+            ])
         ]);
     }
 
