@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Enchere;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -41,6 +42,8 @@ class EnchereType extends AbstractType
             ])
             ->add('lot')
             ->add('vente')
+//            ->add('user')
+            ->add('user')
 //            ->add('dateHeureVente', ChoiceType::class, [
 //                'choices' => [
 //                    'now' => new \DateTime('now')

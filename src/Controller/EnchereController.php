@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Enchere;
 use App\Entity\Lot;
+use App\Entity\User;
 use App\Form\EnchereType;
 use App\Repository\EnchereRepository;
 use App\Repository\LotRepository;
+use App\Repository\UserRepository;
 use App\Repository\VenteRepository;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +21,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class EnchereController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        // Avoid calling getUser() in the constructor: auth may not
+        // be complete yet. Instead, store the entire Security object.
+        $this->security = $security;
+    }
+
     /**
      * @Route("/page/{numeroPage?0}", name="enchere_index", methods={"GET"})
      */
@@ -64,25 +76,25 @@ class EnchereController extends AbstractController
     /**
      * @Route("/new/{lotId}&{venteId}", name="enchere_new", methods={"GET","POST"})
      */
-    public function new(Request $request, LotRepository $lotRepository, VenteRepository $venteRepository,int $lotId, int $venteId): Response
+    public function new(Request $request,UserRepository $userRepository, LotRepository $lotRepository, VenteRepository $venteRepository,int $lotId, int $venteId): Response
     {
+//        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $now=(new \DateTime('now'))->setTimezone(new \DateTimeZone("Europe/Paris"));
-//        $arrayDateTime = array(
-//            'year' => $now->format('Y'),
-//            'month' => (int)$now->format('m'),
-//            'day'=>$now->format('d'),
-//            'hour'=>$now->format('h'),
-//            'minute'=>$now->format('i'),
-//            'second'=>$now->format('s')
-//        );
 
         $enchere = new Enchere();
         $lot=$lotRepository->find($lotId);
         $vente=$venteRepository->find($venteId);
+        $user=array($userRepository->find(1));
+
         $form = $this->createForm(EnchereType::class, $enchere);
         $form->get('lot')->setData($lot);
         $form->get('vente')->setData($vente);
         $form->get('dateHeureVente')->setData($now);
+        $form->get('user')->setData($user);
+
+
+
 
         $form->handleRequest($request);
 
@@ -91,7 +103,7 @@ class EnchereController extends AbstractController
             $entityManager->persist($enchere);
             $entityManager->flush();
 
-            return $this->redirectToRoute('enchere_index');
+            return $this->redirectToRoute('accueil');
         }
 
         return $this->render('enchere/new.html.twig', [

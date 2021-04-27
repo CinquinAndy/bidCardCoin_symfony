@@ -16,12 +16,15 @@
     {{ form_row(form.vente,{
         disabled:true
     }) }}
+    {{ form_row(form.user,{
+
+    }) }}
+    {{ form_row(form._token) }}
 </div>
+
+
 <div class="w-full justify-center items-center m-3">
     <button class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow">
-        {{ button_label|default('Save') }}
+        {{ button_label|default('Go !') }}
     </button>
-</div>
-<div class="hidden">
-    {{ form_row(form._token) }}
 </div>
