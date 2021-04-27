@@ -65,7 +65,14 @@ class Adresse
 
     public function __toString(): ?string
     {
-        return (string)($this->getPays()." | ".$this->getVille()." | ".$this->getCodePostal()." | ".$this->getRue());
+        return (string)('id: ' . $this->getId() .
+            ' || pays: ' . $this->getPays() .
+            ' || ville: ' . $this->getVille() .
+            ' || codePostal: ' . $this->getCodePostal() .
+            ' || rue: ' . $this->getRue());
+            //'|| user: ' . $this->getUser()->__toString() .
+            //'|| stock: ' . $this->getStock()->__toString());
+            //'|| vente: ' . $this->getVente()->__toString());
     }
 
     public function getId(): ?int

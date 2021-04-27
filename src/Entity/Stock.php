@@ -36,6 +36,13 @@ class Stock
         $this->produits = new ArrayCollection();
     }
 
+    public function __toString():?string{
+        return (string)('id: ' . $this->getId() .
+            '|| description: ' . $this->getDescription());
+            //'|| adresse: ' . $this->getAdresse()->__toString() .
+            //'|| produit: ' . $this->getProduits()->__toString() .
+    }
+
     public function getId(): ?int
     {
         return $this->id;

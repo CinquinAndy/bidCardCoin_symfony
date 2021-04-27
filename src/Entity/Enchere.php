@@ -55,13 +55,21 @@ class Enchere
      */
     private $user;
 
-
-
-
     public function __construct()
     {
         $this->ordreAchat = new ArrayCollection();
         $this->user = new ArrayCollection();
+    }
+
+    public function __toString():?string{
+        return (string)('id: ' . $this->getId() .
+            '|| prixProposer: ' . $this->getPrixProposer() .
+            '|| estAdjuger: ' . $this->getEstAdjuger() .
+            '|| dateHeureVente: ' . $this->getDateHeureVente()->__toString());
+            //'|| lot: ' . $this->getLot()->__toString() .
+            //'|| vente: ' . $this->getVente()->__toString() .
+            //'|| ordreAchat: ' . $this->getOrdreAchat()->__toString() .
+            //'|| user: ' . $this->getUser()->__toString());
     }
 
     public function getId(): ?int

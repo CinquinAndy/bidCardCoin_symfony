@@ -3,13 +3,18 @@
     {% include 'formCDN.html.twig' %}
     <div class="text-center text-white w-full">
         <h1 class="text-2xl font-bold  w-full mb-5">Estimation CRUD</h1>
+        {% include '/_partial/_paginate.html.twig' %}
         <table class="w-full tablesorter" id="my_table">
             <thead>
             <tr class="border-2 border-grey-300">
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Id</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Date</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">Prix</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
-                <th class="border-2 border-grey-300 pt-2 pb-2"><div class="flex justify-start items-center"><span class="flex w-10/12 justify-center items-center ml-3 text-center">actions</span> <span class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div></th>
+                {% for attr in tabAttributes %}
+                    <th class="border-2 border-grey-300 pt-2 pb-2">
+                        <div class="flex justify-start items-center"><span
+                                    class="flex w-10/12 justify-center items-center ml-3 text-center">{{ attr }}</span>
+                            <span
+                                    class=" flex justify-end items-center mr-3"><i class="fas fa-sort"></i></span></div>
+                    </th>
+                {% endfor %}
             </tr>
             </thead>
             <tbody>
@@ -21,7 +26,8 @@
                     <td class="border-2 border-grey-300 pt-2 pb-2">
                         <div class="flex justify-center items-center">
                             <a class="justify-center items-center text-center text-white mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
-                               href="{{ path('estimation_show', {'id': estimation.id}) }}"><i class="fas fa-eye"></i></a>
+                               href="{{ path('estimation_show', {'id': estimation.id}) }}"><i
+                                        class="fas fa-eye"></i></a>
                             <a class="justify-center items-center text-center text-white ml-2 mr-2 bg-white bg-opacity-10 rounded-full p-1.5 border border-white"
                                href="{{ path('estimation_edit', {'id': estimation.id}) }}"><i class="fas fa-wrench"></i></a>
                             {{ include('estimation/_delete_form.html.twig') }}
@@ -35,9 +41,11 @@
             {% endfor %}
             </tbody>
         </table>
+        {% include '/_partial/_paginate.html.twig' %}
         <div class="w-full mt-10">
             <a class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow"
                href="{{ path('estimation_new') }}">Créer estimation</a>
         </div>
     </div>
+    <script src="{{ asset('js/sortingTable.js') }}"></script>
 {% endblock %}

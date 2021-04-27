@@ -20,8 +20,39 @@ class VenteController extends AbstractController
      */
     public function index(VenteRepository $venteRepository,int $numeroPage): Response
     {
+        if($numeroPage<1){
+            $numeroPage=0;
+        }
+        $endpage = (int)((($venteRepository->findOneBy(array(),['id'=>'DESC'])->getId())/100));
         return $this->render('vente/index.html.twig', [
             'ventes' => $venteRepository->findBy(array(),array(),100,$numeroPage*100),
+            'page'=>$numeroPage,
+            'endpage'=>$endpage,
+            'tabAttributes'=>['Id',
+                'DateDebut',
+                'Actions'
+            ],
+            'route'=>$this->generateUrl('vente_index',[
+                'numeroPage'=>0
+            ]),
+            'route_m2'=>$this->generateUrl('vente_index',[
+                'numeroPage'=>$numeroPage-2
+            ]),
+            'route_m1'=>$this->generateUrl('vente_index',[
+                'numeroPage'=>$numeroPage-1
+            ]),
+            'route_p0'=>$this->generateUrl('vente_index',[
+                'numeroPage'=>$numeroPage
+            ]),
+            'route_p1'=>$this->generateUrl('vente_index',[
+                'numeroPage'=>$numeroPage+1
+            ]),
+            'route_p2'=>$this->generateUrl('vente_index',[
+                'numeroPage'=>$numeroPage+2
+            ]),
+            'route_end'=>$this->generateUrl('vente_index',[
+                'numeroPage'=>$endpage
+            ])
         ]);
     }
 

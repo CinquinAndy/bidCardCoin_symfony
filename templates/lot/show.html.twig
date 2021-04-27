@@ -1,31 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-
-    {# <table class="w-full"> #}
-    {# <tbody> #}
-    {# <tr> #}
-    {# <th class="border-2 border-grey-300 pt-2 pb-2">Id</th> #}
-    {# <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.id }}</td> #}
-    {# </tr> #}
-    {# <tr> #}
-    {# <th class="border-2 border-grey-300 pt-2 pb-2">Nom</th> #}
-    {# <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.nom }}</td> #}
-    {# </tr> #}
-    {# <tr> #}
-    {# <th class="border-2 border-grey-300 pt-2 pb-2">Description</th> #}
-    {# <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.description }}</td> #}
-    {# </tr> #}
-    {# <tr> #}
-    {# <th class="border-2 border-grey-300 pt-2 pb-2">Photo</th> #}
-    {# <td class="border-2 border-grey-300 pt-2 pb-2">{{ lot.photo }}</td> #}
-    {# </tr> #}
-    {# </tbody> #}
-    {# </table> #}
-
-
-    <div class="w-full flex justify-center text-white">
+    <div class="w-full flex justify-center text-white relative">
         <h1 class="text-start text-xl font-bold w-full ml-5 border-b">Lot n°{{ lot.id() }}</h1>
+        <a href="/enchere/new/{{ lot.id() }}&{{ venteId }}" class="absolute right-0 top-0 mt-10 mr-10 bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow">Encherir</a>
     </div>
     <div class="bg-image w-full flex flex-wrap justify-center gap-3 py-5">
         <div class="backdrop w-10/12 md:w-1/2 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg h-auto relative">

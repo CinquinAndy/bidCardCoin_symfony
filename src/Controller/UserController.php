@@ -20,8 +20,50 @@ class UserController extends AbstractController
      */
     public function index(UserRepository $userRepository,int $numeroPage): Response
     {
+        if($numeroPage<1){
+            $numeroPage=0;
+        }
+        $endpage = (int)((($userRepository->findOneBy(array(),['id'=>'DESC'])->getId())/100));
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findBy(array(),array(),100,$numeroPage*100),
+            'page'=>$numeroPage,
+            'endpage'=>$endpage,
+            'tabAttributes'=>['Id',
+                'Email',
+                'Roles',
+                'Nom',
+                'Prenom',
+                'Age',
+                'NumeroMobile',
+                'NumeroFixe',
+                'VerifSolvabilite',
+                'VerifIdentite',
+                'VerifRessortissant',
+                'EstCommissairePriseur',
+                'ListeMotCle',
+                'Actions'
+            ],
+            'route'=>$this->generateUrl('user_index',[
+                'numeroPage'=>0
+            ]),
+            'route_m2'=>$this->generateUrl('user_index',[
+                'numeroPage'=>$numeroPage-2
+            ]),
+            'route_m1'=>$this->generateUrl('user_index',[
+                'numeroPage'=>$numeroPage-1
+            ]),
+            'route_p0'=>$this->generateUrl('user_index',[
+                'numeroPage'=>$numeroPage
+            ]),
+            'route_p1'=>$this->generateUrl('user_index',[
+                'numeroPage'=>$numeroPage+1
+            ]),
+            'route_p2'=>$this->generateUrl('user_index',[
+                'numeroPage'=>$numeroPage+2
+            ]),
+            'route_end'=>$this->generateUrl('user_index',[
+                'numeroPage'=>$endpage
+            ])
         ]);
     }
 

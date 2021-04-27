@@ -86,6 +86,22 @@ class Produit
         $this->estimations = new ArrayCollection();
     }
 
+    public function __toString():?string{
+        return (string)('id: ' . $this->getId() .
+            '|| nomArtiste: ' . $this->getNomArtiste() .
+            '|| nomStyle: ' . $this->getNomStyle() .
+            '|| nomProduit: ' . $this->getNomProduit() .
+            '|| prixReserve: ' . $this->getPrixReserve() .
+            '|| referenceCatalogue: ' . $this->getReferenceCatalogue() .
+            '|| description: ' . $this->getDescription() .
+            '|| estEnvoyer: ' . $this->getEstEnvoyer() .
+            '|| photo: ' . $this->getPhoto());
+    }
+    //'|| roles'
+    //'|| categories: ' . $this->getWholeCategories() .
+    //'|| estimations: ' . $this->getEstimations()->__toString() .
+    //'|| lot: ' . $this->getLot()->__toString() .
+    //'|| stock: ' . $this->getStock()->__toString() .
     public function getId(): ?int
     {
         return $this->id;
@@ -181,6 +197,14 @@ class Produit
     public function getCategories(): Collection
     {
         return $this->categories;
+    }
+
+    public function getWholeCategories(): string{
+        $stringCategorie='';
+        foreach ($this->getCategories() as $categorie){
+            $stringCategorie+=$categorie->__toString();
+        }
+        return $stringCategorie;
     }
 
     public function addCategory(Categorie $category): self

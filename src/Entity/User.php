@@ -125,7 +125,26 @@ class User implements UserInterface
     }
 
     public function __toString(){
-        return (string)($this->getNom());
+        return (string)('id: ' . $this->getId() .
+            '|| email: ' . $this->getEmail() .
+            '|| username: ' . $this->getUsername() .
+//            '|| password: ' . $this->getPassword() .
+            '|| nom: ' . $this->getNom() .
+            '|| prenom: ' . $this->getPrenom() .
+            '|| age: ' . $this->getAge() .
+            '|| numeroMobile: ' . $this->getNumeroMobile() .
+            '|| numeroFixe: ' . $this->getNumeroFixe() .
+            '|| verifSolvabilite: ' . $this->getVerifSolvabilite() .
+            '|| verifIdentite: ' . $this->getVerifIdentite() .
+            '|| verifRessortissant: ' . $this->getVerifRessortissant() .
+            '|| estCommissairePriseur: ' . $this->getEstCommissairePriseur() .
+            '|| listeMotCle: ' . $this->getListeMotCle());
+            //'|| salt: ' . $this->getSalt() .
+            //'|| adresses: ' . $this->getAdresses()->__toString() .
+            //'|| encheres: ' . $this->getEncheres()->__toString() .
+            //'|| ordreAchats: ' . $this->getOrdreAchats()->__toString() .
+            //'|| paiements: ' . $this->getPaiements()->__toString() .
+            //'|| lots: ' . $this->getLots()->__toString());
     }
 
     public function getId(): ?int

@@ -20,8 +20,41 @@ class LotController extends AbstractController
      */
     public function index(LotRepository $lotRepository,int $numeroPage): Response
     {
+        if($numeroPage<1){
+            $numeroPage=0;
+        }
+        $endpage = (int)((($lotRepository->findOneBy(array(),['id'=>'DESC'])->getId())/100));
         return $this->render('lot/index.html.twig', [
             'lots' => $lotRepository->findBy(array(),array(),100,$numeroPage*100),
+            'page'=>$numeroPage,
+            'endpage'=>$endpage,
+            'tabAttributes'=>['Id',
+                'Nom',
+                'Description',
+                'Photo',
+                'Actions'
+            ],
+            'route'=>$this->generateUrl('lot_index',[
+                'numeroPage'=>0
+            ]),
+            'route_m2'=>$this->generateUrl('lot_index',[
+                'numeroPage'=>$numeroPage-2
+            ]),
+            'route_m1'=>$this->generateUrl('lot_index',[
+                'numeroPage'=>$numeroPage-1
+            ]),
+            'route_p0'=>$this->generateUrl('lot_index',[
+                'numeroPage'=>$numeroPage
+            ]),
+            'route_p1'=>$this->generateUrl('lot_index',[
+                'numeroPage'=>$numeroPage+1
+            ]),
+            'route_p2'=>$this->generateUrl('lot_index',[
+                'numeroPage'=>$numeroPage+2
+            ]),
+            'route_end'=>$this->generateUrl('lot_index',[
+                'numeroPage'=>$endpage
+            ])
         ]);
     }
 
@@ -60,6 +93,7 @@ class LotController extends AbstractController
         return $this->render('lot/show.html.twig', [
             'lot' => $lot,
             'produitTab'=>$produitTab,
+            'venteId'=>$lot->getVente()->getId()
         ]);
     }
 

@@ -20,8 +20,41 @@ class OrdreAchatController extends AbstractController
      */
     public function index(OrdreAchatRepository $ordreAchatRepository,int $numeroPage): Response
     {
+        if($numeroPage<1){
+            $numeroPage=0;
+        }
+        $endpage= (int)((($ordreAchatRepository->findOneBy(array(),['id'=>'DESC'])->getId())/100));
         return $this->render('ordre_achat/index.html.twig', [
             'ordre_achats' => $ordreAchatRepository->findBy(array(),array(),100,$numeroPage*100),
+            'page'=>$numeroPage,
+            'endpage'=>$endpage,
+            'tabAttributes'=>['Id',
+                'Autobot',
+                'MontantMax',
+                'DateCreation',
+                'Actions'
+            ],
+            'route'=>$this->generateUrl('ordre_achat_index',[
+                'numeroPage'=>0
+            ]),
+            'route_m2'=>$this->generateUrl('ordre_achat_index',[
+                'numeroPage'=>$numeroPage-2
+            ]),
+            'route_m1'=>$this->generateUrl('ordre_achat_index',[
+                'numeroPage'=>$numeroPage-1
+            ]),
+            'route_p0'=>$this->generateUrl('ordre_achat_index',[
+                'numeroPage'=>$numeroPage
+            ]),
+            'route_p1'=>$this->generateUrl('ordre_achat_index',[
+                'numeroPage'=>$numeroPage+1
+            ]),
+            'route_p2'=>$this->generateUrl('ordre_achat_index',[
+                'numeroPage'=>$numeroPage+2
+            ]),
+            'route_end'=>$this->generateUrl('ordre_achat_index',[
+                'numeroPage'=>$endpage
+            ])
         ]);
     }
 
