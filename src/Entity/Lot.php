@@ -343,4 +343,14 @@ class Lot
         }
         return $stringReturnListeId;
     }
+
+    public function getBiggestEnchere() : ?float{
+        $value=0;
+        foreach ($this->getEncheres() as $enchere) {
+            if ($enchere->getPrixProposer() > $value){
+                $value=$enchere->getPrixProposer();
+            }
+        }
+        return $value;
+    }
 }

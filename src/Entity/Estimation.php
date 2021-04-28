@@ -39,8 +39,8 @@ class Estimation
 
     public function __toString():?string{
         return (string)('id: ' . $this->getId() .
-            '|| date: ' . $this->getDate()->__toString() .
             '|| prix: ' . $this->getPrix());
+//            '|| date: ' . $this->getDate()->__toString());
             //'|| user: ' . $this->getUser()->__toString() .
             //'|| produit: ' . $this->getProduit()->__toString());
     }

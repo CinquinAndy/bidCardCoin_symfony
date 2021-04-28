@@ -94,16 +94,17 @@ class EnchereController extends AbstractController
         $form->get('user')->setData($user);
 
 
-
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $lot->addEnchere($enchere);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($enchere);
             $entityManager->flush();
 
-            return $this->redirectToRoute('accueil');
+
+            return $this->redirectToRoute('lot_show',['id'=>$lotId]);
         }
 
         return $this->render('enchere/new.html.twig', [

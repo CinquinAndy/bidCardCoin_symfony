@@ -9,18 +9,19 @@
     {{ form_row(form.prixReserve) }}
     {{ form_row(form.referenceCatalogue) }}
     {{ form_row(form.description) }}
-    {{ form_row(form.estEnvoyer) }}
-    {{ form_row(form.categorieProduit) }}
-    {{ form_row(form.stockProduit) }}
-    {{ form_row(form.UserProduit) }}
-    {{ form_row(form.enchereGagnante) }}
-    {{ form_row(form.produit) }}
-    {{ form_row(form.lotProduit) }}
+{#    {{ form_row(form.estEnvoyer) }}#}
+    {{ form_row(form.categories) }}
+    {{ form_row(form.lot) }}
+    {{ form_row(form.photo) }}
+
+
+<div class="hidden">
+    {{ form_row(form._token) }}
+</div>
+{#{{ form_rest(form) }}#}
 <div class="w-full justify-center items-center m-3">
     <button class="bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow">
         {{ button_label|default('Save') }}
     </button>
 </div>
-<div class="hidden">
-    {{ form_row(form._token) }}
-</div>
+

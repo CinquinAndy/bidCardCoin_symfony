@@ -1,6 +1,0 @@
-
-F	php:S1481"-Remove this unused "$product" local variable.(µ¶Ù8¼ãëµˆ/
-G	php:S1066"/Merge this if statement with the enclosing one.(Œƒ‘Ûÿÿÿÿÿ
-G	php:S1066"/Merge this if statement with the enclosing one.(ØÝ×ÿþÿÿÿÿ
-G	php:S1066"/Merge this if statement with the enclosing one.(ž‡Æóüÿÿÿÿ
-y	php:S1448"_Class "Lot" has 35 methods, which is greater than 20 authorized. Split it into smaller classes.(™¹÷à8¼ãëµˆ/
