@@ -3,7 +3,8 @@
 
     <div class="w-full flex justify-center text-white relative">
         <h1 class="text-start text-xl font-bold w-full ml-5 border-b">Lot n°{{ lot.id() }}</h1>
-        <a href="/enchere/new/{{ lot.id() }}&{{ venteId }}" class="absolute right-0 top-0 mt-10 mr-10 bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow">Encherir</a>
+        <a href="/enchere/new/{{ lot.id() }}&{{ venteId }}" class="absolute right-0 top-0 mt-20 mr-10 bg-bcc-green p-3 w-32 justify-center items-center text-center text-xs text-white rounded shadow">Encherir</a>
+        <p class="absolute right-0 top-0 mt-10 mr-10 p-3 justify-center items-center text-center text-xs text-white">Dernière enchère : {{ enchereValue }}€</p>
     </div>
     <div class="bg-image w-full flex flex-wrap justify-center gap-3 py-5">
         <div class="backdrop w-10/12 md:w-1/2 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg h-auto relative">

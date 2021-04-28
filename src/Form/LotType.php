@@ -15,7 +15,8 @@ class LotType extends AbstractType
             ->add('nom')
             ->add('description')
             ->add('photo')
-            //->add('paiement')
+            ->add('vente')
+            ->add('produit')
         ;
     }
 

@@ -19,12 +19,12 @@ class ProduitType extends AbstractType
             ->add('referenceCatalogue')
             ->add('description')
             ->add('estEnvoyer')
-            ->add('lotProduit')
-            ->add('UserProduit')
-            ->add('enchereGagnante')
-            ->add('categorieProduit')
-            ->add('stockProduit')
+            ->add('categories')
+            ->add('estimations')
+            ->add('lot')
+            ->add('stock')
             ->add('photo')
+
         ;
     }
 

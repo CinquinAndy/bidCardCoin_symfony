@@ -1,8 +1,6 @@
 
 T
 $src/Repository/ProduitRepository.php,c\6\c63428115585b049b3d21a79f80e44a11e2b88fb
-O
-templates/produit/new.html.twig,1\b\1bcb1cd51dfab93ca97fd7e0e69e42d4e7e3f406
 P
  templates/produit/edit.html.twig,1\4\14729013ba068a31e3b1606a175767f9c394c2ee
 X
@@ -41,14 +39,10 @@ R
 "src/Controller/VenteController.php,8\7\8734a446db396ca0535facf9da6e0a49b9021d57
 F
 src/Entity/Adresse.php,7\1\714d6686c2bcd129af55ecf95c160ccdaa1923fd
-F
-src/Entity/Produit.php,b\b\bbc36b69a3c761f9a529b5045c224102d2793bd9
 D
 src/Entity/Stock.php,6\4\64f5daca5a8c8ffe44cb0afeef492a4ceada485f
 K
 src/Form/EstimationType.php,4\8\48e22988340e99b049a9dcae1dfe96c3eed5cdc4
-H
-src/Form/ProduitType.php,f\3\f34e70695efe27e6a5cdba988de5ea7136cba7f1
 S
 #templates/categorie/index.html.twig,a\5\a5f204b9ada821eb832b6f37ae40bf0d493f413e
 [
@@ -63,42 +57,24 @@ R
 "templates/estimation/new.html.twig,8\5\85a1835894e463187b26fbf43f2bda01f848d722
 S
 #templates/estimation/show.html.twig,d\7\d725430dd8173c5641a0c5b969e78712d63b6595
-M
-templates/lot/index.html.twig,3\1\310c007e751d7aa820ddd8c50b261e1d8f27eb17
 U
 %templates/ordre_achat/index.html.twig,3\0\302b3442a05782422003e35863de1d4c8df8f3e0
 R
 "templates/paiement/index.html.twig,d\9\d934f11767d50d4d8aede29b5926bb84ad79cc09
-Q
-!templates/produit/_form.html.twig,c\c\cc52dbedb56b08cbe98c9e98f5c3a97841fb7f8b
-Q
-!templates/produit/index.html.twig,d\f\dfba39658647feada3e983fe3297293ec6acb77b
-P
- templates/produit/show.html.twig,c\6\c63f3ab48801ac2af102be5861e44ce9fb7d03f6
 R
 "templates/security/login.html.twig,8\9\89d5f9595fc54c90b0c2626c3e5e07e23a679864
 O
 templates/stock/index.html.twig,b\6\b60d54e696cb1ca39b43f97e916063acb01c131f
-N
-templates/user/_form.html.twig,2\9\29198098962e7f33c221162e2ae8ae32900e11aa
 O
 templates/vente/index.html.twig,6\a\6a99d66e520d4a0f32f4fc602389dff0aa054e01
 J
 templates/footer.html.twig,9\a\9aa57ee5ed5f0d8d811687d7a8de1dd2bc5a953f
-K
-templates/formCDN.html.twig,a\3\a3140d64aefc66f88f76e0b61539974cd223a5d2
-J
-templates/header.html.twig,f\7\f711c6f913caefc223716af345b5a7912cfa4c1f
 =
 composer.json,3\9\3957b91a0d8450cea0115cfd5af69eac90d75897
 =
 composer.lock,c\3\c3262e2a0879195bd6a727e90f768bc85ad79ffd
 <
 symfony.lock,e\1\e17766cca3407ba620a8cef1c14d37208a74e8a4
-M
-templates/user/edit.html.twig,5\f\5ffff80b6da656e78261bf85eddb09fec0c7a56c
-N
-templates/user/index.html.twig,4\3\43dc2f388a072ee1388ad42012d3bdcbc01c3a41
 H
 src/Form/AdresseType.php,8\d\8dd09dc3cb033eb40f7fc03bd0ce0a8e57fd7202
 J
@@ -107,8 +83,6 @@ T
 $src/Repository/AdresseRepository.php,a\2\a2765d58b63859addd6476515bce771af01704ba
 H
 public/css/bcc_theme.css,c\4\c482f29d57febcb22a0457f2710b853572ffc209
-B
-src/Entity/Lot.php,7\f\7f6ff7df862b10d7ba2c2d97e74d7bcc41529c57
 Q
 !templates/accueil/index.html.twig,f\a\fa81ccee5ac26ace64c2fb141152557053b33e50
 E
@@ -129,10 +103,6 @@ R
 "templates/paiement/_form.html.twig,3\8\38367c88009fe4204ebf1de73942c6672c54e8e4
 O
 templates/stock/_form.html.twig,6\6\66aaedb0aa4576c7d909e5463aa50659376bfb1d
-O
-templates/vente/_form.html.twig,2\8\28fb131d9f8273b54ee11d213bbf5a2aa0848856
-M
-templates/lot/_form.html.twig,a\8\a86be2a3b702229055035174e54c5b6a60e9dd03
 H
 src/Entity/Categorie.php,2\a\2abee1e33e04f2b852dbc64abffad670df092eac
 U
@@ -149,8 +119,6 @@ X
 (templates/accueil/_liste_fuzzy.html.twig,b\3\b3cf8f7a65e9ba5d6d77558864a0779960852577
 I
 public/js/sortingTable.js,4\7\47d32e807cde343b6332eaba042f5fff5feba542
-K
-templates/lot/new.html.twig,8\f\8fc08841d8bed1304221e827cc4b21f1931664e0
 N
 templates/vente/edit.html.twig,d\5\d55b920812835e9d12a7f0ea326793ebc3398f38
 N
@@ -160,20 +128,50 @@ H
 X
 (src/Controller/PannelAdminController.php,e\3\e3de151c91e91cc440077a62ae68206000ec326e
 I
-src/Entity/Estimation.php,b\9\b9520d412ecc3fbeb8ac0e61e9b1d5a9db8b0691
-I
 src/Entity/OrdreAchat.php,8\7\870169b029cd86cdd5336e77274fc818c5b87d1a
 G
 src/Entity/Paiement.php,5\3\531d1ce9be0c4c35ee9c31f6ffce4cd02ed80122
-D
-src/Entity/Vente.php,3\f\3f0ffdd7c5a2b372d977de53dba81e5a9a8c8d64
 B
 config/routes.yaml,b\a\baef02989dedf0ec859f7bce087a69f29bef2b72
 D
 config/services.yaml,8\7\87042d1f46b57381244d70e7a42feeb7710727dc
 @
 public/index.php,0\e\0e61f67641b441bb3ee38e903c594d99cafa14b4
-D
-src/Form/LotType.php,f\4\f492a4eb07cbfed97ca41318e55fa929e125314d
 V
 &templates/_partial/_paginate.html.twig,0\8\0877d31c90e2bc3f346f500778fd3903e629becf
+Q
+!templates/adresse/_form.html.twig,9\c\9c136c5f04c783d3a41b590d0eceb34fd9b87f02
+P
+ templates/enchere/edit.html.twig,4\9\49ab567dc22776a53466f95980442dc6c383aaa6
+M
+config/packages/security.yaml,c\5\c5f941b4d4e9404f23935164fabdd261abb68e93
+T
+$src/Controller/AccueilController.php,4\f\4fca059e6d922de719abe2b69812eb6743d3f1a3
+Y
+)src/Controller/RegistrationController.php,b\6\b6a5dce1eac6107738aa6c9b363b605aa2315b2c
+U
+%src/Controller/SecurityController.php,7\c\7cc876ecdb4df676c79a6188e9f3ac45e5079434
+R
+"src/Controller/StockController.php,3\d\3d7d77310041bd7dd026f43b9160fc22441904b8
+Q
+!src/Controller/UserController.php,8\7\87b99206717ccce222f05190f36b6273e3ea6228
+U
+%src/Security/BccAuthAuthenticator.php,e\b\ebd904ecc2a9c7d5c99d80e31ff5ce821efb3b59
+P
+ src/Repository/LotRepository.php,8\e\8e8840890569d07f4abfb0ed1d2e269167fe9255
+Q
+!templates/adresse/index.html.twig,4\8\48f577901c2478196aae3368274db78a1883df40
+O
+templates/adresse/new.html.twig,c\4\c4dff9a135c120d4c6539ee4c6b634d057035f79
+P
+ templates/adresse/show.html.twig,d\7\d72b2f6b738693c788e02893ec89ac9c4c6c2296
+T
+$src/Repository/EnchereRepository.php,c\3\c309a0a5526785105e4a5527679a1b91c697bc76
+E
+src/Form/UserType.php,6\c\6c2442a67dda9c3193b965c65ce788acf9b5ecaf
+C
+src/Entity/User.php,0\a\0a3e99b9da178509aeb5b3fa6f5dce46bc0eb8be
+Q
+!src/Repository/UserRepository.php,9\4\943a623b5e2fd95ea78f6287fc600a6f8e0a5235
+H
+src/Form/EnchereType.php,e\7\e7bd3b2b679698c87a934400f72a75d8e670f2ad

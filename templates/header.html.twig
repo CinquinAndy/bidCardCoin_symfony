@@ -60,7 +60,7 @@
                 {% if app.user %}
                     <a href="{{ path('app_login') }}"
                        class="text-2xl hover:text-gray-100 hover:text-xl transition delay-300 duration-300 ease-in-out">
-                        <span class="text-sm text-white h-full flex justify-center items-center mr-2">Login</span>
+                        <span class="text-sm text-white h-full flex justify-center items-center mr-2">Profil</span>
                         <i class="fas fa-user"></i>
                     </a>
                     <a href="{{ path('app_logout') }}"
@@ -79,6 +79,12 @@
         </ul>
         <nav class="bg-gray-800">
             <ul class="h-full w-full flex justify-evenly items-center text-sm text-white flex-wrap">
+                <a href="/produit/new/" class="h-full p-2 flex justify-center items-center">
+                    <li>créer un produit</li>
+                </a>
+                <a href="/lot/new/" class="h-full p-2 flex justify-center items-center">
+                    <li>créer un lot</li>
+                </a>
                 <a href="/adresse/page/" class="h-full p-2 flex justify-center items-center">
                     <li>adresse</li>
                 </a>

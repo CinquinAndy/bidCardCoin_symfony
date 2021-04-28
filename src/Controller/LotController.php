@@ -93,7 +93,8 @@ class LotController extends AbstractController
         return $this->render('lot/show.html.twig', [
             'lot' => $lot,
             'produitTab'=>$produitTab,
-            'venteId'=>$lot->getVente()->getId()
+            'venteId'=>$lot->getVente()->getId(),
+            'enchereValue'=>$lot->getBiggestEnchere()
         ]);
     }
 

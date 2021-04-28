@@ -1,0 +1,9 @@
+
+B	php:S11100"!Remove these useless parentheses.(å‰æîüÿÿÿÿ8ª´×Ø†/
+B	php:S1110C"!Remove these useless parentheses.(˜Ïšüÿÿÿÿ8ª´×Ø†/
+B	php:S1110F"!Remove these useless parentheses.(˜Ïšüÿÿÿÿ8ª´×Ø†/
+=	php:S1110V"!Remove these useless parentheses.(ÜÊ‰µ8ª´×Ø†/
+=	php:S1110V"!Remove these useless parentheses.(ÜÊ‰µ8ª´×Ø†/
+g	php:S1192""LDefine a constant instead of duplicating this literal "v.dateDebut" 7 times.(ï¡Ã8ª´×Ø†/
+n	php:S1192!"MDefine a constant instead of duplicating this literal "v.id=l.vente" 4 times.(¼ÛùÄıÿÿÿÿ8ª´×Ø†/
+m	php:S11920"LDefine a constant instead of duplicating this literal "Y-m-d H:i:s" 6 times.(å‰æîüÿÿÿÿ8ª´×Ø†/
