@@ -37,12 +37,13 @@ class Estimation
      */
     private $produit;
 
-    public function __toString():?string{
+    public function __toString()
+    {
         return (string)('id: ' . $this->getId() .
             '|| prix: ' . $this->getPrix());
 //            '|| date: ' . $this->getDate()->__toString());
-            //'|| user: ' . $this->getUser()->__toString() .
-            //'|| produit: ' . $this->getProduit()->__toString());
+        //'|| user: ' . $this->getUser()->__toString() .
+        //'|| produit: ' . $this->getProduit()->__toString());
     }
 
     public function getId(): ?int

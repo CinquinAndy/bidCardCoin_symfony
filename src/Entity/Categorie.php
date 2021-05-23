@@ -35,11 +35,11 @@ class Categorie
         $this->produit = new ArrayCollection();
     }
 
-    public function __toString(): ?string
+    public function __toString()
     {
         return ((string)('id: ' . $this->getId() .
             '|| nom: ' . $this->getNom()));
-            // '|| produit: ' . $this->getWholeProduit());
+        // '|| produit: ' . $this->getWholeProduit());
     }
 
     public function getId(): ?int
@@ -67,11 +67,11 @@ class Categorie
         return $this->produit;
     }
 
-    public function getWholeProduit():string
+    public function getWholeProduit(): string
     {
-        $stringProduit='';
-        foreach ($this->getProduit() as $produit){
-            $stringProduit+=$produit->__toString();
+        $stringProduit = '';
+        foreach ($this->getProduit() as $produit) {
+            $stringProduit += $produit->__toString();
         }
         return $stringProduit;
     }

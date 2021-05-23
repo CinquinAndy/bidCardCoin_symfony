@@ -40,18 +40,18 @@ class Paiement
     private $lot;
 
 
-
     public function __construct()
     {
 
     }
 
-    public function __toString():?string{
+    public function __toString()
+    {
         return (string)('id: ' . $this->getId() .
             '|| typePaiement: ' . $this->getTypePaiement() .
             '|| validationPaiement: ' . $this->getValidationPaiement());
-            //'|| user: ' . $this->getUser()->__toString() .
-            //'|| lot: ' . $this->getlot()->__toString());
+        //'|| user: ' . $this->getUser()->__toString() .
+        //'|| lot: ' . $this->getlot()->__toString());
     }
 
     public function getId(): ?int

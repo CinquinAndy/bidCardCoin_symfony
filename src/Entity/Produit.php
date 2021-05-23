@@ -86,7 +86,8 @@ class Produit
         $this->estimations = new ArrayCollection();
     }
 
-    public function __toString():?string{
+    public function __toString()
+    {
         return (string)('id: ' . $this->getId() .
             '|| nomArtiste: ' . $this->getNomArtiste() .
             '|| nomStyle: ' . $this->getNomStyle() .
@@ -199,10 +200,11 @@ class Produit
         return $this->categories;
     }
 
-    public function getWholeCategories(): string{
-        $stringCategorie='';
-        foreach ($this->getCategories() as $categorie){
-            $stringCategorie+=$categorie->__toString();
+    public function getWholeCategories(): string
+    {
+        $stringCategorie = '';
+        foreach ($this->getCategories() as $categorie) {
+            $stringCategorie += $categorie->__toString();
         }
         return $stringCategorie;
     }
@@ -296,30 +298,30 @@ class Produit
     {
         // pour le prix d'un produit, on fais la moyenne des estimations, ou on récupére le prix de reserve minimum
         // d'un produit
-        $total=0;
-        $i=0;
-        foreach ($this->estimations as $estimate){
+        $total = 0;
+        $i = 0;
+        foreach ($this->estimations as $estimate) {
             $i++;
-            $total+=$estimate->getPrix();
+            $total += $estimate->getPrix();
         }
-        if($total>0){
-            $total/=$i;
-        }else{
-            $total=$this->getPrixReserve();
+        if ($total > 0) {
+            $total /= $i;
+        } else {
+            $total = $this->getPrixReserve();
         }
 
         return $total;
     }
 
-    public function getCategoriesString():?string
+    public function getCategoriesString(): ?string
     {
-        $stringCategorie="";
-        $i=0;
-        foreach($this->categories as $category){
-            if($i===0){
-                $stringCategorie.=$category->getNom();
-            } else{
-                $stringCategorie.=";".$category->getNom();
+        $stringCategorie = "";
+        $i = 0;
+        foreach ($this->categories as $category) {
+            if ($i === 0) {
+                $stringCategorie .= $category->getNom();
+            } else {
+                $stringCategorie .= ";" . $category->getNom();
             }
             $i++;
         }

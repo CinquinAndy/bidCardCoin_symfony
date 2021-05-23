@@ -71,21 +71,23 @@ class Lot
         $this->user = new ArrayCollection();
     }
 
-    public function __toString():?string{
+    public function __toString()
+    {
         return (string)('id: ' . $this->getId() .
             ' || nom: ' . $this->getNom());
 //            '|| enchere: ' . $this->getEncheres()->__toString() .
 //            '|| vente: ' . $this->getVente()->__toString() .
 //            '|| produit: ' . $this->getProduit()->__toString());
-            //'|| ordreAchats: ' . $this->getOrdreAchats()->__toString() .
-            //'|| user: ' . $this->getUser()->__toString() .
-            //'|| photo: ' . $this->getPhoto());
+        //'|| ordreAchats: ' . $this->getOrdreAchats()->__toString() .
+        //'|| user: ' . $this->getUser()->__toString() .
+        //'|| photo: ' . $this->getPhoto());
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
     public function getIdString(): ?string
     {
         return (string)$this->id;
@@ -170,9 +172,9 @@ class Lot
      */
     public function getProduitArray(): array
     {
-        $arrayProduit=[];
+        $arrayProduit = [];
         foreach ($this->produit as $produit) {
-               $arrayProduit[] += $produit;
+            $arrayProduit[] += $produit;
         }
         return $arrayProduit;
     }
@@ -253,46 +255,49 @@ class Lot
         return $this;
     }
 
-    public function getNumberOfProducts():?int
+    public function getNumberOfProducts(): ?int
     {
-        $count=0;
+        $count = 0;
         foreach ($this->produit as $product) {
             $count++;
         }
         return $count;
     }
 
-    public function getPrixOfProducts():?int
+    public function getPrixOfProducts(): ?int
     {
-        $count=0;
+        $count = 0;
         foreach ($this->produit as $product) {
-            $count+=$product->getWholePriceEstimations();
+            $count += $product->getWholePriceEstimations();
         }
         return $count;
     }
 
-    public function getDateVenteLot():?string
+    public function getDateVenteLot(): ?string
     {
-        $dateTime=$this->vente->getDateDebut();
-        if($dateTime===null || $dateTime===0) {
-            $dateTime=new DateTime('NOW');
+        $dateTime = $this->vente->getDateDebut();
+        if ($dateTime === null || $dateTime === 0) {
+            $dateTime = new DateTime('NOW');
         }
         return $dateTime->format('d/m/Y H:i');
     }
 
-    public function getLieuVenteLot():?string
+    public function getLieuVenteLot(): ?string
     {
         return ("{$this->vente->getAdresse()->getPays()} - {$this->vente->getAdresse()->getVille()} - {$this->vente->getAdresse()->getRue()}");
     }
-    public function getLieuVenteLot_Pays():?string
+
+    public function getLieuVenteLot_Pays(): ?string
     {
         return ($this->vente->getAdresse()->getPays());
     }
-    public function getLieuVenteLot_Ville():?string
+
+    public function getLieuVenteLot_Ville(): ?string
     {
         return ($this->vente->getAdresse()->getVille());
     }
-    public function getLieuVenteLot_Rue():?string
+
+    public function getLieuVenteLot_Rue(): ?string
     {
         return ($this->vente->getAdresse()->getRue());
     }
@@ -314,41 +319,44 @@ class Lot
         return $this;
     }
 
-    public function getListeArtists() : ?string{
-        $count=0;
-        $stringReturnListeArtists='';
+    public function getListeArtists(): ?string
+    {
+        $count = 0;
+        $stringReturnListeArtists = '';
         foreach ($this->produit as $product) {
-            if($count<3){
-                $stringReturnListeArtists.=$product->getNomArtiste();
-                $stringReturnListeArtists.=";";
-            } else if ($count===3){
-                $stringReturnListeArtists.=$product->getNomArtiste();
+            if ($count < 3) {
+                $stringReturnListeArtists .= $product->getNomArtiste();
+                $stringReturnListeArtists .= ";";
+            } else if ($count === 3) {
+                $stringReturnListeArtists .= $product->getNomArtiste();
             }
             $count++;
         }
         return $stringReturnListeArtists;
     }
 
-    public function getListeIdProduits() : ?string{
-        $count=0;
-        $stringReturnListeId='';
+    public function getListeIdProduits(): ?string
+    {
+        $count = 0;
+        $stringReturnListeId = '';
         foreach ($this->produit as $product) {
-            if($count<3){
-                $stringReturnListeId.=$product->getId();
-                $stringReturnListeId.=";";
-            } else if ($count===3){
-                $stringReturnListeId.=$product->getId();
+            if ($count < 3) {
+                $stringReturnListeId .= $product->getId();
+                $stringReturnListeId .= ";";
+            } else if ($count === 3) {
+                $stringReturnListeId .= $product->getId();
             }
             $count++;
         }
         return $stringReturnListeId;
     }
 
-    public function getBiggestEnchere() : ?float{
-        $value=0;
+    public function getBiggestEnchere(): ?float
+    {
+        $value = 0;
         foreach ($this->getEncheres() as $enchere) {
-            if ($enchere->getPrixProposer() > $value){
-                $value=$enchere->getPrixProposer();
+            if ($enchere->getPrixProposer() > $value) {
+                $value = $enchere->getPrixProposer();
             }
         }
         return $value;

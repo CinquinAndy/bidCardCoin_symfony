@@ -45,12 +45,13 @@ class Vente
         $this->lots = new ArrayCollection();
     }
 
-    public function __toString():?string{
+    public function __toString()
+    {
         return (string)('id: ' . $this->getId() .
             ' || dateDebut: ' . $this->getDateDebut()->format('Y-m-d') .
             ' || adresse: ' . $this->getAdresse()->__toString());
-            //'|| encheres: ' . $this->getEncheres()->__toString() .
-            //'|| lots: ' . $this->getLots()->__toString());
+        //'|| encheres: ' . $this->getEncheres()->__toString() .
+        //'|| lots: ' . $this->getLots()->__toString());
     }
 
     public function getId(): ?int

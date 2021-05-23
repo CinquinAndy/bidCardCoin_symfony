@@ -30,17 +30,17 @@ class Stock
     private $description;
 
 
-
     public function __construct()
     {
         $this->produits = new ArrayCollection();
     }
 
-    public function __toString():?string{
+    public function __toString()
+    {
         return (string)('id: ' . $this->getId() .
             '|| description: ' . $this->getDescription());
-            //'|| adresse: ' . $this->getAdresse()->__toString() .
-            //'|| produit: ' . $this->getProduits()->__toString() .
+        //'|| adresse: ' . $this->getAdresse()->__toString() .
+        //'|| produit: ' . $this->getProduits()->__toString() .
     }
 
     public function getId(): ?int

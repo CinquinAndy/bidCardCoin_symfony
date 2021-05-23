@@ -55,24 +55,22 @@ class Adresse
     private $vente;
 
 
-
-
     public function __construct()
     {
         $this->user = new ArrayCollection();
         $this->vente = new ArrayCollection();
     }
 
-    public function __toString(): ?string
+    public function __toString()
     {
         return (string)('id: ' . $this->getId() .
             ' || pays: ' . $this->getPays() .
             ' || ville: ' . $this->getVille() .
             ' || codePostal: ' . $this->getCodePostal() .
             ' || rue: ' . $this->getRue());
-            //'|| user: ' . $this->getUser()->__toString() .
-            //'|| stock: ' . $this->getStock()->__toString());
-            //'|| vente: ' . $this->getVente()->__toString());
+        //'|| user: ' . $this->getUser()->__toString() .
+        //'|| stock: ' . $this->getStock()->__toString());
+        //'|| vente: ' . $this->getVente()->__toString());
     }
 
     public function getId(): ?int

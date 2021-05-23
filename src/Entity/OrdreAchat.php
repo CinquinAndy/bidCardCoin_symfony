@@ -47,14 +47,15 @@ class OrdreAchat
      */
     private $lot;
 
-    public function __toString():?string{
+    public function __toString()
+    {
         return (string)('id: ' . $this->getId() .
             '|| autobot: ' . $this->getAutobot() .
             '|| montantMax: ' . $this->getMontantMax() .
             '|| getDateCreation: ' . $this->getDateCreation()->__toString());
-            //'|| enchere: ' . $this->getEnchere()->__toString() .
-            //'|| user: ' . $this->getUser()->__toString() .
-            //'|| lot: ' . $this->getlot()->__toString());
+        //'|| enchere: ' . $this->getEnchere()->__toString() .
+        //'|| user: ' . $this->getUser()->__toString() .
+        //'|| lot: ' . $this->getlot()->__toString());
     }
 
     public function getId(): ?int
